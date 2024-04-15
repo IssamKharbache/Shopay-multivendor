@@ -23,7 +23,7 @@ const ArrayItemsInput = ({ setItems, items = [], itemTitle }) => {
     setItems(newItems);
   };
   return (
-    <div className="sm:col-span-2">
+    <div className="sm:col-span-2 font-poppins">
       {/* ADD TAG BUTTON */}
       {showTagForm ? (
         <div className="flex items-center">

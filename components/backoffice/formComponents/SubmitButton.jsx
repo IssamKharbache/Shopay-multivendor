@@ -4,10 +4,12 @@ const SubmitButton = ({
   buttonTitle,
   isLoading = false,
   loadingButtonTitle,
+  uploadLoading,
+  loadingUploadTitle,
 }) => {
   return (
-    <div className="sm:col-span-1">
-      {isLoading ? (
+    <div className="sm:col-span-1 flex items-center justify-end">
+      {isLoading || uploadLoading ? (
         <button
           disabled
           type="button"
@@ -31,7 +33,7 @@ const SubmitButton = ({
               fill="currentColor"
             />
           </svg>
-          {loadingButtonTitle}
+          {isLoading ? loadingButtonTitle : loadingUploadTitle}
         </button>
       ) : (
         <button

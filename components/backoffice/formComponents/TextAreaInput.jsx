@@ -23,7 +23,7 @@ const TextareaInput = ({
           name={name}
           id={name}
           rows={3}
-          className="block w-full rounded-sm border-0 py-3 text-gray-900 dark:text-gray-300 dark:bg-transparent shadow-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-blue-500 dark:focus:ring-blue-500 sm:text-sm sm:leading-6"
+          className="block w-full rounded-sm border-0 py-3 text-gray-900 dark:text-gray-300 dark:bg-transparent shadow-md ring-1 ring-inset ring-gray-300 placeholder:text-sm sm:placeholder:text-base placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-blue-500 dark:focus:ring-blue-500 sm:text-sm sm:leading-6"
           defaultValue={""}
           placeholder={`Type the ${placeHolder.toLowerCase()}`}
         />

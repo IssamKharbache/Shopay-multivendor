@@ -5,34 +5,21 @@ import SubmitButton from "@/components/backoffice/formComponents/SubmitButton";
 import TextareaInput from "@/components/backoffice/formComponents/TextAreaInput";
 import TextInput from "@/components/backoffice/formComponents/TextInput";
 import { generateSlug } from "@/lib/generateSlug";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import "@uploadthing/react/styles.css";
 import { makePostRequest } from "@/lib/apiRequest";
 import SelectInput from "@/components/backoffice/formComponents/SelectInput";
 import ToggleInput from "@/components/backoffice/formComponents/ToggleInput";
+import { useRouter } from "next/navigation";
 
 const NewCatagory = () => {
-  const markets = [
-    {
-      id: 1,
-      title: "Fresh Fruits Market",
-    },
-    {
-      id: 2,
-      title: "Sproutes Farmers Market",
-    },
-    {
-      id: 3,
-      title: "Gemuse Market",
-    },
-    {
-      id: 4,
-      title: "Hardware's Market",
-    },
-  ];
+  // const markets = [];
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const [uploadLoading, setUploadLoading] = useState(false);
+  let isUploading = false;
+
   const {
     register,
     reset,
@@ -46,12 +33,37 @@ const NewCatagory = () => {
   });
   const isActive = watch("isActive");
 
+  //REDIRECTION
+  const router = useRouter();
+  const redirectFunction = () => {
+    router.push("/dashboard/categories");
+  };
+  //get isUploading value from imageinput component
+
+  const getValue = (value) => {
+    console.log("PARENT", isUploading);
+    isUploading = value;
+    if (isUploading) {
+      setUploadLoading(true);
+    } else {
+      setUploadLoading(false);
+    }
+    console.log("PARENT", isUploading);
+  };
+
   const onSubmitForm = async (data) => {
     //generate the title slug
     const slug = generateSlug(data.title);
     data.slug = slug;
     data.imageUrl = imageUrl;
-    makePostRequest(setLoading, "api/categories", data, "Category", reset);
+    makePostRequest(
+      setLoading,
+      "api/categories",
+      data,
+      "Category",
+      reset,
+      redirectFunction
+    );
     setImageUrl("");
   };
   return (
@@ -62,24 +74,15 @@ const NewCatagory = () => {
         onSubmit={handleSubmit(onSubmitForm)}
         className="w-full max-w-2xl p-4 bg-gray-200 border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3 "
       >
-        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+        <div className="flex flex-col gap-4 sm:grid-cols-2 sm:gap-6">
           <TextInput
             label="Category Title"
             name="title"
             register={register}
             errors={errors}
-            className="w-full font-poppins"
-            placeHolder="Category title"
+            placeHolder="the Category title"
           />
-          <SelectInput
-            label="Select Market"
-            name="marketIds"
-            register={register}
-            errors={errors}
-            className="w-full font-poppins"
-            options={markets}
-            multiple={false}
-          />
+
           <TextareaInput
             label="Category Description"
             name="description"
@@ -101,12 +104,15 @@ const NewCatagory = () => {
             endpoint="categoryImageUploader"
             imageUrl={imageUrl}
             setImageUrl={setImageUrl}
+            getValue={getValue}
           />
 
           <SubmitButton
             buttonTitle="Create Category"
             loadingButtonTitle="Creating new category please wait..."
             isLoading={loading}
+            uploadLoading={uploadLoading}
+            loadingUploadTitle="Uploading Category image please wait..."
           />
         </div>
       </form>

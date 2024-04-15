@@ -8,6 +8,8 @@ import "@uploadthing/react/styles.css";
 import { generateCouponCode } from "@/lib/generateCouponCode";
 import { makePostRequest } from "@/lib/apiRequest";
 import ToggleInput from "@/components/backoffice/formComponents/ToggleInput";
+import ConvertDateToIso from "@/lib/convertDateToIso";
+import { redirect, useRouter } from "next/navigation";
 
 const NewCoupon = () => {
   const [loading, setLoading] = useState(false);
@@ -23,11 +25,27 @@ const NewCoupon = () => {
     },
   });
   const isActive = watch("isActive");
+  //REDIRECTING FUNCTION
+  const router = useRouter();
 
+  const redirectFunction = () => {
+    router.push("/dashboard/coupons");
+  };
+  //SUBMIT FUNCTION
   const onSubmitForm = async (data) => {
     //generate the coupon code
     data.couponCode = generateCouponCode(data.title, data.expiryDate);
-    makePostRequest(setLoading, "api/coupons", data, "Coupon", reset);
+    const isoFormatedDate = ConvertDateToIso(data.expiryDate);
+    data.expiryDate = isoFormatedDate;
+
+    makePostRequest(
+      setLoading,
+      "api/coupons",
+      data,
+      "Coupon",
+      reset,
+      redirectFunction
+    );
   };
   return (
     <div>

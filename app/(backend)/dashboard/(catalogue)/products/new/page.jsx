@@ -79,7 +79,7 @@ const NewProduct = () => {
   };
   return (
     <div className="font-poppins">
-      <FormHeader headerTitle="New Category" />
+      <FormHeader headerTitle="New Product" />
 
       <form
         onSubmit={handleSubmit(onSubmitForm)}
@@ -103,7 +103,7 @@ const NewProduct = () => {
           />
           <TextInput
             label="Product Bar Code"
-            name="barCode"
+            name="barcode"
             register={register}
             errors={errors}
             className="w-full font-poppins"

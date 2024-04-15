@@ -10,10 +10,28 @@ import "@uploadthing/react/styles.css";
 import { makePostRequest } from "@/lib/apiRequest";
 import { generateSlug } from "@/lib/generateSlug";
 import ToggleInput from "@/components/backoffice/formComponents/ToggleInput";
+import SelectInput from "@/components/backoffice/formComponents/SelectInput";
 
 const NewBanner = () => {
+  const categories = [
+    {
+      id: 1,
+      title: "Category 1",
+    },
+    {
+      id: 2,
+      title: "Category 2",
+    },
+    {
+      id: 3,
+      title: "Category 3",
+    },
+  ];
   const [logoUrl, setlogoUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  //UPLOADING IMAGE STATES
+  const [uploadLoading, setUploadLoading] = useState(false);
+  let isUploading = false;
   const {
     register,
     reset,
@@ -27,6 +45,19 @@ const NewBanner = () => {
   });
 
   const isActive = watch("isActive");
+
+  //get isUploading value from imageinput component
+
+  const getValue = (value) => {
+    console.log("PARENT", isUploading);
+    isUploading = value;
+    if (isUploading) {
+      setUploadLoading(true);
+    } else {
+      setUploadLoading(false);
+    }
+    console.log("PARENT", isUploading);
+  };
 
   const onSubmitForm = async (data) => {
     //generate the title slug
@@ -44,13 +75,20 @@ const NewBanner = () => {
         onSubmit={handleSubmit(onSubmitForm)}
         className="w-full max-w-4xl p-4 bg-gray-200 border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3 "
       >
-        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+        <div className="flex flex-col gap-4 sm:grid-cols-2 sm:gap-6">
           <TextInput
             label="Market Name"
             name="name"
             register={register}
             errors={errors}
             placeHolder="Market Name"
+          />
+          <SelectInput
+            label="Select categories"
+            name="categoryIds"
+            register={register}
+            options={categories}
+            multiple={true}
           />
           <TextareaInput
             label="Market Description"
@@ -74,12 +112,15 @@ const NewBanner = () => {
             endpoint="marketLogoUploader"
             imageUrl={logoUrl}
             setImageUrl={setlogoUrl}
+            getValue={getValue}
           />
 
           <SubmitButton
             buttonTitle="Create Market"
             loadingButtonTitle="Creating new market please wait..."
             isLoading={loading}
+            uploadLoading={uploadLoading}
+            loadingUploadTitle="Uploading Market logo please wait..."
           />
         </div>
       </form>

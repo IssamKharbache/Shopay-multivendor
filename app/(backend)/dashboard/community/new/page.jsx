@@ -63,7 +63,7 @@ const NewBlog = () => {
   };
   return (
     <div>
-      <FormHeader headerTitle="New Category" />
+      <FormHeader headerTitle="New Blog" />
 
       <form
         onSubmit={handleSubmit(onSubmitForm)}

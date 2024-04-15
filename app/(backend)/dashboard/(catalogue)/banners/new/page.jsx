@@ -9,10 +9,14 @@ import { useForm } from "react-hook-form";
 import "@uploadthing/react/styles.css";
 import { makePostRequest } from "@/lib/apiRequest";
 import ToggleInput from "@/components/backoffice/formComponents/ToggleInput";
+import { useRouter } from "next/navigation";
 
 const NewBanner = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  //UPLOADING IMAGE STATES
+  const [uploadLoading, setUploadLoading] = useState(false);
+  let isUploading = false;
   const {
     register,
     reset,
@@ -25,12 +29,38 @@ const NewBanner = () => {
     },
   });
   const isActive = watch("isActive");
+  //REDIRECTION
+  const router = useRouter();
+  const redirectFunction = () => {
+    router.push("/dashboard/banners");
+  };
 
   const onSubmitForm = async (data) => {
     data.imageUrl = imageUrl;
-    makePostRequest(setLoading, "api/banners", data, "Banner", reset);
+    makePostRequest(
+      setLoading,
+      "api/banners",
+      data,
+      "Banner",
+      reset,
+      redirectFunction
+    );
     setImageUrl("");
   };
+
+  //get isUploading value from imageinput component
+
+  const getValue = (value) => {
+    console.log("PARENT", isUploading);
+    isUploading = value;
+    if (isUploading) {
+      setUploadLoading(true);
+    } else {
+      setUploadLoading(false);
+    }
+    console.log("PARENT", isUploading);
+  };
+
   return (
     <div>
       <FormHeader headerTitle="New Banner" />
@@ -39,7 +69,7 @@ const NewBanner = () => {
         onSubmit={handleSubmit(onSubmitForm)}
         className="w-full max-w-4xl p-4 bg-gray-200 border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3 "
       >
-        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+        <div className="flex flex-col gap-4 sm:grid-cols-2 sm:gap-6">
           <TextInput
             label="Banner Title"
             name="title"
@@ -70,12 +100,15 @@ const NewBanner = () => {
             endpoint="bannerImageUploader"
             imageUrl={imageUrl}
             setImageUrl={setImageUrl}
+            getValue={getValue}
           />
 
           <SubmitButton
             buttonTitle="Create Banner"
             loadingButtonTitle="Creating new banner please wait..."
             isLoading={loading}
+            uploadLoading={uploadLoading}
+            loadingUploadTitle="Uploading Banner Image please wait..."
           />
         </div>
       </form>

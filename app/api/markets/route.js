@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 
 export const POST = async (request) => {
   try {
-    const { name, slug, logoUrl, description } = await request.json();
-    const newMarket = { name, slug, logoUrl, description };
+    const { name, slug, logoUrl, description, isActive } = await request.json();
+    const newMarket = { name, slug, logoUrl, description, isActive };
     console.log(newMarket);
     return NextResponse.json(newMarket);
   } catch (error) {

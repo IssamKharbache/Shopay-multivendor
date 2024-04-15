@@ -5,7 +5,7 @@ export default function SelectInput({
   name,
   register,
   multiple = false,
-  className = "sm:col-span-2",
+  className = "sm:col-span-2 font-poppins",
   options = [],
 }) {
   return (
@@ -14,7 +14,7 @@ export default function SelectInput({
         htmlFor={name}
         className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-300 mb-2"
       >
-        {label}
+        {label} {multiple ? `(hold shift to select multiple)` : ""}
       </label>
       <div className="mt-2">
         <select
@@ -27,7 +27,7 @@ export default function SelectInput({
           {options.map((option, i) => {
             return (
               <option
-                className="text-gray-300 bg-gray-900"
+                className="flex text-gray-700 bg-gray-200 dark:bg-slate-700 dark:text-gray-200  p-2 rounded-md"
                 key={i}
                 value={option.id}
               >
