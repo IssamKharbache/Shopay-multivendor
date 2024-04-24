@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-export default function RegisterForm({ role }) {
+export default function LoginForm() {
   const router = useRouter();
   const {
     register,
@@ -63,24 +63,6 @@ export default function RegisterForm({ role }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 font-poppins">
       <TextInput
-        label=""
-        name="role"
-        register={register}
-        errors={errors}
-        defaultValue={role}
-        placeHolder="your role  here"
-        type="hidden"
-      />
-      <TextInput
-        label="Full name"
-        name="name"
-        register={register}
-        errors={errors}
-        placeHolder="your full name here"
-        type="text"
-      />
-
-      <TextInput
         label="Email"
         name="email"
         register={register}
@@ -125,24 +107,24 @@ export default function RegisterForm({ role }) {
               fill="currentColor"
             />
           </svg>
-          Signing you up, please wait...
+          Signing you in, please wait...
         </button>
       ) : (
         <button
           type="submit"
           className="w-full text-white bg-blue-600 hover:bg-blue-700  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 duration-300"
         >
-          Sign Up
+          Login
         </button>
       )}
 
       <p className="text-sm flex gap-2 font-light text-gray-500 dark:text-gray-400 ">
-        Already have an account?{" "}
+        Don't have an account?{" "}
         <Link
-          href="/login"
+          href="/register"
           className="font-medium text-blue-600 hover:underline dark:text-blue-500"
         >
-          Login
+          Register
         </Link>
       </p>
     </form>

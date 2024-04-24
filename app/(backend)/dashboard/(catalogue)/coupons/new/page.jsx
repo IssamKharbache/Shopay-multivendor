@@ -1,16 +1,15 @@
 "use client";
-import FormHeader from "@/components/backoffice/formComponents/FormHeader";
-import SubmitButton from "@/components/backoffice/formComponents/SubmitButton";
-import TextInput from "@/components/backoffice/formComponents/TextInput";
+import FormHeader from "@/components/backoffice/inputformComponents/FormHeader";
+import SubmitButton from "@/components/backoffice/inputformComponents/SubmitButton";
+import TextInput from "@/components/backoffice/inputformComponents/TextInput";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "@uploadthing/react/styles.css";
 import { generateCouponCode } from "@/lib/generateCouponCode";
 import { makePostRequest } from "@/lib/apiRequest";
-import ToggleInput from "@/components/backoffice/formComponents/ToggleInput";
+import ToggleInput from "@/components/backoffice/inputformComponents/ToggleInput";
 import ConvertDateToIso from "@/lib/convertDateToIso";
-import { redirect, useRouter } from "next/navigation";
-
+import { useRouter } from "next/navigation";
 const NewCoupon = () => {
   const [loading, setLoading] = useState(false);
   const {
@@ -27,7 +26,6 @@ const NewCoupon = () => {
   const isActive = watch("isActive");
   //REDIRECTING FUNCTION
   const router = useRouter();
-
   const redirectFunction = () => {
     router.push("/dashboard/coupons");
   };
@@ -63,7 +61,6 @@ const NewCoupon = () => {
             errors={errors}
             placeHolder="Coupon Title"
           />
-
           <TextInput
             label="Coupon Expired Date"
             name="expiryDate"
@@ -71,6 +68,7 @@ const NewCoupon = () => {
             register={register}
             errors={errors}
           />
+
           {/* CHECKBOX TOGGLE */}
           <ToggleInput
             label="Active Your Coupon"

@@ -1,14 +1,14 @@
 "use client";
-import FormHeader from "@/components/backoffice/formComponents/FormHeader";
-import ImageInput from "@/components/backoffice/formComponents/ImageInput";
-import SubmitButton from "@/components/backoffice/formComponents/SubmitButton";
-import TextareaInput from "@/components/backoffice/formComponents/TextAreaInput";
-import TextInput from "@/components/backoffice/formComponents/TextInput";
+import FormHeader from "@/components/backoffice/inputformComponents/FormHeader";
+import ImageInput from "@/components/backoffice/inputformComponents/ImageInput";
+import SubmitButton from "@/components/backoffice/inputformComponents/SubmitButton";
+import TextareaInput from "@/components/backoffice/inputformComponents/TextAreaInput";
+import TextInput from "@/components/backoffice/inputformComponents/TextInput";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "@uploadthing/react/styles.css";
 import { makePostRequest } from "@/lib/apiRequest";
-import ToggleInput from "@/components/backoffice/formComponents/ToggleInput";
+import ToggleInput from "@/components/backoffice/inputformComponents/ToggleInput";
 import { useRouter } from "next/navigation";
 
 const NewBanner = () => {
@@ -51,14 +51,12 @@ const NewBanner = () => {
   //get isUploading value from imageinput component
 
   const getValue = (value) => {
-    console.log("PARENT", isUploading);
     isUploading = value;
     if (isUploading) {
       setUploadLoading(true);
     } else {
       setUploadLoading(false);
     }
-    console.log("PARENT", isUploading);
   };
 
   return (

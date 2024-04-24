@@ -1,7 +1,7 @@
 "use client";
 
-import FormHeader from "@/components/backoffice/formComponents/FormHeader";
-import NewFarmerForm from "@/components/newFarmerForm";
+import FormHeader from "@/components/backoffice/inputformComponents/FormHeader";
+import NewFarmerForm from "@/components/backoffice/formComponents/NewFarmerForm";
 
 const NewFarmer = () => {
   return (

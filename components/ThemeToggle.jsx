@@ -1,4 +1,3 @@
-"use client";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -17,7 +16,7 @@ const ThemeToogle = () => {
   }
   const changeTheme = () => {
     if (theme === "dark") {
-      toast("You switched to light mood ", {
+      toast("You switched to light mode ", {
         duration: 4000,
         position: "bottom-center",
         // Styling
@@ -61,7 +60,7 @@ const ThemeToogle = () => {
           {theme === "dark" ? (
             <LuSun className="text-yellow-400 text-xl sm:text-2xl" />
           ) : (
-            <BsMoon className="text-blue-400 text-xl sm:text-2xl" />
+            <BsMoon className="text-blue-900 text-xl sm:text-2xl" />
           )}
         </div>
       </div>

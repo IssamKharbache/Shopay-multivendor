@@ -1,3 +1,5 @@
+import flowbite from "flowbite-react/tailwind";
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -6,6 +8,7 @@ module.exports = {
     "./components/**/*.{js,jsx}",
     "./app/**/*.{js,jsx}",
     "./src/**/*.{js,jsx}",
+    flowbite.content(),
   ],
   prefix: "",
   theme: {
@@ -17,6 +20,9 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        "bg-background": "url('/marketbg.jpg')",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -76,5 +82,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/forms")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/forms"),
+    flowbite.plugin(),
+  ],
 };

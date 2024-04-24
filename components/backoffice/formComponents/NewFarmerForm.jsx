@@ -1,22 +1,37 @@
 "use client";
-import SubmitButton from "@/components/backoffice/formComponents/SubmitButton";
-import TextInput from "@/components/backoffice/formComponents/TextInput";
+import SubmitButton from "@/components/backoffice/inputformComponents/SubmitButton";
+import TextInput from "@/components/backoffice/inputformComponents/TextInput";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "@uploadthing/react/styles.css";
 import { makePostRequest } from "@/lib/apiRequest";
-import TextareaInput from "@/components/backoffice/formComponents/TextAreaInput";
+import TextareaInput from "@/components/backoffice/inputformComponents/TextAreaInput";
 import { generateUserCode } from "@/lib/generateUserCode";
-import ToggleInput from "@/components/backoffice/formComponents/ToggleInput";
+import ToggleInput from "@/components/backoffice/inputformComponents/ToggleInput";
 import { useRouter } from "next/navigation";
-import ImageInput from "@/components/backoffice/formComponents/ImageInput";
-import ArrayItemsInput from "./backoffice/formComponents/ArrayItemsInput";
+import ImageInput from "@/components/backoffice/inputformComponents/ImageInput";
+import ArrayItemsInput from "../inputformComponents/ArrayItemsInput";
 
 const NewFarmerForm = ({ user }) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [products, setProducts] = useState([]);
   const [profileImageUrl, setprofileImageUrl] = useState("");
+
+  //UPLOADING IMAGE STATES
+  const [uploadLoading, setUploadLoading] = useState(false);
+  let isUploading = false;
+  //get isUploading value from imageinput component
+
+  const getValue = (value) => {
+    isUploading = value;
+    if (isUploading) {
+      setUploadLoading(true);
+    } else {
+      setUploadLoading(false);
+    }
+  };
+
   const {
     register,
     handleSubmit,
@@ -39,16 +54,17 @@ const NewFarmerForm = ({ user }) => {
 
   const onSubmitForm = async (data) => {
     //generate the farmer unique code code
-    const farmerUniqueCode = generateUserCode("SP", data.fullname);
+    const farmerUniqueCode = generateUserCode("SP", data.name);
     data.farmerCode = farmerUniqueCode;
     data.products = products;
     data.profileImageUrl = profileImageUrl;
     data.userId = user.id;
+
     makePostRequest(
       setLoading,
       "api/farmers",
       data,
-      "Farmer",
+      "Farmer Profile",
       reset,
       redirectFunction
     );
@@ -96,7 +112,7 @@ const NewFarmerForm = ({ user }) => {
           />
           <TextInput
             label="Contact person full name"
-            name="contactperson"
+            name="contactPerson"
             register={register}
             errors={errors}
             placeHolder="Contact person name"
@@ -104,7 +120,7 @@ const NewFarmerForm = ({ user }) => {
           />
           <TextInput
             label="Contact person phone"
-            name="contactphone"
+            name="contactPhone"
             register={register}
             errors={errors}
             placeHolder="Farmer contact person phone"
@@ -167,12 +183,15 @@ const NewFarmerForm = ({ user }) => {
             endpoint="farmerProfileImage"
             imageUrl={imageUrl}
             setImageUrl={setImageUrl}
+            getValue={getValue}
           />
         </div>
         <SubmitButton
           buttonTitle="Create Farmer"
           loadingButtonTitle="Creating new farmer please wait..."
           isLoading={loading}
+          uploadLoading={uploadLoading}
+          loadingUploadTitle="Uploading Farmer Image please wait..."
         />
       </form>
     </div>
