@@ -1,8 +1,12 @@
 import PageHeader from "@/components/backoffice/PageHeader";
 
-import TableActions from "@/components/backoffice/TableActions";
+import DataTable from "@/components/dataDableComponents/data-table";
 
-const Categories = () => {
+import { columns } from "./columns";
+import { getData } from "@/lib/getData";
+
+const Categories = async () => {
+  const categories = await getData("categories");
   return (
     <div>
       {/* HEADER */}
@@ -11,9 +15,10 @@ const Categories = () => {
         link="/dashboard/categories/new"
         buttonTitle="Add category"
       />
-      {/* TABLE  ACTIONS*/}
-      <TableActions />
       {/* TABLE */}
+      <div>
+        <DataTable data={categories} columns={columns} />
+      </div>
     </div>
   );
 };

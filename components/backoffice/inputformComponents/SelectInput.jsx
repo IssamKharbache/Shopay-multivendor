@@ -14,7 +14,7 @@ export default function SelectInput({
         htmlFor={name}
         className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-300 mb-2"
       >
-        {label} {multiple ? `(hold shift to select multiple)` : ""}
+        {label} {multiple ? `(hold CTRL to select multiple)` : ""}
       </label>
       <div className="mt-2">
         <select

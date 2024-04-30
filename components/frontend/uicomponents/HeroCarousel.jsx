@@ -4,7 +4,7 @@ import Link from "next/link";
 import Carousel from "nuka-carousel";
 import React from "react";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-const HeroCarousel = () => {
+const HeroCarousel = ({ banners }) => {
   const config = {
     nextButtonClassName: "rounded-full mr-5 ",
     nextButtonText: <IoIosArrowForward />,
@@ -21,33 +21,19 @@ const HeroCarousel = () => {
       defaultControlsConfig={config}
       className="rounded-md overflow-hidden shadow-xl"
     >
-      <Link href="#">
-        <Image
-          src="/banner1.png"
-          width={712}
-          height={384}
-          className="w-full"
-          alt=""
-        />
-      </Link>
-      <Link href="#">
-        <Image
-          src="/banner2.jpg"
-          width={712}
-          height={384}
-          className="w-full"
-          alt=""
-        />
-      </Link>
-      <Link href="#">
-        <Image
-          src="/banner3.jpg"
-          width={712}
-          height={384}
-          className="w-full"
-          alt=""
-        />
-      </Link>
+      {banners.map((banner, index) => {
+        return (
+          <Link key={index} href={banner.link}>
+            <Image
+              src={banner.imageUrl}
+              width={712}
+              height={384}
+              className="w-full"
+              alt={banner.title}
+            />
+          </Link>
+        );
+      })}
     </Carousel>
   );
 };

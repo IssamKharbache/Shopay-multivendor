@@ -2,13 +2,13 @@ import { UploadDropzone } from "@/lib/uploadThing";
 import { Pencil } from "lucide-react";
 import Image from "next/image";
 
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 export default function ImageInput({
   label,
   imageUrl = "",
   setImageUrl,
-  className = "col-span-full font-poppins ",
+  className = "sm:col-span-2 font-poppins",
   endpoint = "imageUploader",
   getValue,
 }) {
@@ -19,7 +19,7 @@ export default function ImageInput({
       <div className="flex justify-between items-center mb-4 ">
         <label
           htmlFor="course-image"
-          className="block text-sm font-sm leading-6 text-gray-900 dark:text-gray-300 mb-2"
+          className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-300 mb-2"
         >
           {label}
         </label>

@@ -16,7 +16,7 @@ export const POST = async (request) => {
           data: null,
           message: "Category already exists",
         },
-        { status: 409 }
+        { status: 409, statusText: "Category already exists" }
       );
     }
     const newCategory = await db.category.create({
@@ -40,6 +40,9 @@ export const GET = async (request) => {
     const categories = await db.category.findMany({
       orderBy: {
         createdAt: "desc",
+      },
+      include: {
+        products: true,
       },
     });
     return NextResponse.json(categories);

@@ -1,4 +1,3 @@
-import FormHeader from "@/components/backoffice/inputformComponents/FormHeader";
 import NewProductForm from "@/components/backoffice/formComponents/NewProductForm";
 import { getData } from "@/lib/getData";
 

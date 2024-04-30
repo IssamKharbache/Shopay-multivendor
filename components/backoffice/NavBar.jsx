@@ -1,8 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import darklogo from "../../public/logoDark.svg";
-import lightlogo from "../../public/logoLight.svg";
 
 //NAVBAR ICONS
 import { HiMenu } from "react-icons/hi";
@@ -25,19 +22,9 @@ import { CiLogout } from "react-icons/ci";
 import { TfiClose } from "react-icons/tfi";
 import ThemeToogle from "../ThemeToggle";
 import Link from "next/link";
-import { useTheme } from "next-themes";
+import Logo from "../Logo";
 
 const NavBar = ({ sideBarOpen, setSideBarOpen }) => {
-  const { theme } = useTheme();
-  const [isDarkLogo, setIsDarkLogo] = useState("");
-
-  useEffect(() => {
-    if (theme === "dark") {
-      setIsDarkLogo(true);
-    } else {
-      setIsDarkLogo(false);
-    }
-  }, [theme]);
   return (
     <div
       className={`flex items-center   justify-between font-poppins bg-slate-200 dark:bg-slate-800
@@ -47,38 +34,26 @@ const NavBar = ({ sideBarOpen, setSideBarOpen }) => {
     >
       {/* Icons */}
       {/* MENU TOOGLE */}
-      {sideBarOpen ? (
-        <TfiClose
-          onClick={() => setSideBarOpen(!sideBarOpen)}
-          size={20}
-          className="text-gray-700 dark:text-gray-200 cursor-pointer"
-        />
-      ) : (
-        <HiMenu
-          onClick={() => setSideBarOpen(!sideBarOpen)}
-          size={25}
-          className="text-gray-700 dark:text-gray-200 cursor-pointer"
-        />
-      )}
-      <Link href={"/dashboard"} className="sm:hidden absolute right-[45%]">
-        {isDarkLogo ? (
-          <Image
-            src={darklogo}
-            width={200}
-            height={200}
-            alt="Shopay logo"
-            className="w-24 "
+      <div>
+        {sideBarOpen ? (
+          <TfiClose
+            onClick={() => setSideBarOpen(!sideBarOpen)}
+            size={20}
+            className="text-gray-700 dark:text-gray-200 cursor-pointer"
           />
         ) : (
-          <Image
-            src={lightlogo}
-            width={200}
-            height={200}
-            alt="Shopay logo"
-            className="w-24 "
+          <HiMenu
+            onClick={() => setSideBarOpen(!sideBarOpen)}
+            size={25}
+            className="text-gray-700 dark:text-gray-200 cursor-pointer"
           />
         )}
-      </Link>
+      </div>
+
+      <div className="absolute right-[44%] flex sm:hidden">
+        <Logo className="w-24 sm:hidden " />
+      </div>
+
       <div className="flex space-x-3">
         {/* THEME TOOGLE */}
         <ThemeToogle />
@@ -163,15 +138,20 @@ const NavBar = ({ sideBarOpen, setSideBarOpen }) => {
               width={200}
               height={200}
               className="w-7 h-7 sm:w-9 sm:h-9 rounded-full"
-              alt=""
+              alt="profile"
             />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="pr-5">
             <DropdownMenuLabel>My Profile</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="flex gap-2 cursor-pointer">
-              <LuLayoutDashboard size={20} />
-              <span className="text-lg">Dashboard</span>
+            <DropdownMenuItem>
+              <Link
+                href="/dashboard"
+                className="flex items-center gap-2 cursor-pointer"
+              >
+                <LuLayoutDashboard size={20} />
+                <span className="text-lg">Dashboard</span>
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="flex gap-2 cursor-pointer">
               <CiSettings size={20} />

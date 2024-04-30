@@ -11,7 +11,13 @@ export const ourFileRouter = {
       console.log("file url", file.url, metadata);
       return { UploadedBy: "shopay admin" };
     }),
-  bannerImageUploader: f({ image: { maxFileSize: "2MB" } })
+  bannerImageUploader: f({
+    image: {
+      maxFileSize:
+        "2MB , Height must be 384px and width 712px(Default banner size)",
+      maxFileCount: 1,
+    },
+  })
     // Set permissions and file types for this FileRoute
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("file url", file.url, metadata);
@@ -23,7 +29,7 @@ export const ourFileRouter = {
       console.log("file url", file.url, metadata);
       return { UploadedBy: "shopay admin" };
     }),
-  productImageUploader: f({ image: { maxFileSize: "1MB" } })
+  productImageUploader: f({ image: { maxFileSize: "1MB", maxFileCount: 4 } })
     // Set permissions and file types for this FileRoute
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("file url", file.url, metadata);

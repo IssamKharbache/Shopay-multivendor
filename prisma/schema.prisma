@@ -65,8 +65,8 @@ model Product {
   title          String
   slug           String   @unique
   description    String?
-  imageUrl       String?
-  isWholeSale    Boolean
+  imageUrl       String
+  isWholeSale    Boolean?
   isActive       Boolean
   sku            String?
   unit           String?
@@ -75,9 +75,9 @@ model Product {
   productPrice   Float
   salePrice      Float
   wholeSalePrice Float?
-  wholesaleQty   Int
-  productStock   Int
-  qty            Int
+  wholesaleQty   Int?
+  productStock   Int?
+  qty            Int?
   tags           String[]
 
   category   Category @relation(fields: [categoryId], references: [id])

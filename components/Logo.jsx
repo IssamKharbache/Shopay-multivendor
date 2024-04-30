@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import Image from "next/image";
 
-const Logo = ({ className }) => {
+const Logo = ({ className, linkClass }) => {
   //CHANGE THE LOGO DEPENDS ON THE THEME
   const { theme } = useTheme();
   const [isDarkLogo, setIsDarkLogo] = useState("");
@@ -19,7 +19,7 @@ const Logo = ({ className }) => {
   }, [theme]);
 
   return (
-    <Link href="/">
+    <Link href="/" className={linkClass}>
       {isDarkLogo ? (
         <Image
           src={darkLogo}

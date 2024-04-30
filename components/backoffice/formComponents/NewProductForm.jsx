@@ -85,7 +85,7 @@ const NewProductForm = ({ categories, farmers }) => {
   };
   return (
     <div className="font-poppins">
-      <FormHeader headerTitle="New Market" />
+      <FormHeader headerTitle="New Product" />
       <form
         onSubmit={handleSubmit(onSubmitForm)}
         className="w-full max-w-5xl p-4 bg-gray-200 border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3 "
@@ -104,7 +104,7 @@ const NewProductForm = ({ categories, farmers }) => {
             register={register}
             errors={errors}
             className="w-full font-poppins"
-            placeHolder="Product title"
+            placeHolder="Product SKU"
           />
           <TextInput
             label="Product Bar Code"

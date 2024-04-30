@@ -32,6 +32,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import Logo from "../Logo";
 
 //Links
 const sidebarLinks = [
@@ -71,17 +72,9 @@ const catalogLinks = [
 ];
 const SideBar = ({ sideBarOpen }) => {
   const [isCollapOpen, setIsCollapOpen] = useState(false);
-  const { theme } = useTheme();
-  const [isDarkLogo, setIsDarkLogo] = useState("");
 
   const pathName = usePathname();
-  useEffect(() => {
-    if (theme === "dark") {
-      setIsDarkLogo(true);
-    } else {
-      setIsDarkLogo(false);
-    }
-  }, [theme]);
+
   return (
     <div
       className={`${
@@ -89,25 +82,7 @@ const SideBar = ({ sideBarOpen }) => {
       } fixed bg-slate-200 dark:bg-slate-950  space-y-8 w-64 h-screen text-gray-900 dark:text-gray-300  left-0 top-0 font-poppins overflow-y-scroll duration-500`}
     >
       {/* logo */}
-      <Link href="/dashboard" className="flex mt-8 px-6">
-        {isDarkLogo ? (
-          <Image
-            src={darklogo}
-            width={200}
-            height={200}
-            alt="Shopay logo"
-            className="w-36 "
-          />
-        ) : (
-          <Image
-            src={lightlogo}
-            width={200}
-            height={200}
-            alt="Shopay logo"
-            className="w-36 "
-          />
-        )}
-      </Link>
+      <Logo className="flex mt-8 px-6 w-44" />
       <div className="space-y-8 flex flex-col   ">
         <Link
           href="/dashboard"
