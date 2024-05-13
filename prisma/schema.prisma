@@ -48,7 +48,7 @@ model Category {
 
 model Market {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
+  title       String
   slug        String     @unique
   logoUrl     String?
   description String?
@@ -80,10 +80,10 @@ model Product {
   qty            Int?
   tags           String[]
 
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   categoryId String   @db.ObjectId
 
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId String @db.ObjectId
 
   createdAt DateTime  @default(now())
@@ -99,7 +99,7 @@ model Blogs {
   content     String
   isActive    Boolean
 
-  category   Category  @relation(fields: [categoryId], references: [id])
+  category   Category? @relation(fields: [categoryId], references: [id])
   categoryId String    @db.ObjectId
   createdAt  DateTime  @default(now())
   updatedAt  DateTime? @updatedAt
@@ -116,18 +116,30 @@ enum UserRole {
 model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  name          String?
-  email         String?   @unique
-  password      String
-  emailVerified DateTime?
-
-  role    UserRole  @default(USER)
-  Product Product[]
+  name              String?
+  email             String?  @unique
+  password          String
+  emailVerified     Boolean? @default(false)
+  role              UserRole @default(USER)
+  verificationToken String?
 
   farmerProfile FarmerProfile?
+  profile       UserProfile?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  Product Product[]
+}
+
+model UserProfile {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String    @unique @db.ObjectId
+  //add other fields for user onboarding information
+  dateOfBirth DateTime?
+  adress      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model FarmerProfile {
@@ -147,7 +159,7 @@ model FarmerProfile {
   products        String[]
   mainCrop        String
 
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId String @unique @db.ObjectId
 
   createdAt DateTime  @default(now())

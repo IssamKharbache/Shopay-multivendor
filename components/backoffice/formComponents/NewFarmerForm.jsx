@@ -57,7 +57,7 @@ const NewFarmerForm = ({ user }) => {
     const farmerUniqueCode = generateUserCode("SP", data.name);
     data.farmerCode = farmerUniqueCode;
     data.products = products;
-    data.profileImageUrl = profileImageUrl;
+    data.profileImageUrl = imageUrl;
     data.userId = user.id;
 
     makePostRequest(

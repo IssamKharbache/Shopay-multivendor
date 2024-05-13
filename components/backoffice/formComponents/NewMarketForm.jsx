@@ -7,14 +7,16 @@ import TextInput from "@/components/backoffice/inputformComponents/TextInput";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "@uploadthing/react/styles.css";
-import { makePostRequest } from "@/lib/apiRequest";
+import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
 import { generateSlug } from "@/lib/generateSlug";
 import ToggleInput from "@/components/backoffice/inputformComponents/ToggleInput";
 import SelectInput from "@/components/backoffice/inputformComponents/SelectInput";
 import { useRouter } from "next/navigation";
 
-const NewMarketForm = ({ categories }) => {
-  const [imageUrl, setImageUrl] = useState("");
+const NewMarketForm = ({ categories, marketData = {} }) => {
+  const initialImageUrl = marketData?.logoUrl ?? "";
+  const id = marketData?.id ?? "";
+  const [imageUrl, setImageUrl] = useState(initialImageUrl);
   const [loading, setLoading] = useState(false);
   //UPLOADING IMAGE STATES
   const [uploadLoading, setUploadLoading] = useState(false);
@@ -28,6 +30,7 @@ const NewMarketForm = ({ categories }) => {
   } = useForm({
     defaultValues: {
       isActive: true,
+      ...marketData,
     },
   });
 
@@ -51,18 +54,29 @@ const NewMarketForm = ({ categories }) => {
 
   const onSubmitForm = async (data) => {
     //generate the title slug
-    const slug = generateSlug(data.name);
+    const slug = generateSlug(data.title);
     data.slug = slug;
     data.logoUrl = imageUrl;
-    makePostRequest(
-      setLoading,
-      "api/markets",
-      data,
-      "Market",
-      reset,
-      redirectFunction
-    );
-    setImageUrl("");
+    if (id) {
+      makePutRequest(
+        setLoading,
+        `api/markets/${id}`,
+        data,
+        "Market",
+        reset,
+        redirectFunction
+      );
+    } else {
+      makePostRequest(
+        setLoading,
+        "api/markets",
+        data,
+        "Market",
+        reset,
+        redirectFunction
+      );
+      setImageUrl("");
+    }
   };
   return (
     <div>
@@ -75,7 +89,7 @@ const NewMarketForm = ({ categories }) => {
         <div className="flex flex-col gap-4 sm:grid-cols-2 sm:gap-6">
           <TextInput
             label="Market Name"
-            name="name"
+            name="title"
             register={register}
             errors={errors}
             placeHolder="Market Name"
@@ -113,8 +127,10 @@ const NewMarketForm = ({ categories }) => {
           />
 
           <SubmitButton
-            buttonTitle="Create Market"
-            loadingButtonTitle="Creating new market please wait..."
+            buttonTitle={id ? "Update Market" : "Create Market"}
+            loadingButtonTitle={`${
+              id ? "Updating" : "Creating"
+            }  new market please wait...`}
             isLoading={loading}
             uploadLoading={uploadLoading}
             loadingUploadTitle="Uploading Market logo please wait..."

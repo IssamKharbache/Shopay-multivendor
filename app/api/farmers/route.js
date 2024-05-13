@@ -38,9 +38,15 @@ export const POST = async (request) => {
 
 export const GET = async (request) => {
   try {
-    const farmerProfile = await db.farmerProfile.findMany({
+    const farmerProfile = await db.user.findMany({
       orderBy: {
         createdAt: "desc",
+      },
+      where: {
+        role: "FARMER",
+      },
+      include: {
+        farmerProfile: true,
       },
     });
     return NextResponse.json(farmerProfile);

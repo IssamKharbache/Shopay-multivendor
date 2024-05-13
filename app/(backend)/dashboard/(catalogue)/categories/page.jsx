@@ -8,7 +8,7 @@ import { getData } from "@/lib/getData";
 const Categories = async () => {
   const categories = await getData("categories");
   return (
-    <div>
+    <div className="px-8">
       {/* HEADER */}
       <PageHeader
         heading="Categories"
@@ -16,7 +16,7 @@ const Categories = async () => {
         buttonTitle="Add category"
       />
       {/* TABLE */}
-      <div>
+      <div className="px-6">
         <DataTable data={categories} columns={columns} />
       </div>
     </div>

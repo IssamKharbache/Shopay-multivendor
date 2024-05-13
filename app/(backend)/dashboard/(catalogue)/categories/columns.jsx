@@ -1,21 +1,11 @@
 "use client";
 
-import Image from "next/image";
-
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 
-//ICONS
-import { LuArrowUpDown } from "react-icons/lu";
-import { MoreHorizontal } from "lucide-react";
+import DateColumn from "@/components/dataDableComponents/dataTableColumns/DateColumn";
+import ImageColumn from "@/components/dataDableComponents/dataTableColumns/ImageColumn";
+import TitleColumn from "@/components/dataDableComponents/dataTableColumns/TitleColumn";
+import ActionsColumn from "@/components/dataDableComponents/dataTableColumns/ActionsColumn";
 
 export const columns = [
   //columns
@@ -44,36 +34,22 @@ export const columns = [
   {
     accessorKey: "title",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Title
-          <LuArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <TitleColumn column={column} />;
     },
   },
   {
     accessorKey: "imageUrl",
     header: "Category Image",
+    cell: ({ row }) => <ImageColumn row={row} />,
+  },
+  {
+    accessorKey: "description",
+    header: "Description",
     cell: ({ row }) => {
-      const imageUrl = row.getValue("imageUrl");
-      return (
-        <div className="shrink-0">
-          <Image
-            width={250}
-            height={250}
-            alt="cat image"
-            src={imageUrl}
-            className="w-16 h-16 rounded-md object-cover"
-          />
-        </div>
-      );
+      const descr = row.getValue("description");
+      return <div className="line-clamp-1 w-96">{descr}</div>;
     },
   },
-
   {
     accessorKey: "isActive",
     header: "Status",
@@ -81,45 +57,19 @@ export const columns = [
   {
     accessorKey: "createdAt",
     header: "Date created",
-    cell: ({ row }) => {
-      const createdDate = row.getValue("createdAt");
-      const originalDate = new Date(createdDate);
-      const day = originalDate.getDate();
-      const month = originalDate.toLocaleString("default", {
-        month: "2-digit",
-      });
-      const year = originalDate.getFullYear();
-      const formattedDate = `${day}/${month}/${year}`;
-      return <div>{formattedDate}</div>;
-    },
+    cell: ({ row }) => <DateColumn row={row} accessorKey="createdAt" />,
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const isActive = row.isActive;
-
+      const category = row.original;
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="font-poppins" align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(isActive)}
-            >
-              Copy Status
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit Category</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Delete Category</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <ActionsColumn
+          title="Category"
+          row={row}
+          endpoint={`categories/${category.id}`}
+          editEndpoint={`categories/update/${category.id}`}
+        />
       );
     },
   },

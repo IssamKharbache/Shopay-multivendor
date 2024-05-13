@@ -38,7 +38,7 @@ const TrainingCarousel = ({ blogs }) => {
       containerClass="bg-slate-200 dark:bg-slate-900 rounded-b-lg md:p-2"
       removeArrowOnDeviceType={["mobile"]}
       dotListClass="class here"
-      itemClass="p-4 pb-8"
+      itemClass="p-4 pb-8 "
     >
       {blogs.map((blog, index) => {
         return (

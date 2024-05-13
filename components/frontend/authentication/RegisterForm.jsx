@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-export default function RegisterForm({ role }) {
+export default function RegisterForm({ role = "USER" }) {
   const router = useRouter();
   const {
     register,
@@ -18,7 +18,6 @@ export default function RegisterForm({ role }) {
   const [emailErr, setEmailErr] = useState("");
   async function onSubmit(data) {
     try {
-      console.log(data);
       setLoading(true);
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
       const response = await fetch(`${baseUrl}/api/users`, {
@@ -135,16 +134,38 @@ export default function RegisterForm({ role }) {
           Sign Up
         </button>
       )}
-
-      <p className="text-sm flex gap-2 font-light text-gray-500 dark:text-gray-400 ">
-        Already have an account?{" "}
-        <Link
-          href="/login"
-          className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-        >
-          Login
-        </Link>
-      </p>
+      <div className="flex  justify-between">
+        <p className="text-[0.75rem]  font-light text-gray-500 dark:text-gray-400 ">
+          Already have an account ?{" "}
+          <Link
+            href="/login"
+            className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+          >
+            Login
+          </Link>
+        </p>
+        {role === "USER" ? (
+          <p className="text-[0.75rem]  font-light text-gray-500 dark:text-gray-400 ">
+            Are you a farmer ?{" "}
+            <Link
+              href="/register-seller"
+              className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+            >
+              Register
+            </Link>
+          </p>
+        ) : (
+          <p className="text-[0.75rem]  font-light text-gray-500 dark:text-gray-400 ">
+            Are you a client ?{" "}
+            <Link
+              href="/register"
+              className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+            >
+              Register
+            </Link>
+          </p>
+        )}
+      </div>
     </form>
   );
 }

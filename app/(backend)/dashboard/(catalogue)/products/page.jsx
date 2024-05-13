@@ -1,8 +1,11 @@
 import PageHeader from "@/components/backoffice/PageHeader";
 
-import TableActions from "@/components/backoffice/TableActions";
+import { getData } from "@/lib/getData";
+import { columns } from "./columns";
+import DataTable from "@/components/dataDableComponents/data-table";
 
-const Products = () => {
+const Products = async () => {
+  const products = await getData("products");
   return (
     <div>
       {/* HEADER */}
@@ -11,9 +14,10 @@ const Products = () => {
         link="/dashboard/products/new"
         buttonTitle="Add Product"
       />
-      {/* TABLE  ACTIONS*/}
-      <TableActions />
       {/* TABLE */}
+      <div className="px-6">
+        <DataTable data={products} columns={columns} />
+      </div>
     </div>
   );
 };

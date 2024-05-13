@@ -1,8 +1,11 @@
 import PageHeader from "@/components/backoffice/PageHeader";
 
-import TableActions from "@/components/backoffice/TableActions";
+import DataTable from "@/components/dataDableComponents/data-table";
+import { getData } from "@/lib/getData";
+import { columns } from "./columns";
 
-const Coupons = () => {
+const Coupons = async () => {
+  const coupons = await getData("coupons");
   return (
     <div>
       {/* HEADER */}
@@ -11,11 +14,9 @@ const Coupons = () => {
         link="/dashboard/coupons/new"
         buttonTitle="Add Coupon"
       />
-      {/* TABLE  ACTIONS*/}
-      <TableActions />
       {/* TABLE */}
-      <div className="py-8">
-        <h2>Table</h2>
+      <div className="px-6">
+        <DataTable data={coupons} columns={columns} />
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export const POST = async (request) => {
   try {
-    const { name, slug, logoUrl, description, isActive, categoryIds } =
+    const { title, slug, logoUrl, description, isActive, categoryIds } =
       await request.json();
     const alreadyExist = await db.market.findUnique({
       where: {
@@ -16,11 +16,11 @@ export const POST = async (request) => {
           data: null,
           message: "Market already exists",
         },
-        { status: 409 }
+        { status: 409, statusText: "Market already exists" }
       );
     }
     const newMarket = await db.market.create({
-      data: { name, slug, logoUrl, description, isActive, categoryIds },
+      data: { title, slug, logoUrl, description, isActive, categoryIds },
     });
     return NextResponse.json(newMarket);
   } catch (error) {

@@ -7,9 +7,9 @@ import Link from "next/link";
 //ICONS
 import { FaRegUser } from "react-icons/fa6";
 import ThemeToogle from "@/components/ThemeToggle";
-import { AiOutlineShoppingCart } from "react-icons/ai";
 import Logo from "@/components/Logo";
 import HelpModal from "./Modal";
+import CartCount from "./cartComponents/CartCount";
 
 const NavBar = () => {
   return (
@@ -29,22 +29,8 @@ const NavBar = () => {
             <FaRegUser size={18} />
             <span className="font-semibold text-lg">Login</span>
           </Link>
-
+          <CartCount />
           <HelpModal />
-
-          <Link
-            href="/cart"
-            className="relative inline-flex items-center p-3 text-sm font-medium text-center text-white bg-transparent rounded-lg"
-          >
-            <AiOutlineShoppingCart
-              size={25}
-              className="text-blue-600 hover:text-blue-900 dark:text-gray-200 dark:hover:text-gray-400  duration-200"
-            />
-            <span className="sr-only">Cart</span>
-            <div className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-0 end-6 dark:border-gray-900">
-              20
-            </div>
-          </Link>
         </div>
         <ThemeToogle />
       </div>

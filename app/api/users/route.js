@@ -23,8 +23,14 @@ export const POST = async (request) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     //Creating the new user
     const newUser = await db.user.create({
-      data: { name, email, password: hashedPassword, role },
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+        role,
+      },
     });
+
     return NextResponse.json(
       { data: newUser, message: "User created successfully" },
       { status: 201 }

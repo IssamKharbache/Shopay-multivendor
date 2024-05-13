@@ -1,8 +1,11 @@
 import PageHeader from "@/components/backoffice/PageHeader";
-import TableActions from "@/components/backoffice/TableActions";
+import { getData } from "@/lib/getData";
 import React from "react";
+import { columns } from "./columns";
+import DataTable from "@/components/dataDableComponents/data-table";
 
-const Markets = () => {
+const Markets = async () => {
+  const markets = await getData("markets");
   return (
     <div>
       <PageHeader
@@ -10,9 +13,9 @@ const Markets = () => {
         link="/dashboard/markets/new"
         buttonTitle="Add Market"
       />
-      <TableActions />
-      <div className="py-8">
-        <h2>Table</h2>
+      {/* TABLE */}
+      <div className="px-6">
+        <DataTable data={markets} columns={columns} />
       </div>
     </div>
   );

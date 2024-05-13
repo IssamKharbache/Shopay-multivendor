@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export const POST = async (request) => {
   try {
-    const { title, slug, imageUrl, description, marketIds, isActive } =
+    const { title, slug, imageUrl, description, isActive } =
       await request.json();
     const alreadyExist = await db.category.findUnique({
       where: {
@@ -20,7 +20,7 @@ export const POST = async (request) => {
       );
     }
     const newCategory = await db.category.create({
-      data: { title, slug, imageUrl, description, marketIds, isActive },
+      data: { title, slug, imageUrl, description, isActive },
     });
     return NextResponse.json(newCategory);
   } catch (error) {

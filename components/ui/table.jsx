@@ -3,7 +3,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const Table = React.forwardRef(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto">
+  <div className="w-full overflow-auto">
     <table
       ref={ref}
       className={cn("w-full caption-bottom text-sm", className)}
@@ -21,7 +21,10 @@ TableHeader.displayName = "TableHeader";
 const TableBody = React.forwardRef(({ className, ...props }, ref) => (
   <tbody
     ref={ref}
-    className={cn("[&_tr:last-child]:border-0", className)}
+    className={cn(
+      "[&_tr:last-child]:border-0 text-gray-900 dark:text-gray-300 ",
+      className
+    )}
     {...props}
   />
 ));
@@ -43,7 +46,7 @@ const TableRow = React.forwardRef(({ className, ...props }, ref) => (
   <tr
     ref={ref}
     className={cn(
-      "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-gray-300 dark:data-[state=selected]:bg-gray-800",
+      "border-b transition-colors hover:bg-muted/50 data-[state=selected]:hover:bg-gray-400 data-[state=selected]:bg-gray-300 hover:bg-gray-200 dark:data-[state=selected]:bg-gray-800 dark:data-[state=selected]:hover:bg-slate-800 dark:hover:bg-gray-700",
       className
     )}
     {...props}

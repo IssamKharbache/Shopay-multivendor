@@ -1,4 +1,5 @@
 import NewBlogForm from "@/components/backoffice/formComponents/NewBlogForm";
+import FormHeader from "@/components/backoffice/inputformComponents/FormHeader";
 import { getData } from "@/lib/getData";
 
 const NewBlog = async () => {
@@ -12,7 +13,12 @@ const NewBlog = async () => {
       title: category.title,
     };
   });
-  return <NewBlogForm categories={categories} />;
+  return (
+    <div>
+      <FormHeader headerTitle="New Blog" />
+      <NewBlogForm categories={categories} />
+    </div>
+  );
 };
 
 export default NewBlog;

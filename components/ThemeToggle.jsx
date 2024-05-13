@@ -1,6 +1,6 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "sonner";
 import { BsMoon } from "react-icons/bs";
 import { LuSun } from "react-icons/lu";
 
@@ -14,41 +14,12 @@ const ThemeToogle = () => {
   if (!mounted) {
     return null;
   }
-  const changeTheme = () => {
-    if (theme === "dark") {
-      toast("You switched to light mode ", {
-        duration: 4000,
-        position: "bottom-center",
-        // Styling
-        style: {
-          borderRadius: "10px",
-          background: "#09081c",
-          color: "#ffffff",
-        },
-        // Custom Icon
-        icon: "☀️",
-      });
-    } else {
-      toast("You switched to dark mode ", {
-        duration: 4000,
-        position: "bottom-center",
-        // Styling
-        style: {
-          borderRadius: "10px",
-          background: "#ffffff",
-          color: "#000000",
-        },
-        // Custom Icon
-        icon: "🌚",
-      });
-    }
-  };
+
   return (
     <label className="cursor-pointer">
       <input
         type="checkbox"
         className="hidden"
-        onChange={changeTheme}
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       />
       <div className="w-14 p-1">

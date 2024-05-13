@@ -10,7 +10,7 @@ import ToggleInput from "@/components/backoffice/inputformComponents/ToggleInput
 
 //TOOLS
 import { generateSlug } from "@/lib/generateSlug";
-import { makePostRequest } from "@/lib/apiRequest";
+import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
 //REACT HOOKS
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -26,11 +26,14 @@ const QuillEditor = dynamic(
   }
 );
 
-const NewBlogForm = ({ categories }) => {
-  const [content, setContent] = useState("");
+const NewBlogForm = ({ categories, updateData = {} }) => {
+  const initialContent = updateData?.content ?? "";
+  const initialImageUrl = updateData?.imageUrl ?? "";
+  const id = updateData?.id ?? "";
+  const [content, setContent] = useState(initialContent);
   //FORM STATES
 
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState(initialImageUrl);
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -41,6 +44,7 @@ const NewBlogForm = ({ categories }) => {
   } = useForm({
     defaultValues: {
       isActive: true,
+      ...updateData,
     },
   });
   //UPLOADING IMAGE STATES
@@ -70,83 +74,92 @@ const NewBlogForm = ({ categories }) => {
     data.slug = slug;
     data.imageUrl = imageUrl;
     data.content = content;
-
-    makePostRequest(
-      setLoading,
-      "api/blogs",
-      data,
-      "Blog",
-      reset,
-      redirectFunction
-    );
-    setImageUrl("");
-    setContent("");
+    if (id) {
+      //post
+      makePutRequest(
+        setLoading,
+        `api/blogs/${id}`,
+        data,
+        "Blog",
+        reset,
+        redirectFunction
+      );
+    } else {
+      makePostRequest(
+        setLoading,
+        "api/blogs",
+        data,
+        "Blog",
+        reset,
+        redirectFunction
+      );
+      setImageUrl("");
+      setContent("");
+    }
   };
   return (
-    <div>
-      <FormHeader headerTitle="New Blog" />
+    <form
+      onSubmit={handleSubmit(onSubmitForm)}
+      className="w-full max-w-2xl p-4 bg-gray-200 border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3 "
+    >
+      <div className="flex flex-col gap-4 sm:grid-cols-2 sm:gap-6">
+        <TextInput
+          label="Blog title"
+          name="title"
+          register={register}
+          errors={errors}
+          className="w-full font-poppins"
+          placeHolder="Blog title"
+        />
+        <SelectInput
+          label="Select Category"
+          name="categoryId"
+          register={register}
+          errors={errors}
+          className="w-full font-poppins"
+          options={categories}
+        />
+        <TextareaInput
+          label="Blog Description"
+          name="description"
+          register={register}
+          errors={errors}
+          placeHolder="Blog description"
+        />
+        <ImageInput
+          label="Blog Thumbnail"
+          endpoint="blogImageUploader"
+          imageUrl={imageUrl}
+          setImageUrl={setImageUrl}
+          getValue={getValue}
+        />
+        {/* CONTENT */}
 
-      <form
-        onSubmit={handleSubmit(onSubmitForm)}
-        className="w-full max-w-2xl p-4 bg-gray-200 border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-3 "
-      >
-        <div className="flex flex-col gap-4 sm:grid-cols-2 sm:gap-6">
-          <TextInput
-            label="Blog title"
-            name="title"
-            register={register}
-            errors={errors}
-            className="w-full font-poppins"
-            placeHolder="Blog title"
-          />
-          <SelectInput
-            label="Select Category"
-            name="categoryId"
-            register={register}
-            errors={errors}
-            className="w-full font-poppins"
-            options={categories}
-          />
-          <TextareaInput
-            label="Blog Description"
-            name="description"
-            register={register}
-            errors={errors}
-            placeHolder="Blog description"
-          />
-          <ImageInput
-            label="Blog Thumbnail"
-            endpoint="blogImageUploader"
-            imageUrl={imageUrl}
-            setImageUrl={setImageUrl}
-            getValue={getValue}
-          />
-          {/* CONTENT */}
-
-          <QuillEditor
-            label="Blog Content"
-            value={content}
-            onChange={setContent}
-          />
-          {/* CHECKBOX TOGGLE */}
-          <ToggleInput
-            label="Publish your blog"
-            nameWatched="isActive"
-            isTrue={isActive}
-            trueTitle="Active"
-            falseTitle="Inactive"
-            register={register}
-          />
-          <SubmitButton
-            buttonTitle="Create Blog"
-            loadingButtonTitle="Creating new blog please wait..."
-            isLoading={loading}
-            uploadLoading={uploadLoading}
-            loadingUploadTitle="Uploading Blog Image please wait..."
-          />
-        </div>
-      </form>
-    </div>
+        <QuillEditor
+          label="Blog Content"
+          value={content}
+          onChange={setContent}
+        />
+        {/* CHECKBOX TOGGLE */}
+        <ToggleInput
+          label="Publish your blog"
+          nameWatched="isActive"
+          isTrue={isActive}
+          trueTitle="Active"
+          falseTitle="Inactive"
+          register={register}
+        />
+        <SubmitButton
+          buttonTitle={id ? "Update Blog" : "Create Blog"}
+          loadingButtonTitle={`${
+            id ? "Updating" : "Creating"
+          }  new blog please wait...`}
+          isLoading={loading}
+          uploadLoading={uploadLoading}
+          loadingUploadTitle="Uploading Blog Image please wait..."
+        />
+      </div>
+    </form>
   );
 };
 
