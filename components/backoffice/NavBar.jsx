@@ -23,8 +23,10 @@ import { TfiClose } from "react-icons/tfi";
 import ThemeToogle from "../ThemeToggle";
 import Link from "next/link";
 import Logo from "../Logo";
+import UserAvatar from "./UserAvatar";
 
 const NavBar = ({ sideBarOpen, setSideBarOpen }) => {
+  const user = {};
   return (
     <div
       className={`flex items-center   justify-between font-poppins bg-slate-200 dark:bg-slate-800
@@ -131,38 +133,7 @@ const NavBar = ({ sideBarOpen, setSideBarOpen }) => {
           </DropdownMenuContent>
         </DropdownMenu>
         {/* PROFILE DROP DOWN */}
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Image
-              src="/profile.png"
-              width={200}
-              height={200}
-              className="w-7 h-7 sm:w-9 sm:h-9 rounded-full"
-              alt="profile"
-            />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="pr-5">
-            <DropdownMenuLabel>My Profile</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link
-                href="/dashboard"
-                className="flex items-center gap-2 cursor-pointer"
-              >
-                <LuLayoutDashboard size={20} />
-                <span className="text-lg">Dashboard</span>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="flex gap-2 cursor-pointer">
-              <CiSettings size={20} />
-              <span className="text-lg">Edit profile</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="flex gap-2 cursor-pointer">
-              <CiLogout size={20} />
-              <span className="text-lg">Log out</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <UserAvatar user={user} />
       </div>
     </div>
   );

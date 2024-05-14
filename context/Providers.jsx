@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import { Toaster } from "sonner";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
+import { SessionProvider } from "next-auth/react";
 
 import { ourFileRouter } from "../app/api/uploadthing/core";
 import { Provider } from "react-redux";
@@ -14,7 +15,9 @@ export const Providers = ({ children }) => {
     <ThemeProvider attribute="class" defaultTheme="dark">
       <Toaster richColors />
       <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-      <Provider store={store}>{children}</Provider>
+      <SessionProvider>
+        <Provider store={store}>{children}</Provider>
+      </SessionProvider>
     </ThemeProvider>
   );
 };

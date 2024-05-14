@@ -12,7 +12,7 @@ const page = async ({ params: { id } }) => {
           <span className="text-blue-600 font-bold text-2xl">
             {user && user.name}
           </span>
-          {""}, Tell Us More About Yourself
+          {""}, Tell Us More About Yourself,To Complete the verification step
         </h2>
       </div>
       <NewFarmerForm user={user} />

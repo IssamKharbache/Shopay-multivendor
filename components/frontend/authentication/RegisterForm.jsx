@@ -37,9 +37,9 @@ export default function RegisterForm({ role = "USER" }) {
         reset();
 
         if (role === "USER") {
-          router.push("/");
+          router.push("/login");
         } else {
-          router.push(`onboarding/${res.data.id}`);
+          router.push("verify-email");
         }
       } else {
         setLoading(false);
@@ -148,7 +148,7 @@ export default function RegisterForm({ role = "USER" }) {
           <p className="text-[0.75rem]  font-light text-gray-500 dark:text-gray-400 ">
             Are you a farmer ?{" "}
             <Link
-              href="/register-seller"
+              href="/register-farmer"
               className="font-medium text-blue-600 hover:underline dark:text-blue-500"
             >
               Register

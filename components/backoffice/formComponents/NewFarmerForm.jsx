@@ -49,7 +49,7 @@ const NewFarmerForm = ({ user }) => {
 
   const router = useRouter();
   const redirectFunction = () => {
-    router.push("/dashboard/farmers");
+    router.push("/login");
   };
 
   const onSubmitForm = async (data) => {
