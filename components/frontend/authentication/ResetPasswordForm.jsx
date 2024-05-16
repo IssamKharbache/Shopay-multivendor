@@ -12,16 +12,16 @@ export default function ResetPasswordForm() {
   const {
     register,
     handleSubmit,
-    reset,
+
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(data) {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-    const token = searchParams.get("token");
     const id = searchParams.get("id");
     data.id = id;
+
     try {
       setLoading(true);
       const response = await fetch(`${baseUrl}/api/users/update-password`, {
@@ -32,7 +32,6 @@ export default function ResetPasswordForm() {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        // await signOut();
         setLoading(false);
         router.push("/login");
         toast.success("Password Updated Successfully");
@@ -48,7 +47,7 @@ export default function ResetPasswordForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 " action="#">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 " action="#">
       <div>
         <label
           htmlFor="email"
@@ -75,7 +74,7 @@ export default function ResetPasswordForm() {
         <button
           disabled
           type="button"
-          className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+          className="w-full text-white bg-blue-500 duration-200  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 opacity-60 disabled:cursor-not-allowed  dark:focus:ring-blue-800 inline-flex items-center"
         >
           <svg
             aria-hidden="true"

@@ -6,9 +6,19 @@ const SubmitButton = ({
   loadingButtonTitle,
   uploadLoading,
   loadingUploadTitle,
+  buttonClassName,
+  buttonIcon,
+  iconClassName,
 }) => {
+  const Icon = buttonIcon ? buttonIcon : Plus;
   return (
-    <div className="sm:col-span-1 flex items-center justify-end">
+    <div
+      className={`${
+        buttonClassName
+          ? buttonClassName
+          : "sm:col-span-1 flex items-center justify-end"
+      }`}
+    >
       {isLoading || uploadLoading ? (
         <button
           disabled
@@ -40,7 +50,13 @@ const SubmitButton = ({
           type="submit"
           className="items-center flex group px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-gray-100  bg-blue-500 hover:bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:bg-slate-500 dark:hover:bg-slate-600 dark:focus:ring-blue-900  duration-200"
         >
-          <Plus className="w-5 h-5 mr-2 group-hover:rotate-180 duration-300" />
+          <Icon
+            className={`w-5 h-5 mr-2 ${
+              iconClassName
+                ? iconClassName
+                : "group-hover:rotate-180 duration-300"
+            } `}
+          />
           <span>{buttonTitle}</span>
         </button>
       )}

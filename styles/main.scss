@@ -94,6 +94,16 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgb(63, 121, 180);
+}
 
-  
+/* Chrome, Safari, Edge, Opera remove input number arrows*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox  remove input number arrows */
+input[type=number] {
+  -moz-appearance: textfield;
 }

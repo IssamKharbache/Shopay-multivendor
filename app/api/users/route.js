@@ -37,17 +37,19 @@ export const POST = async (request) => {
         verificationToken: token,
       },
     });
+    const userId = newUser.id;
     //send the email if user role is farmer
     if (role === "FARMER") {
       sendEmail({
+        redirectUrl: `onboarding/${userId}/?token=${token}`,
         email,
-        token,
-        userId: newUser.id,
         name,
         linkText: "Verify your account",
         description:
           "Thanks for creating an account with us please click in the button below to verify your account",
         previewText: "Account verification to become a farmer in shopay",
+        subject: "Email Verification - Shopay",
+        buttonTitle: "Verify your account",
       });
     }
     return NextResponse.json(
@@ -67,9 +69,6 @@ export const POST = async (request) => {
 export const GET = async (request) => {
   const rawToken = uuidv4();
 
-  // Encode the token using Base64 URL-safe format
-  const token = base64url.encode(rawToken);
-  console.log(token);
   try {
     const users = await db.user.findMany({
       orderBy: {

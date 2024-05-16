@@ -10,45 +10,73 @@ import {
 import Image from "next/image";
 import { CiLogout, CiSettings } from "react-icons/ci";
 import { LuLayoutDashboard } from "react-icons/lu";
+import { TbShoppingBag } from "react-icons/tb";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
-import handleLogout from "@/lib/handleLogout";
 
-const UserAvatar = ({ user }) => {
+import handleLogout from "@/lib/handleLogout";
+import generateInitials from "@/lib/generateInitials";
+
+const UserAvatar = ({ user = {} }) => {
+  const { name, image, role } = user;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Image
-          src="/profile.png"
-          width={200}
-          height={200}
-          className="w-7 h-7 sm:w-9 sm:h-9 rounded-full"
-          alt="profile"
-        />
+        {image ? (
+          <Image
+            src={image}
+            width={200}
+            height={200}
+            className="w-7 h-7 sm:w-9 sm:h-9 rounded-full"
+            alt="profileimage"
+          />
+        ) : (
+          <div className="bg-blue-400 dark:bg-slate-500 rounded-full w-9 h-9 flex p-4 items-center justify-center">
+            <p className="font-semibold text-md text-white">
+              {generateInitials(name)}
+            </p>
+          </div>
+        )}
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="pr-5">
-        <DropdownMenuLabel>My Profile</DropdownMenuLabel>
+      <DropdownMenuContent className=" m-2">
+        <DropdownMenuLabel>{name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <Link
             href="/dashboard"
-            className="flex items-center gap-2 cursor-pointer"
+            className="flex items-center gap-2 cursor-pointer  rounded-md p-2"
           >
             <LuLayoutDashboard size={20} />
             <span className="text-lg">Dashboard</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="flex gap-2 cursor-pointer">
-          <CiSettings size={20} />
-          <span className="text-lg">Edit profile</span>
+        {role === "USER" && (
+          <DropdownMenuItem>
+            <Link
+              href="/dashboard/orders"
+              className="flex gap-2 items-center p-2 cursor-pointer"
+            >
+              <TbShoppingBag size={20} />
+              <span className="text-lg">My Orders</span>
+            </Link>
+          </DropdownMenuItem>
+        )}
+        <DropdownMenuItem>
+          <Link
+            href="/dashboard/profile"
+            className="flex gap-2 p-2 cursor-pointer items-center"
+          >
+            <CiSettings size={20} />
+            <span className="text-lg">Edit profile</span>
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={handleLogout}
-          className="flex gap-2 cursor-pointer"
-        >
-          <CiLogout size={20} />
-          <span className="text-lg">Log out</span>
+        <DropdownMenuItem>
+          <button
+            onClick={handleLogout}
+            className="flex gap-2 items-center p-2 cursor-pointer"
+          >
+            <CiLogout size={20} />
+            <span className="text-lg">Log out</span>
+          </button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

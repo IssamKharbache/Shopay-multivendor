@@ -86,6 +86,8 @@ model Product {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId String @db.ObjectId
 
+  orderItems OrderItem[]
+
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 }
@@ -113,6 +115,14 @@ enum UserRole {
   USER
 }
 
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELEd
+}
+
 model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
@@ -125,6 +135,7 @@ model User {
 
   farmerProfile FarmerProfile?
   profile       UserProfile?
+  orders        Order[] //user can have multiple orders
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -164,4 +175,48 @@ model FarmerProfile {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+}
+
+model Order {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String @db.ObjectId
+  //personal details
+  firstName     String
+  lastName      String
+  email         String
+  phone         String
+  //shipping details
+  streetAddress String
+  city          String
+  country       String
+  district      String
+  shippingCost  Float
+
+  //payment information
+  paymentMethod String
+  //order items
+  orderItems    OrderItem[]
+  //status
+  orderStatus   OrderStatus @default(PROCESSING) //set default as pending
+  //relation
+  user          User        @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderItem {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderId     String   @db.ObjectId
+  productId   String   @db.ObjectId
+  quantity    Int
+  price       Float
+  imageUrl    String?
+  title       String?
+  orderNumber String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  //relations
+  order       Order    @relation(fields: [orderId], references: [id])
+  product     Product  @relation(fields: [productId], references: [id])
 }

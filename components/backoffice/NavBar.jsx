@@ -24,9 +24,13 @@ import ThemeToogle from "../ThemeToggle";
 import Link from "next/link";
 import Logo from "../Logo";
 import UserAvatar from "./UserAvatar";
+import { useSession } from "next-auth/react";
 
 const NavBar = ({ sideBarOpen, setSideBarOpen }) => {
-  const user = {};
+  const { data: session, status } = useSession();
+  if (status === "loading") {
+    return <p>Loading....</p>;
+  }
   return (
     <div
       className={`flex items-center   justify-between font-poppins bg-slate-200 dark:bg-slate-800
@@ -133,7 +137,7 @@ const NavBar = ({ sideBarOpen, setSideBarOpen }) => {
           </DropdownMenuContent>
         </DropdownMenu>
         {/* PROFILE DROP DOWN */}
-        <UserAvatar user={user} />
+        {status === "authenticated" && <UserAvatar user={session?.user} />}
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ const CartProduct = ({ cartItem }) => {
     //dispatch delete slice
     dispatch(removeFromCart(cartId));
     toast.success("Item removed from cart", {
-      position: "bottom-center",
+      position: "top-center",
     });
   };
   const handleQtyIncrement = (cartId) => {
@@ -31,20 +31,23 @@ const CartProduct = ({ cartItem }) => {
     dispatch(decrementQty(cartId));
   };
   return (
-    <div className="flex justify-between pt-4 border-b border-gray-300 dark:border-gray-800 pb-6">
+    <div className="grid grid-cols-10 md:flex-row gap-6 justify-between pt-4 border-b border-gray-300 dark:border-gray-800 pb-6">
       {/* product info */}
-      <div className="flex gap-6 items-center">
+      <div className="flex flex-col md:flex-row justify-center col-span-4 md:col-span-5 gap-6 items-center">
         <Image
           src={cartItem.imageUrl}
           alt={cartItem.title}
           width={250}
           height={250}
-          className="w-20 h-24 object-cover rounded-md"
+          className="w-20 h-24 object-contain dark:object-cover rounded-md"
         />
-        <p className="text-lg font-semibold w-48">{cartItem.title}</p>
+
+        <p className="text-lg font-semibold text-center md:text-start w-48 line-clamp-1">
+          {cartItem.title}
+        </p>
       </div>
       {/* QTY ADJUSTMENT */}
-      <div className="pt-4">
+      <div className="pt-4 col-span-3 md:col-span-3">
         <div className="flex">
           <div className="flex gap-4 rounded border border-gray-300 dark:border-slate-700 items-center">
             <button
@@ -63,9 +66,21 @@ const CartProduct = ({ cartItem }) => {
           </div>
         </div>
       </div>
+      {/* price and delete for mobile */}
+      <div className="md:hidden flex  items-center gap-2 mt-28">
+        <p className="text-3xl md:text-2xl  font-semibold">
+          {cartItem.salePrice}$
+        </p>
+        <button onClick={() => handleCartItemDelete(cartItem.id)}>
+          <IoTrashOutline className="text-red-500 text-lg hover:scale-110 duration-200" />
+        </button>
+      </div>
+
       {/* price */}
-      <div className="flex items-center gap-4">
-        <p className="text-2xl font-semibold">{cartItem.salePrice}$</p>
+      <div className="md:flex hidden  md:justify-end col-span-5 md:col-span-2 items-center gap-4">
+        <p className="text-3xl md:text-2xl   font-semibold">
+          {cartItem.salePrice}$
+        </p>
         <button onClick={() => handleCartItemDelete(cartItem.id)}>
           <IoTrashOutline className="text-red-500 text-lg hover:scale-110 duration-200" />
         </button>

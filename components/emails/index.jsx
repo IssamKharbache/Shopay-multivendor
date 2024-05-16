@@ -17,6 +17,7 @@ export const EmailTemplate = ({
   linkText = "",
   description = "",
   previewText = "",
+  buttonTitle = "",
 }) => (
   <Html>
     <Head />
@@ -41,7 +42,7 @@ export const EmailTemplate = ({
           <Text style={text}>{description}</Text>
 
           <Button href={redirectUrl} style={button}>
-            Verify your account
+            {buttonTitle}
           </Button>
         </Section>
         <Text style={links}>

@@ -17,7 +17,6 @@ export default function ForgotPasswordForm() {
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(data) {
-    console.log(data);
     try {
       setLoading(true);
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -35,7 +34,10 @@ export default function ForgotPasswordForm() {
         toast.success("Password reset link sent Successfully");
       } else {
         setLoading(false);
-        toast.error("Something Went wrong");
+        toast.error(response.statusText, {
+          position: "top-center",
+        });
+        setShowNotification(false);
       }
     } catch (error) {
       setLoading(false);
@@ -47,7 +49,7 @@ export default function ForgotPasswordForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 ">
       {showNotification && (
-        <Alert color="failure" icon={HiInformationCircle}>
+        <Alert color="green" icon={HiInformationCircle}>
           <span className="font-medium">Please Check your Email!</span> We have
           sent you a Password Reset Link , Click on the Link in Order to create
           a new password
@@ -79,7 +81,7 @@ export default function ForgotPasswordForm() {
         <button
           disabled
           type="button"
-          className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+          className="w-full text-white bg-blue-500 duration-200  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 opacity-60 disabled:cursor-not-allowed  dark:focus:ring-blue-800 inline-flex items-cente"
         >
           <svg
             aria-hidden="true"

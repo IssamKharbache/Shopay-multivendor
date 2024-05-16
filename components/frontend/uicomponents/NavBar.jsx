@@ -11,7 +11,7 @@ import Logo from "@/components/Logo";
 import HelpModal from "./Modal";
 import CartCount from "./cartComponents/CartCount";
 import { useSession } from "next-auth/react";
-import Loading from "@/app/loading";
+
 import UserAvatar from "@/components/backoffice/UserAvatar";
 
 const NavBar = () => {
