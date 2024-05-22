@@ -18,7 +18,7 @@ export const GET = async (request, { params: { id } }) => {
     console.log(error);
     return NextResponse.json(
       {
-        message: "Failed to get single categories. Please try again.",
+        message: "Failed to get single category. Please try again.",
         error,
       },
       { status: 500 }

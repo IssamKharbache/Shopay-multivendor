@@ -29,7 +29,7 @@ export const ourFileRouter = {
       console.log("file url", file.url, metadata);
       return { UploadedBy: "shopay admin" };
     }),
-  productImageUploader: f({ image: { maxFileSize: "1MB", maxFileCount: 4 } })
+  productImageUploader: f({ image: { maxFileSize: "1MB" } })
     // Set permissions and file types for this FileRoute
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("file url", file.url, metadata);
@@ -42,6 +42,18 @@ export const ourFileRouter = {
       return { UploadedBy: "shopay admin" };
     }),
   farmerProfileImage: f({ image: { maxFileSize: "1MB" } })
+    // Set permissions and file types for this FileRoute
+    .onUploadComplete(async ({ metadata, file }) => {
+      console.log("file url", file.url, metadata);
+      return { UploadedBy: "shopay admin" };
+    }),
+  customerProfileImage: f({ image: { maxFileSize: "1MB" } })
+    // Set permissions and file types for this FileRoute
+    .onUploadComplete(async ({ metadata, file }) => {
+      console.log("file url", file.url, metadata);
+      return { UploadedBy: "shopay admin" };
+    }),
+  multipleProductImage: f({ image: { maxFileSize: "8MB", maxFileCount: 4 } })
     // Set permissions and file types for this FileRoute
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("file url", file.url, metadata);

@@ -21,6 +21,7 @@ const Farmers = async () => {
         <DataTable
           data={farmers}
           columns={columns}
+          //filter table keys
           filterKeys={["name", "email"]}
         />
       </div>

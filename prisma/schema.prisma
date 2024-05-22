@@ -9,13 +9,18 @@ datasource db {
 
 //  title, couponCode, expiryDate
 model Coupon {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
   title      String
   couponCode String
+
   expiryDate DateTime
   isActive   Boolean
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+
+  user     User   @relation(fields: [vendorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  vendorId String @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Banner {
@@ -65,7 +70,8 @@ model Product {
   title          String
   slug           String   @unique
   description    String?
-  imageUrl       String
+  imageUrl       String?
+  productImages  String[]
   isWholeSale    Boolean?
   isActive       Boolean
   sku            String?
@@ -87,6 +93,7 @@ model Product {
   userId String @db.ObjectId
 
   orderItems OrderItem[]
+  sales      Sale[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
@@ -124,8 +131,7 @@ enum OrderStatus {
 }
 
 model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
   name              String?
   email             String?  @unique
   password          String
@@ -134,21 +140,37 @@ model User {
   verificationToken String?
 
   farmerProfile FarmerProfile?
-  profile       UserProfile?
-  orders        Order[] //user can have multiple orders
+  userProfile   UserProfile?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Product Product[]
+  product Product[] //user can have multiple products as a vendor
+  coupons Coupon[]
+  sales   Sale[] //user can have multiple sales as a vendor
+  orders  Order[] //user can have multiple orders
 }
 
 model UserProfile {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String    @unique @db.ObjectId
-  //add other fields for user onboarding information
-  dateOfBirth DateTime?
-  adress      String?
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @unique @db.ObjectId
+
+  //Personal details
+  name      String
+  firstName String?
+  lastName  String?
+  email     String?
+  username  String?
+  phone     String?
+
+  //shipping details
+  streetAddress String?
+  city          String?
+  country       String?
+  district      String?
+
+  dateOfBirth  DateTime?
+  profileImage String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -192,6 +214,8 @@ model Order {
   district      String
   shippingCost  Float
 
+  orderNumber String?
+
   //payment information
   paymentMethod String
   //order items
@@ -203,20 +227,39 @@ model Order {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Sale      Sale[]
 }
 
 model OrderItem {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  orderId     String   @db.ObjectId
-  productId   String   @db.ObjectId
-  quantity    Int
-  price       Float
-  imageUrl    String?
-  title       String?
-  orderNumber String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String  @db.ObjectId
+  productId String  @db.ObjectId
+  quantity  Int
+  price     Float
+  vendorId  String  @db.ObjectId
+  imageUrl  String?
+  title     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   //relations
-  order       Order    @relation(fields: [orderId], references: [id])
-  product     Product  @relation(fields: [productId], references: [id])
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model Sale {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderId      String   @db.ObjectId
+  productId    String   @db.ObjectId
+  vendorId     String   @db.ObjectId
+  total        Float
+  productTitle String
+  productImage String
+  productPrice Float
+  quantity     Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  order        Order    @relation(fields: [orderId], references: [id])
+  product      Product  @relation(fields: [productId], references: [id])
+  vendor       User     @relation(fields: [vendorId], references: [id])
 }

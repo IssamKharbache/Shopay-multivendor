@@ -5,8 +5,8 @@ import Link from "next/link";
 import React from "react";
 import { GoPlus } from "react-icons/go";
 import { useDispatch } from "react-redux";
-
 import { toast } from "sonner";
+
 const Product = ({ product }) => {
   const dispatch = useDispatch();
   const handleAddToCart = () => {
@@ -23,7 +23,7 @@ const Product = ({ product }) => {
           src={product.imageUrl}
           width={1200}
           height={686}
-          className="w-64  h-48 rounded-md object-cover duration-300 group-hover/img:scale-105"
+          className="w-64 h-48 rounded-md object-cover duration-300 group-hover/img:scale-105"
           alt={product.title}
         />
       </Link>

@@ -14,11 +14,13 @@ import { GiFarmer } from "react-icons/gi";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { LuBadgeDollarSign } from "react-icons/lu";
 import { RiCommunityFill } from "react-icons/ri";
+import { RiCoinsLine } from "react-icons/ri";
 //CATALOG ICONS
 import { RiCoupon4Line } from "react-icons/ri";
 import { IoLayersOutline } from "react-icons/io5";
 import { GiCardboardBoxClosed } from "react-icons/gi";
 import { PiMonitorPlayLight } from "react-icons/pi";
+import { MdOutlineContactSupport } from "react-icons/md";
 
 //SHADCN COLLAPSIBLE
 import {
@@ -29,6 +31,7 @@ import {
 import Logo from "../Logo";
 import { useSession } from "next-auth/react";
 import handleLogout from "@/lib/handleLogout";
+import { TbShoppingBag } from "react-icons/tb";
 
 const SideBar = ({ sideBarOpen }) => {
   const [isCollapOpen, setIsCollapOpen] = useState(false);
@@ -43,6 +46,11 @@ const SideBar = ({ sideBarOpen }) => {
   let sidebarLinks = [
     { title: "Customers", icon: HiUsers, href: "/dashboard/customers" },
     { title: "Orders", icon: FaShippingFast, href: "/dashboard/orders" },
+    {
+      title: "Sales",
+      icon: RiCommunityFill,
+      href: "/dashboard/sales",
+    },
     { title: "Markets", icon: PiFactoryDuotone, href: "/dashboard/markets" },
     { title: "Farmers", icon: GiFarmer, href: "/dashboard/farmers" },
     { title: "Our Staff", icon: PiUsersFour, href: "/dashboard/staff" },
@@ -84,14 +92,16 @@ const SideBar = ({ sideBarOpen }) => {
   const role = session?.user?.role;
   if (role === "FARMER") {
     sidebarLinks = [
-      { title: "Customers", icon: HiUsers, href: "/dashboard/customers" },
-      { title: "Orders", icon: FaShippingFast, href: "/dashboard/orders" },
+      {
+        title: "Sales",
+        icon: RiCoinsLine,
+        href: "/dashboard/sales",
+      },
       {
         title: "Farmer Support",
-        icon: RiCommunityFill,
+        icon: MdOutlineContactSupport,
         href: "/dashboard/farmer-support",
       },
-
       {
         title: "Shopay Community",
         icon: RiCommunityFill,
@@ -105,11 +115,19 @@ const SideBar = ({ sideBarOpen }) => {
       },
       { title: "Settings", icon: CiSettings, href: "/dashboard/settings" },
     ];
+    catalogLinks = [
+      {
+        title: "Products",
+        icon: GiCardboardBoxClosed,
+        href: "/dashboard/products",
+      },
+      { title: "Coupons", icon: RiCoupon4Line, href: "/dashboard/coupons" },
+    ];
   }
   if (role === "USER") {
     sidebarLinks = [
       { title: "Profile", icon: FaShippingFast, href: "/dashboard/profile" },
-      { title: "My Orders", icon: FaShippingFast, href: "/dashboard/orders" },
+      { title: "My Orders", icon: TbShoppingBag, href: "/dashboard/orders" },
       {
         title: "Online Store",
         icon: HiOutlineExternalLink,

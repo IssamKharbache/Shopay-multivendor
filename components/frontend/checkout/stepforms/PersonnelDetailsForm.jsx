@@ -35,11 +35,13 @@ const PersonnelDetailsForm = () => {
   });
 
   const onSubmit = async (data) => {
-    data.userId = userId;
-    //update the checkout data
-    dispatch(updateCheckoutFormData(data));
-    //then update the current step
-    dispatch(setCurrentStep(currentStep + 1));
+    if (userId) {
+      data.userId = userId;
+      //update the checkout data
+      dispatch(updateCheckoutFormData(data));
+      //then update the current step
+      dispatch(setCurrentStep(currentStep + 1));
+    }
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

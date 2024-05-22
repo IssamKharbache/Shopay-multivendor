@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
+
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 //icons
-import { GoPlus } from "react-icons/go";
+
 import Product from "../Product";
 
 const CategoryCarousel = ({ products, className }) => {

@@ -7,6 +7,14 @@ export const GET = async (request, { params: { id } }) => {
       where: {
         id,
       },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true,
+        userProfile: true,
+        role: true,
+      },
     });
     return NextResponse.json(user);
   } catch (error) {

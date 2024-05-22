@@ -30,8 +30,8 @@ const UserAvatar = ({ user = {} }) => {
             alt="profileimage"
           />
         ) : (
-          <div className="bg-blue-400 dark:bg-slate-500 rounded-full w-9 h-9 flex p-4 items-center justify-center">
-            <p className="font-semibold text-md text-white">
+          <div className=" border-2 border-blue-600 dark:border-gray-900 dark:bg-slate-500 rounded-full w-9 h-9 flex p-4 items-center justify-center">
+            <p className="font-semibold text-md text-gray-900 dark:text-gray-200">
               {generateInitials(name)}
             </p>
           </div>

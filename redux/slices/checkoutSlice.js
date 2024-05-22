@@ -10,7 +10,6 @@ const checkoutSlice = createSlice({
   initialState,
   reducers: {
     //functions
-
     setCurrentStep: (state, action) => {
       state.currentStep = action.payload;
     },

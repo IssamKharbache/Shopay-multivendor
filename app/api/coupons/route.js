@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 
 export const POST = async (request) => {
   try {
-    const { title, couponCode, expiryDate, isActive } = await request.json();
+    const { title, couponCode, expiryDate, isActive, vendorId } =
+      await request.json();
 
     const newCoupon = await db.coupon.create({
       data: {
@@ -11,6 +12,7 @@ export const POST = async (request) => {
         couponCode,
         expiryDate,
         isActive,
+        vendorId,
       },
     });
     return NextResponse.json(newCoupon);

@@ -5,16 +5,17 @@ import Image from "next/image";
 const page = async ({ params: { id } }) => {
   const order = await getData(`orders/${id}`);
   const { orderItems } = order;
-  const subTotal = 250;
-  // orderItems
-  //   .reduce((acc, item) => acc + item.price * item.quantity, 0)
-  //   .toFixed(2);
+  const shippingCost = order.shippingCost;
+  console.log(order);
+  const subTotal = orderItems
+    .reduce((acc, item) => acc + item.price * item.quantity, 0)
+    .toFixed(2);
 
   return (
-    <section className="py-12 dark:bg-slate-950 bg-slate-50 sm:py-16 lg:py-20">
+    <section className="py-12  sm:py-16 lg:py-20">
       <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-5xl">
         <div className="max-w-2xl mx-auto">
-          <div className="relative mt-6 overflow-hidden bg-white dark:bg-slate-700 rounded-lg shadow md:mt-10">
+          <div className="relative mt-6 overflow-hidden bg-slate-200 dark:bg-slate-700 rounded-lg shadow md:mt-10">
             <div className="absolute top-4 right-4">
               <button
                 type="button"
@@ -25,7 +26,7 @@ const page = async ({ params: { id } }) => {
             </div>
 
             <div className="px-4 py-6 sm:px-8 sm:py-10">
-              <div className="-my-8 divide-y divide-gray-200">
+              <div className="-my-8 divide-y divide-gray-300 dark:divide-gray-500 ">
                 <div className="pt-16 pb-8 text-center sm:py-8">
                   <CheckCircle2 className="w-10 h-10 mx-auto text-lime-500" />
 
@@ -33,7 +34,8 @@ const page = async ({ params: { id } }) => {
                     We received your order!
                   </h1>
                   <p className="mt-2 text-sm font-normal text-gray-600 dark:text-slate-300">
-                    Your order # is completed and ready to ship
+                    Your order #{order.orderNumber} is completed and ready to
+                    ship
                   </p>
                 </div>
 
@@ -44,7 +46,8 @@ const page = async ({ params: { id } }) => {
                         Shipping Address
                       </h2>
                       <p className="mt-6 text-sm font-medium text-gray-600 dark:text-gray-300">
-                        {order.firstName} {order.lastName}
+                        {order.firstName.toUpperCase()}{" "}
+                        {order.lastName.toUpperCase()}
                       </p>
                       <p className="mt-3 text-sm font-medium text-gray-600 dark:text-gray-300">
                         {order.streetAddress} {order.city}, {order.district},{" "}
@@ -56,14 +59,22 @@ const page = async ({ params: { id } }) => {
                       <h2 className="text-xs font-bold tracking-widest text-gray-400 uppercase dark:text-gray-500">
                         Payment Info
                       </h2>
-                      <p className="mt-6 text-sm font-medium text-gray-600 dark:text-gray-300">
-                        {order.paymentMethod}
-                      </p>
-                      {/* <p className="mt-1 text-sm font-medium text-gray-600">
-                        VISA
-                        <br />
-                        **** 4660
-                      </p> */}
+                      <div className="mt-6 text-sm font-medium text-gray-600 dark:text-gray-300">
+                        {order.paymentMethod === "cod" ? (
+                          <div className="flex flex-col gap-1">
+                            <p>Cash on delivery</p>
+                            <p className="text-gray-400 dark: text-xs">
+                              You will pay until you receive the product
+                            </p>
+                          </div>
+                        ) : (
+                          <p className="mt-1 text-sm font-medium text-gray-600 dark:text-gray-200">
+                            VISA
+                            <br />
+                            **** 4660
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -74,7 +85,7 @@ const page = async ({ params: { id } }) => {
                   </h2>
 
                   <div className="flow-root mt-8">
-                    <ul className="divide-y divide-gray-200 -my-7">
+                    <ul className="divide-y divide-gray-300 dark:divide-gray-500 -my-7">
                       {orderItems.length > 0 &&
                         orderItems.map((item, i) => {
                           return (
@@ -114,6 +125,10 @@ const page = async ({ params: { id } }) => {
                     </ul>
                   </div>
                 </div>
+                <div className="flex justify-between py-4 text-gray-600 dark:text-gray-200 font-semibold">
+                  <p>Shipping Cost</p>
+                  <p>{shippingCost}$</p>
+                </div>
 
                 <div className="py-8">
                   <ul className="space-y-4">
@@ -128,10 +143,13 @@ const page = async ({ params: { id } }) => {
 
                     <li className="flex items-center justify-between">
                       <p className="text-base font-medium text-gray-900 dark:text-white">
-                        Total
+                        Total{" "}
+                        <span className="text-gray-400 dark:text-gray-500 text-sm">
+                          (shipping included)
+                        </span>
                       </p>
                       <p className="text-base font-bold text-gray-900 dark:text-white">
-                        ${subTotal}
+                        ${(Number(subTotal) + Number(shippingCost)).toFixed(2)}
                       </p>
                     </li>
                   </ul>

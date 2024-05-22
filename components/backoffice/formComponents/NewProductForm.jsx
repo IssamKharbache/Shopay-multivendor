@@ -18,10 +18,11 @@ import ArrayItemsInput from "@/components/backoffice/inputformComponents/ArrayIt
 import ToggleInput from "@/components/backoffice/inputformComponents/ToggleInput";
 import { generateUserCode } from "@/lib/generateUserCode";
 import { useRouter } from "next/navigation";
-import FormHeader from "../inputformComponents/FormHeader";
+import MultipleImageInput from "../inputformComponents/MultipleImageInput";
 
 const NewProductForm = ({ categories, farmers, updateData = {} }) => {
   const initialImageUrl = updateData?.imageUrl ?? "";
+
   const initialTags = updateData?.tags ?? [];
   const id = updateData?.id ?? "";
   //tags
@@ -29,12 +30,12 @@ const NewProductForm = ({ categories, farmers, updateData = {} }) => {
   //FORM STATES
   const [imageUrl, setImageUrl] = useState(initialImageUrl);
   const [loading, setLoading] = useState(false);
+  const [productImages, setProductImages] = useState([]);
   //REDIRECTING
   const router = useRouter();
   const redirectFunction = () => {
     router.push("/dashboard/products");
   };
-
   //EXTRACTING REACT HOOK FORM FUNCTIONS NEEDED
   const {
     register,
@@ -72,10 +73,12 @@ const NewProductForm = ({ categories, farmers, updateData = {} }) => {
     const slug = generateSlug(data.title);
     const productCode = generateUserCode("SPP", data.title);
     data.slug = slug;
-    data.imageUrl = imageUrl;
+    data.productImages = productImages;
+
     data.tags = tags;
     data.productCode = productCode;
     data.qty = 1;
+
     if (id) {
       makePutRequest(
         setLoading,
@@ -94,7 +97,7 @@ const NewProductForm = ({ categories, farmers, updateData = {} }) => {
         reset,
         redirectFunction
       );
-      setImageUrl("");
+      setProductImages([]);
       setTags([]);
     }
   };
@@ -212,11 +215,11 @@ const NewProductForm = ({ categories, farmers, updateData = {} }) => {
             />
           </>
         )}
-        <ImageInput
-          label="Product Image"
-          endpoint="productImageUploader"
-          imageUrl={imageUrl}
-          setImageUrl={setImageUrl}
+        <MultipleImageInput
+          label="Product Images"
+          endpoint="multipleProductImage"
+          imageUrls={productImages}
+          setImageUrls={setProductImages}
           getValue={getValue}
         />
         {/* TAGS */}

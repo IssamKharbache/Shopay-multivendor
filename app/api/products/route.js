@@ -8,7 +8,7 @@ export const POST = async (request) => {
       categoryId,
       description,
       farmerId,
-      imageUrl,
+      productImages,
       isActive,
       isWholeSale,
       productCode,
@@ -36,7 +36,7 @@ export const POST = async (request) => {
           data: null,
           message: "Product already exists",
         },
-        { status: 409 }
+        { status: 409, statusText: "Product already exists" }
       );
     }
     const newProduct = await db.product.create({
@@ -45,7 +45,8 @@ export const POST = async (request) => {
         categoryId,
         description,
         userId: farmerId,
-        imageUrl,
+        productImages,
+        imageUrl: productImages[0],
         isActive,
         isWholeSale,
         productCode,
@@ -63,7 +64,6 @@ export const POST = async (request) => {
       },
     });
 
-    console.log(newProduct);
     return NextResponse.json(newProduct);
   } catch (error) {
     console.log(error);
@@ -78,12 +78,52 @@ export const POST = async (request) => {
 };
 
 export const GET = async (request) => {
+  const categoryId = request.nextUrl.searchParams.get("catId");
+  const sortBy = request.nextUrl.searchParams.get("sort");
+  const min = request.nextUrl.searchParams.get("min");
+  const max = request.nextUrl.searchParams.get("max");
+
+  let where = {
+    categoryId,
+  };
+  if (min && max) {
+    where.salePrice = {
+      gte: parseFloat(min),
+      lte: parseFloat(max),
+    };
+  } else if (min) {
+    where.salePrice = {
+      gte: parseFloat(min),
+    };
+  } else if (max) {
+    where.salePrice = {
+      lte: parseFloat(max),
+    };
+  }
+
+  let products;
   try {
-    const products = await db.product.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+    if (categoryId && sortBy) {
+      products = await db.product.findMany({
+        where,
+        orderBy: {
+          salePrice: sortBy,
+        },
+      });
+    } else if (categoryId) {
+      products = await db.product.findMany({
+        where,
+        orderBy: {
+          createdAt: "asc",
+        },
+      });
+    } else {
+      products = await db.product.findMany({
+        orderBy: {
+          createdAt: "asc",
+        },
+      });
+    }
     return NextResponse.json(products);
   } catch (error) {
     console.log(error);

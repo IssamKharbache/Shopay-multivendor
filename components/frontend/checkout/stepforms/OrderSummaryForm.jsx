@@ -15,10 +15,12 @@ const OrderSummaryForm = () => {
 
   //checkout slice
   const dispatch = useDispatch();
+  const cartLocal = useSelector((store) => store.cart);
   const currentStep = useSelector((store) => store.checkout.currentStep);
   const checkoutFormData = useSelector(
     (store) => store.checkout.checkoutFormData
   );
+
   const handlePreviousStep = () => {
     dispatch(setCurrentStep(currentStep - 1));
   };
@@ -29,6 +31,7 @@ const OrderSummaryForm = () => {
       orderItems: cartItems,
       checkoutFormData,
     };
+
     try {
       setLoading(true);
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;

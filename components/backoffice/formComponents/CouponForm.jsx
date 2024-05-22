@@ -11,7 +11,14 @@ import ToggleInput from "@/components/backoffice/inputformComponents/ToggleInput
 import ConvertDateToIso from "@/lib/convertDateToIso";
 import { useRouter } from "next/navigation";
 import convertIsoToNormal from "@/lib/convertIsoToNormal";
+import { useSession } from "next-auth/react";
 const CouponForm = ({ couponData = {} }) => {
+  const { data: session, status } = useSession();
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+  const vendorId = session?.user?.id;
+
   const expirydateNormal = convertIsoToNormal(couponData.expiryDate);
   couponData.expiryDate = expirydateNormal;
   const id = couponData?.id ?? "";
@@ -39,6 +46,7 @@ const CouponForm = ({ couponData = {} }) => {
   const onSubmitForm = async (data) => {
     //generate the coupon code
     data.couponCode = generateCouponCode(data.title, data.expiryDate);
+    data.vendorId = vendorId;
     const isoFormatedDate = ConvertDateToIso(data.expiryDate);
     data.expiryDate = isoFormatedDate;
     if (id) {
@@ -81,7 +89,6 @@ const CouponForm = ({ couponData = {} }) => {
           register={register}
           errors={errors}
         />
-
         {/* CHECKBOX TOGGLE */}
         <ToggleInput
           label="Active Your Coupon"

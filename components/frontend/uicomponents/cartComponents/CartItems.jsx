@@ -5,11 +5,11 @@ import EmptyCart from "./EmptyCart";
 const CartItems = ({ cartItems }) => {
   return (
     <div className={`${cartItems.length ? "col-span-8" : "col-span-12"} px-4`}>
-      <h2 className="text-4xl mb-6 font-semibold">Your Cart</h2>
+      <h2 className="text-xl md:text-4xl  mb-6 font-semibold">Your Cart</h2>
       {/* PRODUCT TABLE */}
 
       {cartItems.length > 0 ? (
-        <div className="flex  justify-between border-b border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 uppercase  px-4 pb-4">
+        <div className="flex text-sm md:text-base  justify-between border-b border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 uppercase  px-4 pb-4">
           <p>Product</p>
           <p>Quantity</p>
           <p>Price</p>
@@ -26,7 +26,7 @@ const CartItems = ({ cartItems }) => {
         <EmptyCart />
       )}
 
-      {cartItems.length > 0 ? (
+      {/* {cartItems.length > 0 ? (
         <div className="gap-4 flex items-center pt-8">
           <input
             type="text"
@@ -40,7 +40,7 @@ const CartItems = ({ cartItems }) => {
         </div>
       ) : (
         ""
-      )}
+      )} */}
     </div>
   );
 };

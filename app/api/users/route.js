@@ -37,6 +37,14 @@ export const POST = async (request) => {
         verificationToken: token,
       },
     });
+    const newUserProfile = await db.userProfile.create({
+      data: {
+        userId: newUser.id,
+        name,
+        email,
+      },
+    });
+    console.log(newUserProfile);
     const userId = newUser.id;
     //send the email if user role is farmer
     if (role === "FARMER") {
@@ -67,12 +75,18 @@ export const POST = async (request) => {
 
 //GETTING USERS
 export const GET = async (request) => {
-  const rawToken = uuidv4();
-
   try {
     const users = await db.user.findMany({
       orderBy: {
         createdAt: "desc",
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true,
+        userProfile: true,
+        role: true,
       },
     });
     return NextResponse.json(users);

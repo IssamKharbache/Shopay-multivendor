@@ -9,14 +9,27 @@ import { getData } from "@/lib/getData";
 
 //ICONS
 import { GoPlus } from "react-icons/go";
-import { FiMinus } from "react-icons/fi";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { MdOutlineDiscount } from "react-icons/md";
 import { FaPaperPlane } from "react-icons/fa";
 import Link from "next/link";
 import IncDecQuantity from "@/components/frontend/uicomponents/IncDecQuantity";
 const SingleProductDetail = async ({ params: { slug } }) => {
-  const category = await getData("/categories/662a151ceb51053c7101b9db");
+  function calculatePercentageDifference(originalPrice, discountedPrice) {
+    // Calculate the difference
+    let difference = originalPrice - discountedPrice;
+
+    // Calculate the proportion difference
+    let proportionDifference = difference / originalPrice;
+
+    // Convert to percentage
+    let percentageDifference = proportionDifference * 100;
+
+    // Return the result
+    return percentageDifference.toFixed(0);
+  }
+  const category = await getData(`categories/`);
+  const product = await getData(`products/product/${slug}`);
   return (
     <div>
       {/* crumbs */}
@@ -27,8 +40,8 @@ const SingleProductDetail = async ({ params: { slug } }) => {
           {/* PICTURE */}
           <div className="col-span-3">
             <Image
-              src="/natur1.jpg"
-              alt="Product"
+              src={product.imageUrl}
+              alt={product.title}
               width={312}
               height={320}
               className="w-full rounded-sm"
@@ -38,7 +51,9 @@ const SingleProductDetail = async ({ params: { slug } }) => {
           <div className="col-span-6">
             {/* title and share */}
             <div className="flex items-center justify-between  ">
-              <h2 className="text-md lg:text-3xl font-semibold">Vitamin C</h2>
+              <h2 className="text-xl lg:text-3xl font-semibold">
+                {product.title}
+              </h2>
               <button>
                 <IoShareSocialOutline className="w-8 h-8" />
               </button>
@@ -46,20 +61,18 @@ const SingleProductDetail = async ({ params: { slug } }) => {
             {/* description */}
             <div className="border-b-[1px] border-b-gray-300 dark:border-b-slate-800 ">
               {/* descr */}
-              <p className="py-2  ">
-                The breadcrumb component is an important part of any website or
-                application that can be used to show the current location of a
-                page in a hierarchical structure of pages.
-              </p>
+              <p className="py-2 text-sm lg:text-lg">{product.description}</p>
               {/* sku */}
-              <div className="flex items-center gap-2 mb-6">
+              <div className="flex justify-between items-center gap-2 mb-6">
                 <p className="flex">
-                  <span className="font-semibold text-blue-400">SKU </span>:
-                  4578477
+                  <span className="font-semibold text-blue-400">SKU </span>:{" "}
+                  {product.sku}
                 </p>
                 <div className="flex gap-2 bg-gray-700 rounded-full  text-white px-3 py-1">
                   <p>Stock :</p>
-                  <p className="font-semibold text-green-400 ">502</p>
+                  <p className="font-semibold text-green-400 ">
+                    {product.productStock}
+                  </p>
                 </div>
               </div>
             </div>
@@ -67,14 +80,21 @@ const SingleProductDetail = async ({ params: { slug } }) => {
             <div className="flex flex-col  pt-4  ">
               <p className="flex items-center gap-2 text-gray-400 dark:text-gray-600">
                 <MdOutlineDiscount className="w-4 h-4" />
-                <span>Save up to 50% right now</span>
+                <span>
+                  Save up to{" "}
+                  {calculatePercentageDifference(
+                    product.productPrice,
+                    product.salePrice
+                  )}
+                  % right now
+                </span>
               </p>
               <div className="flex items-center gap-2 pt-2 pb-4 border-b-[1px] border-b-gray-300 dark:border-b-slate-800 ">
                 <h4 className="text-green-600 dark:text-green-400  text-4xl    rounded-lg">
-                  45.99$
+                  {product.salePrice}$
                 </h4>
                 <del className="text-red-500 dark:text-red-400 justify-end  rounded-lg   opacity-80 text-xl font-semibold">
-                  58.00$
+                  {product.productPrice}$
                 </del>
               </div>
             </div>
@@ -124,7 +144,7 @@ const SingleProductDetail = async ({ params: { slug } }) => {
         <h2 className="text-2xl text-center sm:text-left p-4 font-semibold ml-3">
           Related Products
         </h2>
-        <CategoryCarousel products={category.products} />
+        {/* <CategoryCarousel products={category.products} /> */}
       </div>
     </div>
   );

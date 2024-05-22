@@ -1,7 +1,20 @@
+"use client";
+import { decrementQty, incrementQty } from "@/redux/slices/cartSlice";
 import { FiMinus } from "react-icons/fi";
 import { GoPlus } from "react-icons/go";
+import { useDispatch, useSelector } from "react-redux";
 
 const IncDecQuantity = () => {
+  const dispatch = useDispatch();
+  const cartItems = useSelector((store) => store.cart);
+  //increase qty
+  const handleQtyIncrement = (cartId) => {
+    dispatch(incrementQty(cartId));
+  };
+  //decrease qty
+  const handleQtyDecrement = (cartId) => {
+    dispatch(decrementQty(cartId));
+  };
   return (
     <div className="flex">
       <div className="flex gap-4 rounded border border-gray-300 dark:border-slate-700 items-center">

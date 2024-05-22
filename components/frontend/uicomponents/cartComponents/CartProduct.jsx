@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import IncDecQuantity from "../IncDecQuantity";
+
 import { IoTrashOutline } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import {
@@ -22,12 +22,12 @@ const CartProduct = ({ cartItem }) => {
       position: "top-center",
     });
   };
+  //increase qty
   const handleQtyIncrement = (cartId) => {
-    //dispatch delete slice
     dispatch(incrementQty(cartId));
   };
+  //decrease qty
   const handleQtyDecrement = (cartId) => {
-    //dispatch delete slice
     dispatch(decrementQty(cartId));
   };
   return (
@@ -39,10 +39,10 @@ const CartProduct = ({ cartItem }) => {
           alt={cartItem.title}
           width={250}
           height={250}
-          className="w-20 h-24 object-contain dark:object-cover rounded-md"
+          className="object-cover rounded-lg w-24 h-24"
         />
 
-        <p className="text-lg font-semibold text-center md:text-start w-48 line-clamp-1">
+        <p className=" text-md md:text-lg font-semibold text-center md:text-start w-48 line-clamp-1">
           {cartItem.title}
         </p>
       </div>
@@ -51,14 +51,14 @@ const CartProduct = ({ cartItem }) => {
         <div className="flex">
           <div className="flex gap-4 rounded border border-gray-300 dark:border-slate-700 items-center">
             <button
-              className="border-r-[1px] border-gray-300 dark:border-slate-700 px-3 py-4"
+              className="border-r-[1px] border-gray-300 dark:border-slate-700 py-2 px-2 md:px-3 md:py-4"
               onClick={() => handleQtyDecrement(cartItem.id)}
             >
               <FiMinus size={20} />
             </button>
             <p className="flex-grow  px-8 ">{cartItem.qty}</p>
             <button
-              className="border-l-[1px] border-gray-300 dark:border-slate-700  px-3 py-4"
+              className="border-l-[1px] border-gray-300 dark:border-slate-700 py-2 px-2 md:px-3 md:py-4"
               onClick={() => handleQtyIncrement(cartItem.id)}
             >
               <GoPlus size={20} />
@@ -68,8 +68,8 @@ const CartProduct = ({ cartItem }) => {
       </div>
       {/* price and delete for mobile */}
       <div className="md:hidden flex  items-center gap-2 mt-28">
-        <p className="text-3xl md:text-2xl  font-semibold">
-          {cartItem.salePrice}$
+        <p className="text-xl md:text-2xl  font-semibold">
+          {cartItem.salePrice * cartItem.qty}$
         </p>
         <button onClick={() => handleCartItemDelete(cartItem.id)}>
           <IoTrashOutline className="text-red-500 text-lg hover:scale-110 duration-200" />
@@ -79,7 +79,7 @@ const CartProduct = ({ cartItem }) => {
       {/* price */}
       <div className="md:flex hidden  md:justify-end col-span-5 md:col-span-2 items-center gap-4">
         <p className="text-3xl md:text-2xl   font-semibold">
-          {cartItem.salePrice}$
+          {cartItem.salePrice * cartItem.qty}$
         </p>
         <button onClick={() => handleCartItemDelete(cartItem.id)}>
           <IoTrashOutline className="text-red-500 text-lg hover:scale-110 duration-200" />

@@ -42,7 +42,7 @@ const MarketCarousel = ({ markets }) => {
       {markets.map((market, index) => {
         return (
           <Link
-            href="#"
+            href={`/market/${market.slug}`}
             className="flex items-center flex-col gap-2"
             key={index}
           >

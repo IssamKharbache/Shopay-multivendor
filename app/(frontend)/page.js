@@ -12,7 +12,6 @@ export default async function Home() {
     return category.products.length > 3;
   });
   const session = await getServerSession(authOptions);
-  console.log(session?.user);
   return (
     <div className="min-h-screen ">
       {/* header */}

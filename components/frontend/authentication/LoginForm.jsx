@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import Link from "next/link";
+import { HiInformationCircle } from "react-icons/hi";
+import { Alert } from "flowbite-react";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -16,6 +18,7 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
+  const [wrongCredentials, setWrongCredentials] = useState(false);
 
   async function onSubmit(data) {
     try {
@@ -25,19 +28,21 @@ export default function LoginForm() {
         ...data,
         redirect: false,
       });
-      console.log("SignIn response:", loginData);
+
       if (loginData?.error) {
         setLoading(false);
         if (loginData?.status === 401) {
-          toast.error("Email or password incorrect");
+          setWrongCredentials(true);
         } else if (loginData?.status === 405) {
           toast.error("User not found");
+          setWrongCredentials(false);
         }
       } else {
         // Sign-in was successful
         toast.success("Login Successfully");
         reset();
         router.push("/");
+        setWrongCredentials(false);
       }
     } catch (error) {
       setLoading(false);
@@ -49,6 +54,17 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 ">
       <div>
+        {wrongCredentials ? (
+          <div className="pb-4">
+            <Alert color="red" icon={HiInformationCircle}>
+              <span className="font-medium text-center">
+                Email or Password incorrect !
+              </span>
+            </Alert>
+          </div>
+        ) : (
+          ""
+        )}
         <label
           htmlFor="email"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -60,12 +76,12 @@ export default function LoginForm() {
           type="email"
           name="email"
           id="email"
-          className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="name@company.com"
+          placeholder="name@gmail.com"
+          className="block w-full rounded-sm border-0 py-3 text-gray-900 dark:text-gray-300 dark:bg-slate-800 shadow-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:placeholder:text-gray-500 placeholder:text-sm sm:placeholder:text-base focus:ring-2 focus:ring-inset focus:ring-blue-500 dark:focus:ring-blue-500 sm:text-sm sm:leading-6"
           required=""
         />
         {errors.email && (
-          <small className="text-red-600 text-sm ">
+          <small className="text-red-500 text-sm ">
             This field is required
           </small>
         )}
@@ -83,11 +99,11 @@ export default function LoginForm() {
           name="password"
           id="password"
           placeholder="••••••••"
-          className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="block w-full rounded-sm border-0 py-3 text-gray-900 dark:text-gray-300 dark:bg-slate-800 shadow-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:placeholder:text-gray-500 placeholder:text-sm sm:placeholder:text-base focus:ring-2 focus:ring-inset focus:ring-blue-500 dark:focus:ring-blue-500 sm:text-sm sm:leading-6"
           required=""
         />
         {errors.password && (
-          <small className="text-red-600 text-sm ">
+          <small className="text-red-500 text-sm ">
             This field is required
           </small>
         )}
@@ -97,7 +113,7 @@ export default function LoginForm() {
           <button
             disabled
             type="button"
-            className="w-full text-white bg-blue-500 opacity-50  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 disabled:cursor-not-allowed  dark:focus:ring-blue-800 inline-flex items-center"
+            className="w-full text-white bg-blue-500 opacity-50  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 disabled:cursor-not-allowed  dark:focus:ring-blue-800 inline-flex items-center"
           >
             <svg
               aria-hidden="true"
@@ -121,7 +137,7 @@ export default function LoginForm() {
         ) : (
           <button
             type="submit"
-            className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 duration-200"
           >
             Login
           </button>

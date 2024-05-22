@@ -11,7 +11,7 @@ const CartSubTotal = ({ subTotal }) => {
   ).toFixed(2);
 
   return (
-    <div className="col-span-4 bg-gray-950 text-white  rounded-lg shadow-xl  dark:bg-gray-800   overflow-hidden ">
+    <div className="col-span-4 max-h-[550px] bg-gray-950 text-white  rounded-lg shadow-xl  dark:bg-gray-800   ">
       <div className="p-12 flex flex-col gap-2">
         <h2 className="text-2xl font-semibold pb-3">Cart Total</h2>
         <div className="flex justify-between border-b-[1px] border-b-gray-600 pb-6">

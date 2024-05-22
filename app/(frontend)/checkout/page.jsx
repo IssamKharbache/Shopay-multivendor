@@ -10,7 +10,7 @@ const page = () => {
     { number: 4, title: "Order Summary" },
   ];
   return (
-    <div className="bg-slate-200 dark:bg-slate-900 min-h-screen px-4 py-5">
+    <div className="min-h-screen px-4 py-5">
       <div className="max-w-3xl my-6 mx-auto ">
         {/*  STEPS */}
         <Steps steps={steps} />

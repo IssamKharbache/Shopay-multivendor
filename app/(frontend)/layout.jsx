@@ -5,7 +5,7 @@ const layout = ({ children }) => {
   return (
     <div>
       <NavBar />
-      <div className=" max-w-7xl font-poppins min-h-screen mx-auto  px-4 lg:px-0 ">
+      <div className="max-w-7xl font-poppins min-h-screen mx-auto  px-4 lg:px-0 ">
         {children}
       </div>
       <Footer />
