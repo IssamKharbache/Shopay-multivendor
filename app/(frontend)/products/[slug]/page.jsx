@@ -8,28 +8,26 @@ import BreadCrumbs from "@/components/frontend/uicomponents/BreadCrumbs";
 import { getData } from "@/lib/getData";
 
 //ICONS
-import { GoPlus } from "react-icons/go";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { MdOutlineDiscount } from "react-icons/md";
 import { FaPaperPlane } from "react-icons/fa";
 import Link from "next/link";
-import IncDecQuantity from "@/components/frontend/uicomponents/IncDecQuantity";
+import AddToCartBtn from "@/components/frontend/uicomponents/AddToCartBtn";
+import { calculatePercentageDifference } from "@/lib/calculatePercentageDifference";
 const SingleProductDetail = async ({ params: { slug } }) => {
-  function calculatePercentageDifference(originalPrice, discountedPrice) {
-    // Calculate the difference
-    let difference = originalPrice - discountedPrice;
+  //calculate difference between discount price and normal price
 
-    // Calculate the proportion difference
-    let proportionDifference = difference / originalPrice;
-
-    // Convert to percentage
-    let percentageDifference = proportionDifference * 100;
-
-    // Return the result
-    return percentageDifference.toFixed(0);
-  }
-  const category = await getData(`categories/`);
   const product = await getData(`products/product/${slug}`);
+
+  //getting related product without the one on the page
+  const { id } = product;
+  const categoryId = product.categoryId;
+  const category = await getData(`categories/${categoryId}`);
+  const categoryProducts = category.products;
+  const productsRelated = categoryProducts.filter(
+    (product) => id !== product.id
+  );
+
   return (
     <div>
       {/* crumbs */}
@@ -44,7 +42,7 @@ const SingleProductDetail = async ({ params: { slug } }) => {
               alt={product.title}
               width={312}
               height={320}
-              className="w-full rounded-sm"
+              className="w-full rounded-sm object-cover "
             />
           </div>
           {/* PRODUCT INFORMATION */}
@@ -99,18 +97,7 @@ const SingleProductDetail = async ({ params: { slug } }) => {
               </div>
             </div>
             {/* add quantity and add to cart */}
-            <div className="py-4 flex justify-between">
-              <IncDecQuantity />
-              {/* add to cart */}
-              <button className="rounded-md relative w-36 h-12 cursor-pointer flex items-center  bg-blue-400 group   active:bg-blue-400  dark:bg-slate-500">
-                <span className="text-gray-200 font-semibold ml-2 transform group-hover:translate-x-5 transition-all rounded-md duration-300">
-                  Add To Cart
-                </span>
-                <span className="absolute right-0 h-md w-8 rounded-md bg-blue-400 dark:bg-slate-500  flex items-center justify-center transform group-hover:translate-x-0 group-hover:w-full transition-all duration-300">
-                  <GoPlus className="w-6 h-6 text-white" />
-                </span>
-              </button>
-            </div>
+            <AddToCartBtn product={product} />
           </div>
           {/* DELIVERY INFO */}
           <div className="sm:block col-span-3 bg-gray-200 border border-gray-200 rounded-lg shadow-xl  dark:bg-gray-800 dark:border-gray-700  overflow-hidden hidden">
@@ -144,7 +131,7 @@ const SingleProductDetail = async ({ params: { slug } }) => {
         <h2 className="text-2xl text-center sm:text-left p-4 font-semibold ml-3">
           Related Products
         </h2>
-        {/* <CategoryCarousel products={category.products} /> */}
+        <CategoryCarousel products={productsRelated} />
       </div>
     </div>
   );

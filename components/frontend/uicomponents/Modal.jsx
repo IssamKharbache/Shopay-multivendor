@@ -8,6 +8,7 @@ import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { BiSolidTruck } from "react-icons/bi";
 import { FaDollarSign } from "react-icons/fa";
 import { HiMiniChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
+import { X } from "lucide-react";
 
 export default function HelpModal() {
   const [openModal, setOpenModal] = useState(false);
@@ -72,10 +73,11 @@ export default function HelpModal() {
         <Modal.Footer>
           {/* Footer here */}
           <button
-            className="bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 duration-300"
+            className="bg-red-500 flex items-center gap-2 text-white p-3 rounded-lg hover:bg-red-600 duration-300"
             onClick={() => setOpenModal(false)}
           >
-            Close
+            <span>Close</span>
+            <X size={20} />
           </button>
         </Modal.Footer>
       </Modal>

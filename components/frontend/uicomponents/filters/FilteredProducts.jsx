@@ -3,7 +3,12 @@ import React from "react";
 import Product from "../Product";
 import Paginate from "./Paginate";
 
-const FilteredProducts = async ({ products }) => {
+const FilteredProducts = async ({ products, productCount, isSearch }) => {
+  //PAGINATION
+  const pageSize = 3;
+  const totalProductCount = productCount;
+  const totalPages = Math.ceil(totalProductCount / pageSize);
+
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3">
@@ -18,7 +23,15 @@ const FilteredProducts = async ({ products }) => {
         )}
       </div>
       <div className="p-8 mx-auto flex items-center justify-center ">
-        {products.length > 0 ? <Paginate /> : ""}
+        {products.length > 0 ? (
+          <Paginate
+            totalPages={totalPages}
+            isSearch={isSearch}
+            productCount={productCount}
+          />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

@@ -1,9 +1,24 @@
 "use client";
 import { Circle } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
-const PriceFilter = ({ slug }) => {
+const PriceFilter = ({ slug, isSearch }) => {
+  const { register, handleSubmit, reset } = useForm();
+  const router = useRouter();
+  const useParams = useSearchParams();
+  //params
+  const min = useParams.get("min") || 0;
+  const max = useParams.get("max") || "";
+  const search = useParams.get("search") || "";
+  const page = useParams.get("page") || 1;
+  const sort = useParams.get("sort") || "asc";
+
+  //list of price ranges
   const priceRanges = [
     {
       displayName: "Under 300$",
@@ -13,51 +28,170 @@ const PriceFilter = ({ slug }) => {
     { displayName: "Above 700$", min: 700 },
   ];
 
+  // const handleMinMax = () => {
+  //   if (maxValue && minValue && minValue >= maxValue) {
+  //     toast.error("The minimum Price must be less than the maximum Price", {
+  //       position: "top-center",
+  //     });
+  //     setMinValue("");
+  //     setMaxValue("");
+  //   } else if (maxValue && minValue) {
+  //     router.push(`/category/${slug}?sort=asc&min=${minValue}&max=${maxValue}`);
+  //     setMinValue("");
+  //     setMaxValue("");
+  //   } else if (maxValue) {
+  //     router.push(`/category/${slug}?sort=asc&max=${maxValue}`);
+  //   } else if (minValue) {
+  //     router.push(`/category/${slug}?sort=asc&min=${minValue}`);
+  //     setMinValue("");
+  //     setMaxValue("");
+  //   } else {
+  //     toast.error("Please enter a max and min price to search", {
+  //       position: "top-center",
+  //     });
+  //     setMinValue("");
+  //     setMaxValue("");
+  //   }
+  // };
+  const onSubmit = (data) => {
+    const { min, max } = data;
+
+    if (!min || !max) {
+      toast.error("Please enter a Maximum and Minimum Price to Search", {
+        position: "top-center",
+      });
+    } else if (min > max) {
+      toast.error("The Minimum Price Should be less than The Maximum Price", {
+        position: "top-center",
+      });
+      reset();
+    } else if (min && max) {
+      if (isSearch) {
+        router.push(
+          `/search?search=${search}&page=${page}&sort=asc&min=${min}&max=${max}`
+        );
+      } else {
+        router.push(
+          `/category/${slug}?page=${page}&sort=asc&min=${min}&max=${max}`
+        );
+      }
+      reset();
+    } else if (max) {
+      if (isSearch) {
+        router.push(
+          `/search?search=${search}&page=${page}&sort=asc&min=${min}&max=${max}`
+        );
+      } else {
+        router.push(
+          `/category/${slug}?page=${page}&sort=asc&min=${min}&max=${max}`
+        );
+      }
+      reset();
+    } else if (min) {
+      if (isSearch) {
+        router.push(
+          `/search?search=${search}&page=${page}&sort=asc&min=${min}&max=${max}`
+        );
+      } else {
+        router.push(
+          `/category/${slug}?page=${page}&sort=asc&min=${min}&max=${max}`
+        );
+      }
+      reset();
+    }
+  };
   return (
-    <div>
+    <div className="pb-4">
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between">
-          <h2 className="bg-blue-400 text-white py-2 px-2 rounded-sm">
+        <div className="flex flex-col md:flex-row justify-between gap-2">
+          <h2 className=" text-gray-800 dark:text-gray-300 font-semibold py-2">
             Price Sorting
           </h2>
           <Link
-            href={`/category/${slug}?sort=asc`}
-            className="bg-red-500 py-2 text-center px-4 text-white items-center rounded-sm"
+            href={
+              isSearch
+                ? `/search?search=${search}&page=${page}`
+                : `/category/${slug}?page=${page}&sort=asc&min=0&max=`
+            }
+            className="bg-red-500 hover:bg-red-600 py-2 text-center px-4 duration-200 text-white items-center rounded-sm"
           >
-            Reset
+            Reset Filters
           </Link>
         </div>
 
         {/* Filters */}
-        {priceRanges.map((priceRange, i) => {
+        {priceRanges.map((range, i) => {
           //getting the link depends on the range
-          const href =
-            priceRange.min && priceRange.max
-              ? `/category/${slug}?sort=asc&min=${priceRange.min}&max=${priceRange.max}`
-              : priceRange.min && !priceRange.max
-              ? `/category/${slug}?sort=asc&min=${priceRange.min}`
-              : `/category/${slug}?sort=asc&max=${priceRange.max}`;
+          const href = isSearch
+            ? `?${new URLSearchParams({
+                search,
+                page,
+                sort,
+                min: range.min || 0,
+                max: range.max || "",
+              })}`
+            : `?${new URLSearchParams({
+                page,
+                sort,
+                min: range.min || 0,
+                max: range.max || 0,
+              })}`;
 
           return (
             <div key={i} className="flex flex-col gap-2">
               <Link
                 className={`${
-                  "" === href
-                    ? "border-blue-500 text-blue-500 flex items-center justify-between border  dark:text-gray-300  rounded-md px-4 py-2"
-                    : "flex items-center justify-between border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-300  rounded-md px-4 py-2"
+                  (range.min && range.min == min) ||
+                  (range.max && range.max == max) ||
+                  (range.min &&
+                    range.mix &&
+                    range.min == min &&
+                    range.max == max)
+                    ? "border-blue-500 text-blue-500 flex items-center   justify-between border  dark:text-gray-300  rounded-md px-4 py-2"
+                    : "flex items-center justify-between border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-300  rounded-md px-4 py-2 "
                 }`}
                 href={`${href}`}
               >
-                {priceRange.displayName}
+                {range.displayName}
                 <Circle
                   className={`${
-                    "" === href ? "text-blue-500" : "text-gray-500"
+                    (range.min && range.min == min) ||
+                    (range.max && range.max == max) ||
+                    (range.min &&
+                      range.mix &&
+                      range.min == min &&
+                      range.max == max)
+                      ? "text-blue-500"
+                      : "text-gray-500"
                   }`}
-                />{" "}
+                />
               </Link>
             </div>
           );
         })}
+        <div className="flex flex-col gap-2">
+          <h2 className="font-semibold">Custome Price Range</h2>
+          <form onSubmit={handleSubmit(onSubmit)} className="flex gap-2">
+            <input
+              {...register("min")}
+              type="number"
+              className="block w-full rounded-sm border-0 py-3 text-gray-900 dark:text-gray-300 dark:bg-gray-800 shadow-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:placeholder:text-gray-500 placeholder:text-sm sm:placeholder:text-base focus:ring-2 focus:ring-inset focus:ring-blue-500 dark:focus:ring-blue-500 sm:text-sm sm:leading-6"
+              placeholder="Min"
+            />
+            <input
+              {...register("max")}
+              type="number"
+              placeholder="Max"
+              className="block w-full rounded-sm border-0 py-3 text-gray-900 dark:text-gray-300 dark:bg-gray-800 shadow-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 dark:placeholder:text-gray-500 placeholder:text-sm sm:placeholder:text-base focus:ring-2 focus:ring-inset focus:ring-blue-500 dark:focus:ring-blue-500 sm:text-sm sm:leading-6"
+            />
+            <button
+              type="submit"
+              className="bg-blue-400 py-3 px-4 rounded-md hover:bg-blue-600 duration-200 text-white"
+            >
+              Go
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

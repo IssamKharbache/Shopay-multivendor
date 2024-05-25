@@ -1,4 +1,5 @@
 import db from "@/lib/db";
+
 import { NextResponse } from "next/server";
 
 export const POST = async (request) => {
@@ -79,13 +80,19 @@ export const POST = async (request) => {
 
 export const GET = async (request) => {
   const categoryId = request.nextUrl.searchParams.get("catId");
+  //price params
   const sortBy = request.nextUrl.searchParams.get("sort");
   const min = request.nextUrl.searchParams.get("min");
   const max = request.nextUrl.searchParams.get("max");
+  //page params
+  const page = request.nextUrl.searchParams.get("page") || 1;
+  const pageSize = 3;
 
+  //sorting by price
   let where = {
     categoryId,
   };
+  //sorting by min and max
   if (min && max) {
     where.salePrice = {
       gte: parseFloat(min),
@@ -103,19 +110,25 @@ export const GET = async (request) => {
 
   let products;
   try {
-    if (categoryId && sortBy) {
+    //paginatin
+    if (sortBy) {
       products = await db.product.findMany({
         where,
         orderBy: {
           salePrice: sortBy,
         },
+        skip: (parseInt(page) - 1) * parseInt(pageSize),
+        take: parseInt(pageSize),
       });
+      //sort desc or asc
     } else if (categoryId) {
       products = await db.product.findMany({
         where,
         orderBy: {
           createdAt: "asc",
         },
+        skip: (parseInt(page) - 1) * parseInt(pageSize),
+        take: parseInt(pageSize),
       });
     } else {
       products = await db.product.findMany({

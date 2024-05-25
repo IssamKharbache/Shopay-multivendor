@@ -9,11 +9,11 @@ import "react-multi-carousel/lib/styles.css";
 
 import Product from "../Product";
 
-const CategoryCarousel = ({ products, className }) => {
+const CategoryCarousel = ({ products, className, isMarketPage = false }) => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 4,
+      items: isMarketPage ? 3 : 4,
       slidesToSlide: 1, // optional, default to 1.
     },
     tablet: {

@@ -6,20 +6,25 @@ import Sorting from "./Sorting";
 
 const FilterComponent = ({ category, products }) => {
   const { title, slug } = category;
+  const productCount = category?.products?.length;
 
   return (
     <div>
       <div className=" space-y-4 py-8 px-4 ">
         {/* BREAD CRUMB */}
-        <BreadCrumb title={title} />
+        <BreadCrumb title={title} resultCount={productCount} />
         {/*  */}
-        <Sorting title={title} slug={slug} />
-        <div className="grid grid-cols-12 py-8 gap-4">
+        <Sorting isSearch={category?.isSearch} title={title} slug={slug} />
+        <div className="grid grid-cols-12 py-8 gap-8">
           <div className="col-span-3">
-            <Filters slug={slug} />
+            <Filters slug={slug} isSearch={category?.isSearch} />
           </div>
           <div className="col-span-9">
-            <FilteredProducts products={products} />
+            <FilteredProducts
+              isSearch={category?.isSearch}
+              productCount={productCount}
+              products={products}
+            />
           </div>
         </div>
       </div>

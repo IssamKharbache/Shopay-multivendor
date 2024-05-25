@@ -22,7 +22,6 @@ const checkoutSlice = createSlice({
   },
 });
 
-export const { setCurrentStep, updateCheckoutFormData, setPreviousStep } =
-  checkoutSlice.actions;
+export const { setCurrentStep, updateCheckoutFormData } = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;

@@ -1,11 +1,10 @@
 import BrandFilter from "./BrandFilter";
 import PriceFilter from "./PriceFilter";
 
-const Filters = ({ slug }) => {
+const Filters = ({ slug, isSearch }) => {
   return (
     <div>
-      <PriceFilter slug={slug} />
-      <BrandFilter />
+      <PriceFilter slug={slug} isSearch={isSearch} />
     </div>
   );
 };

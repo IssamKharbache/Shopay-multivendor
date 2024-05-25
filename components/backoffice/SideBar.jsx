@@ -92,6 +92,7 @@ const SideBar = ({ sideBarOpen }) => {
   const role = session?.user?.role;
   if (role === "FARMER") {
     sidebarLinks = [
+      { title: "My Orders", icon: TbShoppingBag, href: "/dashboard/orders" },
       {
         title: "Sales",
         icon: RiCoinsLine,
@@ -102,11 +103,7 @@ const SideBar = ({ sideBarOpen }) => {
         icon: MdOutlineContactSupport,
         href: "/dashboard/farmer-support",
       },
-      {
-        title: "Shopay Community",
-        icon: RiCommunityFill,
-        href: "/dashboard/community",
-      },
+
       { title: "Wallet", icon: LuBadgeDollarSign, href: "/dashboard/wallet" },
       {
         title: "Online Store",

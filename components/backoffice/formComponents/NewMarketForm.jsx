@@ -13,7 +13,7 @@ import ToggleInput from "@/components/backoffice/inputformComponents/ToggleInput
 import SelectInput from "@/components/backoffice/inputformComponents/SelectInput";
 import { useRouter } from "next/navigation";
 
-const NewMarketForm = ({ categories, marketData = {} }) => {
+const NewMarketForm = ({ categories, marketData }) => {
   const initialImageUrl = marketData?.logoUrl ?? "";
   const id = marketData?.id ?? "";
   const [imageUrl, setImageUrl] = useState(initialImageUrl);

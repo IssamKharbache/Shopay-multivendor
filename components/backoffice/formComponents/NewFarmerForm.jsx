@@ -180,7 +180,7 @@ const NewFarmerForm = ({ user }) => {
 
           <ImageInput
             label="Farmer profile image"
-            endpoint="farmerProfileImage"
+            endpoint="sellerImageUploader"
             imageUrl={imageUrl}
             setImageUrl={setImageUrl}
             getValue={getValue}

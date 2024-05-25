@@ -139,7 +139,7 @@ model User {
   role              UserRole @default(USER)
   verificationToken String?
 
-  farmerProfile FarmerProfile?
+  sellerProfile SellerProfile?
   userProfile   UserProfile?
 
   createdAt DateTime @default(now())
@@ -175,22 +175,22 @@ model UserProfile {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model FarmerProfile {
+model SellerProfile {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
-  farmerCode      String
-  adress          String
+  code            String?
+  adress          String?
   contactPerson   String?
   contactPhone    String?
-  email           String
   profileimageUrl String?
-  name            String
+  firstName       String?
+  lastName        String?
+  mainProduct     String?
+  businessName    String?
   notes           String?
-  phone           String
   terms           String?
-  isActive        Boolean
-  landSize        Float
+  isExperienced   Boolean?
+  isActive        Boolean?
   products        String[]
-  mainCrop        String
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId String @unique @db.ObjectId

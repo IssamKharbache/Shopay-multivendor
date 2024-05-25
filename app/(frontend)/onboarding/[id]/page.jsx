@@ -1,21 +1,23 @@
-import NewFarmerForm from "@/components/backoffice/formComponents/NewFarmerForm";
-import { getData } from "@/lib/getData";
-import React from "react";
+import StepForms from "@/components/frontend/onboardingSeller/StepForms";
+import Steps from "@/components/frontend/onboardingSeller/Steps";
 
-const page = async ({ params: { id } }) => {
-  const user = await getData(`users/${id}`);
+const page = ({ params: { id } }) => {
+  const steps = [
+    { number: 1, title: "Personal Information" },
+    { number: 2, title: "Seller Details" },
+    { number: 3, title: "Additional Information" },
+    { number: 4, title: "Summary" },
+  ];
   return (
-    <div className="flex flex-col gap-6 m-10">
-      <div className="max-w-4xl p-4 mx-auto">
-        <h2 className="p-2 rounded-sm text-lg ">
-          Hey{" "}
-          <span className="text-blue-600 font-bold text-2xl">
-            {user && user.name}
-          </span>
-          {""}, Tell Us More About Yourself,To Complete the verification step
-        </h2>
+    <div className="min-h-screen px-4 py-5">
+      <div className="max-w-3xl my-6 mx-auto ">
+        {/*  STEPS */}
+        <Steps steps={steps} />
+        <div className="w-full  p-4 bg-slate-100 border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mt-6">
+          {/* FORM */}
+          <StepForms sellerId={id} />
+        </div>
       </div>
-      <NewFarmerForm user={user} />
     </div>
   );
 };

@@ -3,11 +3,11 @@ import { NextResponse } from "next/server";
 
 export const POST = async (request) => {
   try {
-    const farmerData = await request.json();
+    const sellerData = await request.json();
     //check if the user already exists
     const alreadyExists = await db.user.findUnique({
       where: {
-        id: farmerData.userId,
+        id: sellerData.userId,
       },
     });
     if (!alreadyExists) {
@@ -19,39 +19,39 @@ export const POST = async (request) => {
     //update the user verification
     const updatedUser = await db.user.update({
       where: {
-        id: farmerData.userId,
+        id: sellerData.userId,
       },
       data: {
         emailVerified: true,
       },
     });
 
-    const newFarmer = await db.farmerProfile.create({
+    const newSeller = await db.sellerProfile.create({
       data: {
-        farmerCode: farmerData.farmerCode,
-        adress: farmerData.adress,
-        contactPerson: farmerData.contactPerson,
-        contactPhone: farmerData.contactPhone,
-        email: farmerData.email,
-        profileimageUrl: farmerData.profileImageUrl,
-        name: farmerData.name,
-        notes: farmerData.notes,
-        phone: farmerData.phone,
-        terms: farmerData.terms,
-        isActive: farmerData.isActive,
-        landSize: parseFloat(farmerData.landSize),
-        products: farmerData.products,
-        mainCrop: farmerData.mainCrop,
-        userId: farmerData.userId,
+        code: sellerData.farmerCode,
+        adress: sellerData.adress,
+        contactPerson: sellerData.contactPerson,
+        contactPhone: sellerData.contactPhone,
+        email: sellerData.email,
+        profileimageUrl: sellerData.profileImageUrl,
+        name: sellerData.name,
+        notes: sellerData.notes,
+        phone: sellerData.phone,
+        terms: sellerData.terms,
+        isActive: sellerData.isActive,
+        landSize: parseFloat(sellerData.landSize),
+        products: sellerData.products,
+        mainCrop: sellerData.mainCrop,
+        userId: sellerData.userId,
       },
     });
-    console.log(newFarmer);
-    return NextResponse.json(newFarmer);
+    console.log(newSeller);
+    return NextResponse.json(newSeller);
   } catch (error) {
     console.log(error);
     return NextResponse.json(
       {
-        error: "Failed creating new farmer try again ",
+        error: "Failed creating new seller try again ",
       },
       { status: 500 }
     );
