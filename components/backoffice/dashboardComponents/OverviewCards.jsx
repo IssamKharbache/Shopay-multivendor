@@ -49,7 +49,7 @@ const OverviewCards = ({ sales, products }) => {
                     <p className="font-semibold text-xl">{analytic.count}</p>
                   </div>
 
-                  {/* icon down */}
+                  {/* icon  */}
                   <div className="w-16 h-16 flex items-center justify-center  bg-blue-400 dark:bg-slate-700 rounded-full py-4 px-3">
                     <Icon className="w-8 h-8 text-white" />
                   </div>

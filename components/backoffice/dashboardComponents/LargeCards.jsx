@@ -1,26 +1,29 @@
 import React from "react";
 import SingleLargCard from "./SingleLargCard";
 
-const LargeCards = () => {
+const LargeCards = ({ sales }) => {
+  const totalSales = sales
+    .reduce((acc, item) => acc + item.total, 0)
+    .toFixed(2);
   const ordersStats = [
     {
-      time: "Today orders",
-      sells: 522,
+      time: "Total Sales",
+      sales: 588,
       color: "bg-blue-600",
     },
     {
       time: "Yesterday orders",
-      sells: 250,
+      sales: 250,
       color: "bg-green-800",
     },
     {
       time: "This month orders",
-      sells: 15000,
+      sales: 15000,
       color: "bg-orange-400",
     },
     {
-      time: "All orders",
-      sells: 150000,
+      time: "All-Time Sales",
+      sales: totalSales,
       color: "bg-purple-400",
     },
   ];

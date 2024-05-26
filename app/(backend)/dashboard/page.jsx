@@ -8,10 +8,17 @@ import { authOptions } from "@/lib/authOptions";
 
 import UserDashboard from "@/components/backoffice/dashboardComponents/UserDashboard";
 import SellerDashboard from "@/components/backoffice/dashboardComponents/SellerDashboard";
+import { getData } from "@/lib/getData";
 
 const page = async () => {
   const session = await getServerSession(authOptions);
-  const role = session?.user?.role;
+  const user = session?.user;
+  const { role } = user;
+
+  //filtering products and sales that belong to the seller
+  const sales = await getData("sales");
+  const orders = await getData("orders");
+
   if (role === "SELLER") {
     return <SellerDashboard />;
   } else if (role === "USER") {
@@ -21,9 +28,9 @@ const page = async () => {
       <div>
         <Heading title="Dashboard overview" />
         {/* Large card */}
-        <LargeCards />
+        <LargeCards sales={sales} />
         {/* Small cards */}
-        <SmallersCards />
+        <SmallersCards orders={orders} />
         {/* charts */}
         <DashboardCharts />
       </div>

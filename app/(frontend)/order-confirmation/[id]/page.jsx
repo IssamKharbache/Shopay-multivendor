@@ -1,12 +1,13 @@
 import { getData } from "@/lib/getData";
 import { CheckCircle2 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const page = async ({ params: { id } }) => {
   const order = await getData(`orders/${id}`);
   const { orderItems } = order;
   const shippingCost = order.shippingCost;
-  console.log(order);
+
   const subTotal = orderItems
     .reduce((acc, item) => acc + item.price * item.quantity, 0)
     .toFixed(2);
@@ -17,12 +18,12 @@ const page = async ({ params: { id } }) => {
         <div className="max-w-2xl mx-auto">
           <div className="relative mt-6 overflow-hidden bg-slate-200 dark:bg-slate-700 rounded-lg shadow md:mt-10">
             <div className="absolute top-4 right-4">
-              <button
-                type="button"
+              <Link
+                href={`/dashboard/orders/${order.id}/invoice`}
                 className="inline-flex items-center justify-center px-4 py-3 text-xs font-bold text-gray-900 transition-all duration-200 bg-gray-100 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-200"
               >
                 View invoice
-              </button>
+              </Link>
             </div>
 
             <div className="px-4 py-6 sm:px-8 sm:py-10">

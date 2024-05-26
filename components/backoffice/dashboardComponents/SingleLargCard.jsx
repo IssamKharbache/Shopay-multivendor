@@ -8,7 +8,7 @@ const SingleLargCard = ({ data }) => {
     >
       <CiShoppingBasket size={25} />
       <h4>{data.time}</h4>
-      <h2 className="lg:text-3xl text-xl">${data.sells}</h2>
+      <h2 className="lg:text-3xl text-xl">${data.sales}</h2>
     </div>
   );
 };

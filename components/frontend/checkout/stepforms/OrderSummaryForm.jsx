@@ -1,6 +1,9 @@
 "use client";
-import { removeFromCart } from "@/redux/slices/cartSlice";
-import { setCurrentStep, setPreviousStep } from "@/redux/slices/checkoutSlice";
+import { addToCart, removeFromCart } from "@/redux/slices/cartSlice";
+import {
+  setCurrentStep,
+  updateCheckoutFormData,
+} from "@/redux/slices/checkoutSlice";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -15,7 +18,7 @@ const OrderSummaryForm = () => {
 
   //checkout slice
   const dispatch = useDispatch();
-  const cartLocal = useSelector((store) => store.cart);
+
   const currentStep = useSelector((store) => store.checkout.currentStep);
   const checkoutFormData = useSelector(
     (store) => store.checkout.checkoutFormData

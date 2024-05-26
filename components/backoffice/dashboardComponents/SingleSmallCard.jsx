@@ -3,7 +3,7 @@ import { IoCart } from "react-icons/io5";
 
 const SingleSmallCard = ({ data }) => {
   return (
-    <div className="rounded-lg shadow-lg bg-gray-100 dark:bg-slate-600 p-4 ">
+    <div className="rounded-lg shadow-lg bg-slate-200 dark:bg-slate-600 p-4 ">
       {/*  */}
       <div className="flex space-x-8">
         <div
