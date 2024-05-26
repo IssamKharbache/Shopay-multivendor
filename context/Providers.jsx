@@ -13,7 +13,7 @@ import { store } from "@/redux/store";
 export const Providers = ({ children }) => {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
-      <Toaster richColors />
+      <Toaster position="top-center" richColors />
       <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
       <SessionProvider>
         <Provider store={store}>{children}</Provider>

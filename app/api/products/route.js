@@ -8,7 +8,7 @@ export const POST = async (request) => {
       barcode,
       categoryId,
       description,
-      farmerId,
+      sellerId,
       productImages,
       isActive,
       isWholeSale,
@@ -45,7 +45,7 @@ export const POST = async (request) => {
         barcode,
         categoryId,
         description,
-        userId: farmerId,
+        userId: sellerId,
         productImages,
         imageUrl: productImages[0],
         isActive,
@@ -86,7 +86,7 @@ export const GET = async (request) => {
   const max = request.nextUrl.searchParams.get("max");
   //page params
   const page = request.nextUrl.searchParams.get("page") || 1;
-  const pageSize = 3;
+  const pageSize = 5;
 
   //sorting by price
   let where = {

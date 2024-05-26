@@ -90,18 +90,17 @@ const SideBar = ({ sideBarOpen }) => {
 
   //showing specific links depends on the role
   const role = session?.user?.role;
-  if (role === "FARMER") {
+  if (role === "SELLER") {
     sidebarLinks = [
-      { title: "My Orders", icon: TbShoppingBag, href: "/dashboard/orders" },
       {
         title: "Sales",
         icon: RiCoinsLine,
         href: "/dashboard/sales",
       },
       {
-        title: "Farmer Support",
+        title: "Seller Support",
         icon: MdOutlineContactSupport,
-        href: "/dashboard/farmer-support",
+        href: "/dashboard/seller-support",
       },
 
       { title: "Wallet", icon: LuBadgeDollarSign, href: "/dashboard/wallet" },

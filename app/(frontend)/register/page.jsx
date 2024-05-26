@@ -1,4 +1,3 @@
-import Logo from "@/components/Logo";
 import RegisterForm from "@/components/frontend/authentication/RegisterForm";
 
 export default function Register() {

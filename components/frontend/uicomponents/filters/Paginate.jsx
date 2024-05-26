@@ -18,7 +18,7 @@ const Paginate = ({ totalPages, isSearch, productCount }) => {
   const sort = searchParams.get("sort") || "asc";
   const currentPage = parseInt(searchParams.get("page")) || 1;
 
-  const actualPages = Math.ceil(productCount / 3);
+  const actualPages = Math.ceil(productCount / 5);
 
   return (
     <div>

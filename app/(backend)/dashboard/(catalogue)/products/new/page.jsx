@@ -6,14 +6,7 @@ const NewProduct = async () => {
   //GETTING DATA AND MANUPILATE IT TO GET WHAT WE NEED
   const categoriesData = await getData("categories");
   const usersData = await getData("users");
-  const farmersData = usersData.filter((user) => user.role === "FARMER");
-  //getting only id and name of the farmer
-  const farmers = farmersData.map((farmer) => {
-    return {
-      id: farmer.id,
-      title: farmer.name,
-    };
-  });
+
   //getting only id and name of the category
   const categories = categoriesData.map((category) => {
     return {
@@ -25,7 +18,7 @@ const NewProduct = async () => {
   return (
     <div>
       <FormHeader headerTitle="New Product" />
-      <NewProductForm categories={categories} farmers={farmers} />
+      <NewProductForm categories={categories} />
     </div>
   );
 };

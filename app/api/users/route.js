@@ -8,7 +8,7 @@ import { sendEmail } from "@/lib/nodemailer";
 //REGISTRING A NEW USER
 export const POST = async (request) => {
   try {
-    const { name, email, password, role } = await request.json();
+    const { name, email, password, role, plan } = await request.json();
 
     //check if the user already exists
     const alreadyExists = await db.user.findUnique({
@@ -35,6 +35,7 @@ export const POST = async (request) => {
         password: hashedPassword,
         role,
         verificationToken: token,
+        plan,
       },
     });
     const newUserProfile = await db.userProfile.create({
@@ -44,10 +45,10 @@ export const POST = async (request) => {
         email,
       },
     });
-    console.log(newUserProfile);
+
     const userId = newUser.id;
     //send the email if user role is farmer
-    if (role === "FARMER") {
+    if (role === "SELLER") {
       sendEmail({
         redirectUrl: `onboarding/${userId}/?token=${token}`,
         email,
@@ -55,7 +56,7 @@ export const POST = async (request) => {
         linkText: "Verify your account",
         description:
           "Thanks for creating an account with us please click in the button below to verify your account",
-        previewText: "Account verification to become a farmer in shopay",
+        previewText: "Account verification to become a seller in shopay",
         subject: "Email Verification - Shopay",
         buttonTitle: "Verify your account",
       });

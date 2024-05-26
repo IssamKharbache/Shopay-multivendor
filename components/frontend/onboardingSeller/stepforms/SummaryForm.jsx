@@ -41,14 +41,17 @@ const SummaryForm = ({ sellerId }) => {
     const sellerUniqueCode = generateUserCode("SP", fullName);
     data.code = sellerUniqueCode;
     data.userId = sellerId;
-    console.log(data);
-    // makePostRequest(setLoading, "api/sellers", data, "Seller Account");
+    makePostRequest(setLoading, "api/sellers", data, "Seller Account");
+    router.push("/login");
   };
 
   return (
     <div>
       <h1>Summary</h1>
       <div className="mt-8 flex gap-8">
+        <div>
+          <h1>Personal</h1>
+        </div>
         {currentStep > 1 && (
           <button
             onClick={handlePreviousStep}

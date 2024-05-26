@@ -117,7 +117,7 @@ model Blogs {
 //USER => ADMIN || FARMER || CUSTOMER || STAFF
 enum UserRole {
   ADMIN
-  FARMER
+  SELLER
   MODERATOR
   USER
 }
@@ -127,7 +127,7 @@ enum OrderStatus {
   PROCESSING
   SHIPPED
   DELIVERED
-  CANCELEd
+  CANCELED
 }
 
 model User {
@@ -138,6 +138,7 @@ model User {
   emailVerified     Boolean? @default(false)
   role              UserRole @default(USER)
   verificationToken String?
+  plan              String?
 
   sellerProfile SellerProfile?
   userProfile   UserProfile?
@@ -179,6 +180,7 @@ model SellerProfile {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
   code            String?
   adress          String?
+  phone           String?
   contactPerson   String?
   contactPhone    String?
   profileimageUrl String?

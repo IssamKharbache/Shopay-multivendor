@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 export const POST = async (request) => {
   try {
     const sellerData = await request.json();
+
     //check if the user already exists
     const alreadyExists = await db.user.findUnique({
       where: {
@@ -12,7 +13,7 @@ export const POST = async (request) => {
     });
     if (!alreadyExists) {
       NextResponse.json(
-        { data: null, Message: "No user found " },
+        { data: null, Message: "User not found , register first " },
         { status: 404 }
       );
     }
@@ -28,20 +29,19 @@ export const POST = async (request) => {
 
     const newSeller = await db.sellerProfile.create({
       data: {
-        code: sellerData.farmerCode,
-        adress: sellerData.adress,
+        code: sellerData.code,
+        adress: sellerData.physicalAddress,
         contactPerson: sellerData.contactPerson,
         contactPhone: sellerData.contactPhone,
-        email: sellerData.email,
-        profileimageUrl: sellerData.profileImageUrl,
-        name: sellerData.name,
+        profileimageUrl: sellerData.imageUrl,
+        firstName: sellerData.firstName,
+        lastName: sellerData.lastName,
         notes: sellerData.notes,
         phone: sellerData.phone,
         terms: sellerData.terms,
-        isActive: sellerData.isActive,
-        landSize: parseFloat(sellerData.landSize),
+        isExperienced: sellerData.isExperienced,
+        mainProduct: sellerData.mainProduct,
         products: sellerData.products,
-        mainCrop: sellerData.mainCrop,
         userId: sellerData.userId,
       },
     });
@@ -60,23 +60,23 @@ export const POST = async (request) => {
 
 export const GET = async (request) => {
   try {
-    const farmerProfile = await db.user.findMany({
+    const sellerProfile = await db.user.findMany({
       orderBy: {
         createdAt: "desc",
       },
       where: {
-        role: "FARMER",
+        role: "SELLER",
       },
       include: {
-        farmerProfile: true,
+        sellerProfile: true,
       },
     });
-    return NextResponse.json(farmerProfile);
+    return NextResponse.json(sellerProfile);
   } catch (error) {
     console.log(error);
     return NextResponse.json(
       {
-        message: "Failed to get farmers.",
+        message: "Failed to get Sellers.",
         error,
       },
       { status: 500 }

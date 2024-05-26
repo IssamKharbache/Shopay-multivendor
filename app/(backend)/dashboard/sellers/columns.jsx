@@ -61,13 +61,13 @@ export const columns = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const farmer = row.original;
+      const seller = row.original;
       return (
         <ActionsColumn
-          title="Farmer"
+          title="Seller"
           row={row}
-          endpoint={`farmers/${farmer.id}`}
-          editEndpoint={`farmers/update/${farmer.id}`}
+          endpoint={`sellers/${seller.id}`}
+          editEndpoint={`sellers/update/${seller.id}`}
         />
       );
     },

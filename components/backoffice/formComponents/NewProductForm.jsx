@@ -19,8 +19,11 @@ import ToggleInput from "@/components/backoffice/inputformComponents/ToggleInput
 import { generateUserCode } from "@/lib/generateUserCode";
 import { useRouter } from "next/navigation";
 import MultipleImageInput from "../inputformComponents/MultipleImageInput";
+import { useSession } from "next-auth/react";
 
 const NewProductForm = ({ categories, farmers, updateData = {} }) => {
+  const { data: session, status } = useSession();
+  const userId = session?.user?.id;
   const initialImageUrl = updateData?.imageUrl ?? "";
 
   const initialTags = updateData?.tags ?? [];
@@ -74,7 +77,7 @@ const NewProductForm = ({ categories, farmers, updateData = {} }) => {
     const productCode = generateUserCode("SPP", data.title);
     data.slug = slug;
     data.productImages = productImages;
-
+    data.sellerId = userId;
     data.tags = tags;
     data.productCode = productCode;
     data.qty = 1;
@@ -130,21 +133,13 @@ const NewProductForm = ({ categories, farmers, updateData = {} }) => {
           className="w-full font-poppins"
           placeHolder="Product Bar code"
         />
-        <SelectInput
-          label="Select Product Category"
-          name="categoryId"
+
+        <TextInput
+          type="hidden"
+          name="sellerId"
           register={register}
           errors={errors}
-          className="w-full font-poppins"
-          options={categories}
-        />
-        <SelectInput
-          label="Select Product Farmer"
-          name="farmerId"
-          register={register}
-          errors={errors}
-          className="w-full font-poppins"
-          options={farmers}
+          isRequired={false}
         />
 
         <TextInput
@@ -181,7 +176,14 @@ const NewProductForm = ({ categories, farmers, updateData = {} }) => {
           errors={errors}
           type="text"
           placeHolder="Unit of mass"
-          className="w-full"
+          className="w-full "
+        />
+        <SelectInput
+          label="Select Product Category"
+          name="categoryId"
+          register={register}
+          errors={errors}
+          options={categories}
         />
         {/* CHECKBOX TOGGLE */}
         <ToggleInput

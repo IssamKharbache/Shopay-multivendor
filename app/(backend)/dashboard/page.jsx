@@ -1,4 +1,3 @@
-import CustomDataTable from "@/components/backoffice/dashboardComponents/CustomDataTable";
 import DashboardCharts from "@/components/backoffice/dashboardComponents/DashboardCharts";
 import Heading from "@/components/backoffice/Heading";
 import LargeCards from "@/components/backoffice/dashboardComponents/LargeCards";
@@ -6,14 +5,15 @@ import SmallersCards from "@/components/backoffice/dashboardComponents/SmallersC
 import React from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
-import FarmerDashboard from "@/components/backoffice/dashboardComponents/FarmerDashboard";
+
 import UserDashboard from "@/components/backoffice/dashboardComponents/UserDashboard";
+import SellerDashboard from "@/components/backoffice/dashboardComponents/SellerDashboard";
 
 const page = async () => {
   const session = await getServerSession(authOptions);
   const role = session?.user?.role;
-  if (role === "FARMER") {
-    return <FarmerDashboard />;
+  if (role === "SELLER") {
+    return <SellerDashboard />;
   } else if (role === "USER") {
     return <UserDashboard />;
   } else {

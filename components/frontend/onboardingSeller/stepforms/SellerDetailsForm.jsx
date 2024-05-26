@@ -84,6 +84,7 @@ const SellerDetailsForm = () => {
           register={register}
           errors={errors}
           className="w-full"
+          isRequired={false}
         />
         <h1 className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-300 mb-2">
           Do You Sell Other Products ?

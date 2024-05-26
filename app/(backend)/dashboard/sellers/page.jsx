@@ -6,23 +6,18 @@ import { getData } from "@/lib/getData";
 import { columns } from "./columns";
 
 const Farmers = async () => {
-  const farmers = await getData("farmers");
+  const sellers = await getData("sellers");
   return (
     <div>
       {/* HEADER */}
-      <PageHeader
-        heading="Farmers"
-        link="/dashboard/farmers/new"
-        buttonTitle="Add Farmer"
-      />
 
       {/* TABLE */}
       <div className="px-6">
         <DataTable
-          data={farmers}
+          data={sellers}
           columns={columns}
           //filter table keys
-          filterKeys={["name", "email"]}
+          filterKeys={["first name", "email"]}
         />
       </div>
     </div>

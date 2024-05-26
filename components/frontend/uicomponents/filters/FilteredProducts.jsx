@@ -5,7 +5,7 @@ import Paginate from "./Paginate";
 
 const FilteredProducts = async ({ products, productCount, isSearch }) => {
   //PAGINATION
-  const pageSize = 3;
+  const pageSize = 5;
   const totalProductCount = productCount;
   const totalPages = Math.ceil(totalProductCount / pageSize);
 

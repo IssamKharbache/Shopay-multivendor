@@ -67,7 +67,7 @@ const CartProduct = ({ cartItem }) => {
         </div>
       </div>
       {/* price and delete for mobile */}
-      <div className="md:hidden flex  items-center gap-2 mt-28">
+      <div className=" flex  md:hidden  items-center gap-2 mt-28">
         <p className="text-xl md:text-2xl  font-semibold">
           {cartItem.salePrice * cartItem.qty}$
         </p>
@@ -77,7 +77,7 @@ const CartProduct = ({ cartItem }) => {
       </div>
 
       {/* price */}
-      <div className="md:flex hidden  md:justify-end col-span-5 md:col-span-2 items-center gap-4">
+      <div className="hidden md:flex   md:justify-end col-span-5 md:col-span-2 items-center gap-4">
         <p className="text-3xl md:text-2xl   font-semibold">
           {cartItem.salePrice * cartItem.qty}$
         </p>

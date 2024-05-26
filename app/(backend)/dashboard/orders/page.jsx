@@ -19,7 +19,9 @@ const page = async () => {
           <Image width={256} height={256} alt="No orders" src="/noorders.png" />
         </div>
         <div className="flex flex-col items-center justify-center  gap-8 ">
-          <p className="text-4xl  font-semibold">You Have No Orders Yet </p>
+          <p className="text-4xl  font-semibold text-gray-900 dark:text-gray-200">
+            You Have No Orders Yet{" "}
+          </p>
 
           <Link
             href="/"

@@ -1,13 +1,16 @@
 "use client";
 import TextInput from "@/components/backoffice/inputformComponents/TextInput";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 export default function RegisterForm({ role = "USER" }) {
   const router = useRouter();
+  const useParams = useSearchParams();
+  const plan = useParams.get("plan");
+
   const {
     register,
     handleSubmit,
@@ -17,6 +20,7 @@ export default function RegisterForm({ role = "USER" }) {
   const [loading, setLoading] = useState(false);
   const [emailErr, setEmailErr] = useState("");
   async function onSubmit(data) {
+    data.plan = plan;
     try {
       setLoading(true);
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -27,10 +31,9 @@ export default function RegisterForm({ role = "USER" }) {
         },
         body: JSON.stringify(data),
       });
-      const res = await response.json();
+      const resData = await response.json();
 
       if (response.ok) {
-        console.log(res);
         setLoading(false);
         toast.success("User Created Successfully");
         setEmailErr("");
@@ -39,7 +42,8 @@ export default function RegisterForm({ role = "USER" }) {
         if (role === "USER") {
           router.push("/login");
         } else {
-          router.push("verify-email");
+          const { data } = resData;
+          router.push(`/verify-email?userId=${data.id}`);
         }
       } else {
         setLoading(false);
@@ -146,9 +150,9 @@ export default function RegisterForm({ role = "USER" }) {
         </p>
         {role === "USER" ? (
           <p className="text-[0.75rem]  font-light text-gray-500 dark:text-gray-400 ">
-            Are you a farmer ?{" "}
+            Are you a Seller ?{" "}
             <Link
-              href="/register-farmer"
+              href="/seller-pricing"
               className="font-medium text-blue-600 hover:underline dark:text-blue-500"
             >
               Register
