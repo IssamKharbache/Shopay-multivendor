@@ -37,7 +37,7 @@ export const POST = async (request) => {
         content,
       },
     });
-    console.log(newBlog);
+
     return NextResponse.json(newBlog);
   } catch (error) {
     console.log(error);

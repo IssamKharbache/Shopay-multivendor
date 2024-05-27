@@ -35,7 +35,7 @@ export const DELETE = async (request, { params: { id } }) => {
           message: "blog not found",
           error,
         },
-        { status: 404, statusText: "blogs not found" }
+        { status: 404, statusText: "blog not found" }
       );
     }
     const deletedBlog = await db.blogs.delete({

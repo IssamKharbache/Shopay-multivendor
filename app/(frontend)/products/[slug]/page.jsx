@@ -33,7 +33,7 @@ const SingleProductDetail = async ({ params: { slug } }) => {
       {/* crumbs */}
       <BreadCrumbs />
       {/* Product */}
-      <div className=" py-6 px-6 rounded-md">
+      <div className=" py-6 px-6 mt-12 rounded-md ">
         <div className="grid  grid-cols-12 gap-8">
           {/* PICTURE */}
           <div className="col-span-3">

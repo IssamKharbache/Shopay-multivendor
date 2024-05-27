@@ -16,11 +16,17 @@ const CategoryList = ({ category, isMarketPage }) => {
           <HiOutlineExternalLink />
         </Link>
       </div>
-      <CategoryCarousel
-        isMarketPage={isMarketPage}
-        className="md:p-2 bg-slate-200 dark:bg-slate-900 rounded-b-lg"
-        products={category.products}
-      />
+      {category.products.length > 0 ? (
+        <CategoryCarousel
+          isMarketPage={isMarketPage}
+          className="md:p-2 bg-slate-200 dark:bg-slate-900 rounded-b-lg"
+          products={category.products}
+        />
+      ) : (
+        <p className="font-poppins py-4 px-6 text-center font-semibold">
+          Products Under This Category Coming Soon !
+        </p>
+      )}
     </div>
   );
 };
