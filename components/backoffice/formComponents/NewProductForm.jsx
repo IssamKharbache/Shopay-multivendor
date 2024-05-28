@@ -21,9 +21,10 @@ import { useRouter } from "next/navigation";
 import MultipleImageInput from "../inputformComponents/MultipleImageInput";
 import { useSession } from "next-auth/react";
 
-const NewProductForm = ({ categories, farmers, updateData = {} }) => {
+const NewProductForm = ({ categories, sellers, updateData = {} }) => {
   const { data: session, status } = useSession();
   const userId = session?.user?.id;
+  const role = session?.user?.role;
   const initialImageUrl = updateData?.imageUrl ?? "";
 
   const initialTags = updateData?.tags ?? [];
@@ -77,7 +78,7 @@ const NewProductForm = ({ categories, farmers, updateData = {} }) => {
     const productCode = generateUserCode("SPP", data.title);
     data.slug = slug;
     data.productImages = productImages;
-    data.sellerId = userId;
+    data.sellerId = role === "ADMIN" ? data.sellerId : userId;
     data.tags = tags;
     data.productCode = productCode;
     data.qty = 1;
@@ -135,14 +136,6 @@ const NewProductForm = ({ categories, farmers, updateData = {} }) => {
         />
 
         <TextInput
-          type="hidden"
-          name="sellerId"
-          register={register}
-          errors={errors}
-          isRequired={false}
-        />
-
-        <TextInput
           label="Product Price (Before Discount)"
           name="productPrice"
           register={register}
@@ -185,6 +178,15 @@ const NewProductForm = ({ categories, farmers, updateData = {} }) => {
           errors={errors}
           options={categories}
         />
+        {role === "ADMIN" && (
+          <SelectInput
+            label="Select a Vendor"
+            name="sellerId"
+            register={register}
+            errors={errors}
+            options={sellers}
+          />
+        )}
         {/* CHECKBOX TOGGLE */}
         <ToggleInput
           label="Is your product supports Wholesale Selling ?"

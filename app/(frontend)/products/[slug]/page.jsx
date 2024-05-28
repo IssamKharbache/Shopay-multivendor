@@ -7,13 +7,14 @@ import BreadCrumbs from "@/components/frontend/uicomponents/BreadCrumbs";
 //LIB
 import { getData } from "@/lib/getData";
 
-//ICONS
-import { IoShareSocialOutline } from "react-icons/io5";
+//ICONS";
 import { MdOutlineDiscount } from "react-icons/md";
 import { FaPaperPlane } from "react-icons/fa";
 import Link from "next/link";
 import AddToCartBtn from "@/components/frontend/uicomponents/AddToCartBtn";
 import { calculatePercentageDifference } from "@/lib/calculatePercentageDifference";
+import ProductShareButton from "@/components/frontend/uicomponents/ProductShareButton";
+import ProductImageCarousel from "@/components/frontend/uicomponents/ProductImageCarousel";
 const SingleProductDetail = async ({ params: { slug } }) => {
   //calculate difference between discount price and normal price
 
@@ -27,6 +28,8 @@ const SingleProductDetail = async ({ params: { slug } }) => {
   const productsRelated = categoryProducts.filter(
     (product) => id !== product.id
   );
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const urlToShare = `${baseUrl}/products/${slug}`;
 
   return (
     <div>
@@ -36,37 +39,30 @@ const SingleProductDetail = async ({ params: { slug } }) => {
       <div className=" py-6 px-6 mt-12 rounded-md ">
         <div className="grid  grid-cols-12 gap-8">
           {/* PICTURE */}
-          <div className="col-span-3">
-            <Image
-              src={product.imageUrl}
-              alt={product.title}
-              width={312}
-              height={320}
-              className="w-full rounded-sm object-cover "
-            />
-          </div>
+          <ProductImageCarousel
+            thumbnail={product.imageUrl}
+            productImages={product.productImages}
+          />
           {/* PRODUCT INFORMATION */}
-          <div className="col-span-6">
+          <div className="col-span-7  md:col-span-6">
             {/* title and share */}
             <div className="flex items-center justify-between  ">
               <h2 className="text-xl lg:text-3xl font-semibold">
                 {product.title}
               </h2>
-              <button>
-                <IoShareSocialOutline className="w-8 h-8" />
-              </button>
+              <ProductShareButton urlToShare={urlToShare} />
             </div>
             {/* description */}
             <div className="border-b-[1px] border-b-gray-300 dark:border-b-slate-800 ">
               {/* descr */}
               <p className="py-2 text-sm lg:text-lg">{product.description}</p>
               {/* sku */}
-              <div className="flex justify-between items-center gap-2 mb-6">
+              <div className="flex flex-col md:flex-row justify-between  gap-2 mb-6">
                 <p className="flex">
                   <span className="font-semibold text-blue-400">SKU </span>:{" "}
                   {product.sku}
                 </p>
-                <div className="flex gap-2 bg-gray-700 rounded-full  text-white px-3 py-1">
+                <div className="flex gap-2 rounded-full  text-white ">
                   <p>Stock :</p>
                   <p className="font-semibold text-green-400 ">
                     {product.productStock}
@@ -127,7 +123,7 @@ const SingleProductDetail = async ({ params: { slug } }) => {
         </div>
       </div>
       {/* Related products */}
-      <div className="p-2 bg-slate-200 dark:bg-slate-900 rounded-md mt-8">
+      <div className="p-2 bg-slate-200 dark:bg-slate-900 rounded-md mt-28">
         <h2 className="text-2xl text-center sm:text-left p-4 font-semibold ml-3">
           Related Products
         </h2>

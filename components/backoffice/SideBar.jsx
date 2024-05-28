@@ -52,7 +52,7 @@ const SideBar = ({ sideBarOpen }) => {
       href: "/dashboard/sales",
     },
     { title: "Markets", icon: PiFactoryDuotone, href: "/dashboard/markets" },
-    { title: "Farmers", icon: GiFarmer, href: "/dashboard/farmers" },
+    { title: "Sellers", icon: GiFarmer, href: "/dashboard/sellers" },
     { title: "Our Staff", icon: PiUsersFour, href: "/dashboard/staff" },
     {
       title: "Shopay Community",

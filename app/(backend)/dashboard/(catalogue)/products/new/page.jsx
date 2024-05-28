@@ -5,7 +5,6 @@ import { getData } from "@/lib/getData";
 const NewProduct = async () => {
   //GETTING DATA AND MANUPILATE IT TO GET WHAT WE NEED
   const categoriesData = await getData("categories");
-  const usersData = await getData("users");
 
   //getting only id and name of the category
   const categories = categoriesData.map((category) => {
@@ -14,11 +13,20 @@ const NewProduct = async () => {
       title: category.title,
     };
   });
+  const sellersData = await getData("sellers");
+
+  //getting only id and name of the seller
+  const sellers = sellersData.map((seller) => {
+    return {
+      id: seller.id,
+      title: seller.name,
+    };
+  });
 
   return (
     <div>
       <FormHeader headerTitle="New Product" />
-      <NewProductForm categories={categories} />
+      <NewProductForm categories={categories} sellers={sellers} />
     </div>
   );
 };
