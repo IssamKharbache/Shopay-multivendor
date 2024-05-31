@@ -6,7 +6,6 @@ import DateColumn from "@/components/dataDableComponents/dataTableColumns/DateCo
 import ImageColumn from "@/components/dataDableComponents/dataTableColumns/ImageColumn";
 import TitleColumn from "@/components/dataDableComponents/dataTableColumns/TitleColumn";
 import ActionsColumn from "@/components/dataDableComponents/dataTableColumns/ActionsColumn";
-import MarketCategories from "@/components/dataDableComponents/dataTableColumns/marketCategories";
 
 export const columns = [
   //columns
