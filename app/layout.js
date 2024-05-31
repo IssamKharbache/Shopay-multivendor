@@ -1,6 +1,6 @@
 import { Poppins, Urbanist } from "next/font/google";
 import "../styles/main.scss";
-import { Providers } from "@/context/Providers";
+// import { Providers } from "@/context/Providers";
 
 const inter = Urbanist({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -17,7 +17,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${poppins.className} `}>
-        <Providers>{children}</Providers>
+        {/* <Providers></Providers> */}
+        {children}
       </body>
     </html>
   );
