@@ -14,16 +14,8 @@ import convertIsoToNormal from "@/lib/convertIsoToNormal";
 import { useSession } from "next-auth/react";
 const CouponForm = ({ couponData = {} }) => {
   const { data: session, status } = useSession();
-  if (status === "loading") {
-    return <p>Loading...</p>;
-  }
-  const vendorId = session?.user?.id;
-
-  const expirydateNormal = convertIsoToNormal(couponData.expiryDate);
-  couponData.expiryDate = expirydateNormal;
-  const id = couponData?.id ?? "";
-
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -36,9 +28,18 @@ const CouponForm = ({ couponData = {} }) => {
       ...couponData,
     },
   });
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+  const vendorId = session?.user?.id;
+
+  const expirydateNormal = convertIsoToNormal(couponData.expiryDate);
+  couponData.expiryDate = expirydateNormal;
+  const id = couponData?.id ?? "";
+
   const isActive = watch("isActive");
   //REDIRECTING FUNCTION
-  const router = useRouter();
+
   const redirectFunction = () => {
     router.push("/dashboard/coupons");
   };

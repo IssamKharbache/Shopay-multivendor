@@ -31,7 +31,7 @@ const ProductImageCarousel = ({ productImages, thumbnail }) => {
             className="mySwiper2"
           >
             {productImages.map((image, i) => (
-              <SwiperSlide>
+              <SwiperSlide key={`fa_${i}`}>
                 <Image
                   src={image}
                   height={450}
@@ -58,7 +58,7 @@ const ProductImageCarousel = ({ productImages, thumbnail }) => {
             }}
           >
             {productImages.map((image, i) => (
-              <SwiperSlide>
+              <SwiperSlide key={i}>
                 <Image
                   src={image}
                   height={450}

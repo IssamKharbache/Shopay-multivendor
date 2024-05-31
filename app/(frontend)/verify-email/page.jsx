@@ -22,8 +22,7 @@ const page = async ({ searchParams }) => {
         </div>
         <div className="mt-2 mb-4 text-sm">
           <h1>
-            {" "}
-            Thank you for signing up! We've just sent an email to{" "}
+            Thank you for signing up! We've just sent an email to
             <span className="font-bold">{email}</span>. To complete the
             registration process and access your account, please follow the
             instructions in the email to verify your email address. Can't find
