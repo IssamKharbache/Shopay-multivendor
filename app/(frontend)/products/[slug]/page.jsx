@@ -44,7 +44,7 @@ const SingleProductDetail = async ({ params: { slug } }) => {
             productImages={product.productImages}
           />
           {/* PRODUCT INFORMATION */}
-          <div className="col-span-7  md:col-span-6">
+          <div className="col-span-9  lg:col-span-6">
             {/* title and share */}
             <div className="flex items-center justify-between  ">
               <h2 className="text-xl lg:text-3xl font-semibold">
@@ -62,9 +62,15 @@ const SingleProductDetail = async ({ params: { slug } }) => {
                   <span className="font-semibold text-blue-400">SKU </span>:{" "}
                   {product.sku}
                 </p>
-                <div className="flex gap-2 rounded-full  text-white ">
+                <div className="flex gap-2 rounded-full   ">
                   <p>Stock :</p>
-                  <p className="font-semibold text-green-400 ">
+                  <p
+                    className={`${
+                      Number(product.productStock) > 50
+                        ? "text-green-400 font-semibold"
+                        : "text-red-500 font-semibold"
+                    }`}
+                  >
                     {product.productStock}
                   </p>
                 </div>
@@ -75,7 +81,7 @@ const SingleProductDetail = async ({ params: { slug } }) => {
               <p className="flex items-center gap-2 text-gray-400 dark:text-gray-600">
                 <MdOutlineDiscount className="w-4 h-4" />
                 <span>
-                  Save up to{" "}
+                  Save up to
                   {calculatePercentageDifference(
                     product.productPrice,
                     product.salePrice
@@ -96,7 +102,7 @@ const SingleProductDetail = async ({ params: { slug } }) => {
             <AddToCartBtn product={product} />
           </div>
           {/* DELIVERY INFO */}
-          <div className="sm:block col-span-3 bg-gray-200 border border-gray-200 rounded-lg shadow-xl  dark:bg-gray-800 dark:border-gray-700  overflow-hidden hidden">
+          <div className="col-span-3 bg-gray-200 border border-gray-200 rounded-lg shadow-xl  dark:bg-gray-800 dark:border-gray-700  overflow-hidden hidden lg:block lg:col-span-3">
             <h2 className="bg-slate-300 text-gray-900 px-2 py-4 dark:bg-slate-700 dark:text-gray-200 font-semibold text-center  border-b-[7px] border-blue-300 dark:border-blue-800">
               DELIVERY & RETURNS
             </h2>

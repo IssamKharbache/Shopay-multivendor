@@ -90,35 +90,42 @@ const SideBar = ({ sideBarOpen }) => {
 
   //showing specific links depends on the role
   const role = session?.user?.role;
-  if (role === "SELLER") {
-    sidebarLinks = [
-      {
-        title: "Sales",
-        icon: RiCoinsLine,
-        href: "/dashboard/sales",
-      },
-      {
-        title: "Seller Support",
-        icon: MdOutlineContactSupport,
-        href: "/dashboard/seller-support",
-      },
+  const userStatus = session?.user?.status;
 
-      { title: "Wallet", icon: LuBadgeDollarSign, href: "/dashboard/wallet" },
-      {
-        title: "Online Store",
-        icon: HiOutlineExternalLink,
-        href: "/",
-      },
-      { title: "Settings", icon: CiSettings, href: "/dashboard/settings" },
-    ];
-    catalogLinks = [
-      {
-        title: "Products",
-        icon: GiCardboardBoxClosed,
-        href: "/dashboard/products",
-      },
-      { title: "Coupons", icon: RiCoupon4Line, href: "/dashboard/coupons" },
-    ];
+  if (role === "SELLER") {
+    if (userStatus) {
+      sidebarLinks = [
+        {
+          title: "Sales",
+          icon: RiCoinsLine,
+          href: "/dashboard/sales",
+        },
+        {
+          title: "Seller Support",
+          icon: MdOutlineContactSupport,
+          href: "/dashboard/seller-support",
+        },
+
+        { title: "Wallet", icon: LuBadgeDollarSign, href: "/dashboard/wallet" },
+        {
+          title: "Online Store",
+          icon: HiOutlineExternalLink,
+          href: "/",
+        },
+        { title: "Settings", icon: CiSettings, href: "/dashboard/settings" },
+      ];
+      catalogLinks = [
+        {
+          title: "Products",
+          icon: GiCardboardBoxClosed,
+          href: "/dashboard/products",
+        },
+        { title: "Coupons", icon: RiCoupon4Line, href: "/dashboard/coupons" },
+      ];
+    } else {
+      sidebarLinks = [];
+      catalogLinks = [];
+    }
   }
   if (role === "USER") {
     sidebarLinks = [

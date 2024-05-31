@@ -9,12 +9,12 @@ import { authOptions } from "@/lib/authOptions";
 import UserDashboard from "@/components/backoffice/dashboardComponents/UserDashboard";
 import SellerDashboard from "@/components/backoffice/dashboardComponents/SellerDashboard";
 import { getData } from "@/lib/getData";
+import { CiCircleInfo } from "react-icons/ci";
 
 const page = async () => {
   const session = await getServerSession(authOptions);
   const user = session?.user;
   const { role } = user;
-
   //filtering products and sales that belong to the seller
   const sales = await getData("sales");
   const orders = await getData("orders");
@@ -32,7 +32,7 @@ const page = async () => {
         {/* Small cards */}
         <SmallersCards orders={orders} />
         {/* charts */}
-        <DashboardCharts />
+        <DashboardCharts sales={sales} />
       </div>
     );
   }

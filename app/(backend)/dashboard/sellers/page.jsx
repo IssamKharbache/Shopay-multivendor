@@ -5,8 +5,9 @@ import DataTable from "@/components/dataDableComponents/data-table";
 import { getData } from "@/lib/getData";
 import { columns } from "./columns";
 
-const Farmers = async () => {
+const Sellers = async () => {
   const sellers = await getData("sellers");
+
   return (
     <div>
       {/* HEADER */}
@@ -17,11 +18,11 @@ const Farmers = async () => {
           data={sellers}
           columns={columns}
           //filter table keys
-          filterKeys={["first name", "email"]}
+          filterKeys={["name", "email"]}
         />
       </div>
     </div>
   );
 };
 
-export default Farmers;
+export default Sellers;

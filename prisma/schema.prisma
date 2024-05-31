@@ -139,6 +139,7 @@ model User {
   role              UserRole @default(USER)
   verificationToken String?
   plan              String?
+  status            Boolean? @default(false)
 
   sellerProfile SellerProfile?
   userProfile   UserProfile?

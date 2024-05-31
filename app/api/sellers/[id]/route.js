@@ -59,3 +59,43 @@ export const DELETE = async (request, { params: { id } }) => {
     );
   }
 };
+
+export const PUT = async (request, { params: { id } }) => {
+  try {
+    //getting the data
+    const { status, emailVerified } = await request.json();
+    const isExisting = await db.user.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!isExisting) {
+      return NextResponse.json(
+        {
+          data: null,
+          message: "Not found",
+        },
+        { status: 404, statusText: "Not found" }
+      );
+    }
+    const updateSeller = await db.user.update({
+      where: {
+        id,
+      },
+      data: {
+        status,
+        emailVerified,
+      },
+    });
+    return NextResponse.json(updateSeller);
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      {
+        message: "Failed to update product. Please try again.",
+        error,
+      },
+      { status: 500 }
+    );
+  }
+};

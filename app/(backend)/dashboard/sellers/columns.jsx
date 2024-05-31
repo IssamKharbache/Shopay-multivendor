@@ -6,7 +6,7 @@ import DateColumn from "@/components/dataDableComponents/dataTableColumns/DateCo
 import ImageColumn from "@/components/dataDableComponents/dataTableColumns/ImageColumn";
 import TitleColumn from "@/components/dataDableComponents/dataTableColumns/TitleColumn";
 import ActionsColumn from "@/components/dataDableComponents/dataTableColumns/ActionsColumn";
-import MarketCategories from "@/components/dataDableComponents/dataTableColumns/marketCategories";
+import Status from "@/components/dataDableComponents/dataTableColumns/Status";
 
 export const columns = [
   //columns
@@ -51,6 +51,15 @@ export const columns = [
   {
     accessorKey: "role",
     header: "Role",
+  },
+  {
+    accessorKey: "plan",
+    header: "Plan",
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => <Status row={row} accessorKey="status" />,
   },
 
   {
