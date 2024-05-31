@@ -3,11 +3,8 @@
 import { Checkbox } from "@/components/ui/checkbox";
 
 import DateColumn from "@/components/dataDableComponents/dataTableColumns/DateColumn";
-import ImageColumn from "@/components/dataDableComponents/dataTableColumns/ImageColumn";
 import TitleColumn from "@/components/dataDableComponents/dataTableColumns/TitleColumn";
 import ActionsColumn from "@/components/dataDableComponents/dataTableColumns/ActionsColumn";
-import MarketCategories from "@/components/dataDableComponents/dataTableColumns/marketCategories";
-import Image from "next/image";
 
 export const columns = [
   //columns
