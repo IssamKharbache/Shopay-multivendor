@@ -4,7 +4,7 @@ import SideBar from "@/components/backoffice/SideBar";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 
-export default function layout({ children }) {
+export default function Layout({ children }) {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const { data: session, status } = useSession();
   if (status === "loading") {
