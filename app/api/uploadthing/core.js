@@ -11,13 +11,7 @@ export const ourFileRouter = {
       console.log("file url", file.url, metadata);
       return { UploadedBy: "shopay admin" };
     }),
-  bannerImageUploader: f({
-    image: {
-      maxFileSize:
-        "2MB , Height must be 384px and width 712px(Default banner size)",
-      maxFileCount: 1,
-    },
-  })
+  bannerImageUploader: f({ image: { maxFileSize: "1MB" } })
     // Set permissions and file types for this FileRoute
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("file url", file.url, metadata);

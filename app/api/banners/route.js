@@ -12,7 +12,7 @@ export const POST = async (request) => {
         isActive,
       },
     });
-    console.log(newBanner);
+
     return NextResponse.json(newBanner);
   } catch (error) {
     console.log(error);
