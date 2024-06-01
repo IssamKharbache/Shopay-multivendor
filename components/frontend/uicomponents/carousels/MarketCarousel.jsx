@@ -50,7 +50,7 @@ const MarketCarousel = ({ markets }) => {
               src={market.logoUrl}
               width={1200}
               height={686}
-              className="h-48 w-48 rounded-full"
+              className="h-48 w-48 rounded-full object-cover"
               alt={market.name}
             />
             <h2 className="text-gray-900 dark:text-slate-100 p-2 text-center font-semibold rounded-b-md">
