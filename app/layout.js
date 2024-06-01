@@ -1,8 +1,7 @@
-import { Poppins, Urbanist } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "../styles/main.scss";
 import { Providers } from "@/context/Providers";
 
-const inter = Urbanist({ subsets: ["latin"] });
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -10,7 +9,7 @@ const poppins = Poppins({
 
 export const metadata = {
   title: "Shopay",
-  description: "Best Multivendor ",
+  description: "Ecommerce multivendor services",
 };
 
 export default function RootLayout({ children }) {

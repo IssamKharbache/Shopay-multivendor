@@ -102,7 +102,7 @@ const SingleProductDetail = async ({ params: { slug } }) => {
             <AddToCartBtn product={product} />
           </div>
           {/* DELIVERY INFO */}
-          <div className="col-span-3 bg-gray-200 border border-gray-200 rounded-lg shadow-xl  dark:bg-gray-800 dark:border-gray-700  overflow-hidden hidden lg:block lg:col-span-3">
+          <div className="col-span-3 bg-gray-200 border border-gray-200 rounded-lg shadow-xl  dark:bg-gray-800 dark:border-gray-700  overflow-hidden hidden lg:block lg:col-span-3 max-h-[250px]">
             <h2 className="bg-slate-300 text-gray-900 px-2 py-4 dark:bg-slate-700 dark:text-gray-200 font-semibold text-center  border-b-[7px] border-blue-300 dark:border-blue-800">
               DELIVERY & RETURNS
             </h2>

@@ -1,6 +1,6 @@
 import ProgressBar from "@/components/ProgressBar";
 
-const Loading = () => {
+const loading = () => {
   return (
     <>
       <ProgressBar />
@@ -31,4 +31,4 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default loading;
