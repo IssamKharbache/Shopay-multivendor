@@ -1,4 +1,3 @@
-import ProgressBar from "@/components/ProgressBar";
 import Footer from "@/components/frontend/uicomponents/Footer";
 import NavBar from "@/components/frontend/uicomponents/NavBar";
 const layout = ({ children }) => {
