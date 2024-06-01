@@ -17,7 +17,7 @@ import UserAvatar from "@/components/backoffice/UserAvatar";
 const NavBar = () => {
   const { data: session, status } = useSession();
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return <p></p>;
   }
 
   return (
