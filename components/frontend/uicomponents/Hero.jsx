@@ -22,8 +22,8 @@ const Hero = async () => {
         <HeroCarousel banners={banners} />
       </div>
       {/* THIRD MENU */}
-      <div className="col-span-3 hidden lg:flex items-center justify-center  p-3 rounded-lg dark:bg-slate-900 bg-slate-200 shadow-xl   xl:col-span-2">
-        <div className="flex flex-col gap-4">
+      <div className="col-span-3 hidden lg:flex items-center justify-center max-h-[370px]  p-2 rounded-lg dark:bg-slate-900 bg-slate-200 shadow-xl   xl:col-span-2">
+        <div className="flex flex-col gap-4 ">
           <div className="flex flex-col gap-4">
             <Link href="#" className="flex items-center  gap-2">
               <BiHelpCircle className="shrink-0 w-8 h-8 bg-blue-400 rounded-full p-1 text-white" />

@@ -36,7 +36,9 @@ const Product = ({ product }) => {
       <div className="flex space-x-8 flex-col items-center">
         <div>
           <p className="font-semibold">{product.salePrice} $</p>
-          <p className="line-through  text-red-500">{product.productPrice}$</p>
+          <p className="line-through text-center  text-red-500">
+            {product.productPrice}$
+          </p>
         </div>
       </div>
       <button

@@ -9,7 +9,7 @@ const CategoriesSideBar = async () => {
     (category) => category?.products?.length > 0
   );
   return (
-    <div className="sm:col-span-3  bg-gray-200 border border-gray-200 rounded-lg shadow-xl  dark:bg-gray-800 dark:border-gray-700  overflow-hidden hidden xl:block">
+    <div className="sm:col-span-3  bg-gray-200 border border-gray-200 rounded-lg shadow-xl  dark:bg-gray-800 dark:border-gray-700  overflow-hidden hidden xl:block max-h-[370px]">
       <h2 className="bg-slate-300 text-gray-900 px-2 py-4  dark:bg-slate-700 dark:text-gray-200 font-semibold text-center  border-b-[7px] border-blue-300 dark:border-blue-800">
         Shop By Categories
       </h2>

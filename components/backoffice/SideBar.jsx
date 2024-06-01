@@ -15,6 +15,8 @@ import { HiOutlineExternalLink } from "react-icons/hi";
 import { LuBadgeDollarSign } from "react-icons/lu";
 import { RiCommunityFill } from "react-icons/ri";
 import { RiCoinsLine } from "react-icons/ri";
+import { FaChartColumn } from "react-icons/fa6";
+import { FaHouseUser } from "react-icons/fa";
 //CATALOG ICONS
 import { RiCoupon4Line } from "react-icons/ri";
 import { IoLayersOutline } from "react-icons/io5";
@@ -48,11 +50,11 @@ const SideBar = ({ sideBarOpen }) => {
     { title: "Orders", icon: FaShippingFast, href: "/dashboard/orders" },
     {
       title: "Sales",
-      icon: RiCommunityFill,
+      icon: FaChartColumn,
       href: "/dashboard/sales",
     },
     { title: "Markets", icon: PiFactoryDuotone, href: "/dashboard/markets" },
-    { title: "Sellers", icon: GiFarmer, href: "/dashboard/sellers" },
+    { title: "Sellers", icon: FaHouseUser, href: "/dashboard/sellers" },
     { title: "Our Staff", icon: PiUsersFour, href: "/dashboard/staff" },
     {
       title: "Shopay Community",

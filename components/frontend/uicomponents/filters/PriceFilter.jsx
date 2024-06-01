@@ -25,34 +25,12 @@ const PriceFilter = ({ slug, isSearch }) => {
       max: 300,
     },
     { displayName: "Between 300$ and 700$", min: 300, max: 700 },
-    { displayName: "Above 700$", min: 700 },
+    { displayName: "Between 700$ and 1000$", min: 700, max: 1000 },
+    { displayName: "Between 1000$ and 2000$", min: 1000, max: 2000 },
+    { displayName: "Between 2000$ and 3000$", min: 2000, max: 3000 },
+    { displayName: "Above 3000$", min: 3000 },
   ];
 
-  // const handleMinMax = () => {
-  //   if (maxValue && minValue && minValue >= maxValue) {
-  //     toast.error("The minimum Price must be less than the maximum Price", {
-  //       position: "top-center",
-  //     });
-  //     setMinValue("");
-  //     setMaxValue("");
-  //   } else if (maxValue && minValue) {
-  //     router.push(`/category/${slug}?sort=asc&min=${minValue}&max=${maxValue}`);
-  //     setMinValue("");
-  //     setMaxValue("");
-  //   } else if (maxValue) {
-  //     router.push(`/category/${slug}?sort=asc&max=${maxValue}`);
-  //   } else if (minValue) {
-  //     router.push(`/category/${slug}?sort=asc&min=${minValue}`);
-  //     setMinValue("");
-  //     setMaxValue("");
-  //   } else {
-  //     toast.error("Please enter a max and min price to search", {
-  //       position: "top-center",
-  //     });
-  //     setMinValue("");
-  //     setMaxValue("");
-  //   }
-  // };
   const onSubmit = (data) => {
     const { min, max } = data;
 
@@ -60,11 +38,13 @@ const PriceFilter = ({ slug, isSearch }) => {
       toast.error("Please enter a Maximum and Minimum Price to Search", {
         position: "top-center",
       });
-    } else if (min > max) {
+      return;
+    }
+    if (min > max) {
       toast.error("The Minimum Price Should be less than The Maximum Price", {
         position: "top-center",
       });
-      reset();
+      return;
     } else if (min && max) {
       if (isSearch) {
         router.push(
@@ -75,7 +55,6 @@ const PriceFilter = ({ slug, isSearch }) => {
           `/category/${slug}?page=${page}&sort=asc&min=${min}&max=${max}`
         );
       }
-      reset();
     } else if (max) {
       if (isSearch) {
         router.push(
@@ -86,7 +65,6 @@ const PriceFilter = ({ slug, isSearch }) => {
           `/category/${slug}?page=${page}&sort=asc&min=${min}&max=${max}`
         );
       }
-      reset();
     } else if (min) {
       if (isSearch) {
         router.push(
@@ -97,7 +75,6 @@ const PriceFilter = ({ slug, isSearch }) => {
           `/category/${slug}?page=${page}&sort=asc&min=${min}&max=${max}`
         );
       }
-      reset();
     }
   };
   return (
