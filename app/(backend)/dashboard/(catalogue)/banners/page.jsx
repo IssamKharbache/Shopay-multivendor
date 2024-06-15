@@ -25,7 +25,7 @@ const page = async () => {
       />
       {/* TABLE */}
       <div>
-        <DataTable data={banners} columns={columns} />
+        <DataTable data={banners} columns={columns} filterKeys={["title"]} />
       </div>
     </div>
   );
