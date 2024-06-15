@@ -1,6 +1,9 @@
+import AccessDenied from "@/components/AccessDenied";
 import NewProductForm from "@/components/backoffice/formComponents/NewProductForm";
 import FormHeader from "@/components/backoffice/inputformComponents/FormHeader";
+import { authOptions } from "@/lib/authOptions";
 import { getData } from "@/lib/getData";
+import { getServerSession } from "next-auth";
 
 const NewProduct = async () => {
   //GETTING DATA AND MANUPILATE IT TO GET WHAT WE NEED
@@ -22,7 +25,11 @@ const NewProduct = async () => {
       title: seller.name,
     };
   });
-
+  const session = await getServerSession(authOptions);
+  const role = session?.user?.role;
+  if (role === "USER") {
+    return <AccessDenied />;
+  }
   return (
     <div>
       <FormHeader headerTitle="New Product" />

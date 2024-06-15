@@ -6,6 +6,7 @@ import { columns } from "./columns";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import Heading from "@/components/backoffice/Heading";
+import AccessDenied from "@/components/AccessDenied";
 
 const Sales = async () => {
   const session = await getServerSession(authOptions);
@@ -17,6 +18,10 @@ const Sales = async () => {
   const role = session?.user?.role;
   const allSales = await getData("sales");
   const farmerSales = allSales.filter((sale) => sale.vendorId === sessionId);
+
+  if (role != "ADMIN") {
+    return <AccessDenied />;
+  }
 
   return (
     <div>

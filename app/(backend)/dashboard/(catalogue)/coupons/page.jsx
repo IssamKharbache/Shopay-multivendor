@@ -5,6 +5,7 @@ import { getData } from "@/lib/getData";
 import { columns } from "./columns";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
+import AccessDenied from "@/components/AccessDenied";
 
 const Coupons = async () => {
   const session = await getServerSession(authOptions);
@@ -18,7 +19,9 @@ const Coupons = async () => {
   const farmerCoupons = allCoupons.filter(
     (coupon) => coupon.vendorId === sessionId
   );
-
+  if (role === "USER") {
+    return <AccessDenied />;
+  }
   return (
     <div>
       {/* HEADER */}
@@ -30,9 +33,17 @@ const Coupons = async () => {
       {/* TABLE */}
       <div className="px-6">
         {role === "ADMIN" ? (
-          <DataTable data={allCoupons} columns={columns} />
+          <DataTable
+            data={allCoupons}
+            columns={columns}
+            filterKeys={["title"]}
+          />
         ) : (
-          <DataTable data={farmerCoupons} columns={columns} />
+          <DataTable
+            data={farmerCoupons}
+            columns={columns}
+            filterKeys={["title"]}
+          />
         )}
       </div>
     </div>

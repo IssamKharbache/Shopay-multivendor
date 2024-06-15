@@ -1,5 +1,8 @@
+import AccessDenied from "@/components/AccessDenied";
 import NewMarketForm from "@/components/backoffice/formComponents/NewMarketForm";
+import { authOptions } from "@/lib/authOptions";
 import { getData } from "@/lib/getData";
+import { getServerSession } from "next-auth";
 import React from "react";
 
 const UpdateMarket = async ({ params: { id } }) => {
@@ -14,6 +17,11 @@ const UpdateMarket = async ({ params: { id } }) => {
     };
   });
   const marketData = await getData(`markets/${id}`);
+  const session = await getServerSession(authOptions);
+  const role = session?.user?.role;
+  if (role != "ADMIN") {
+    return <AccessDenied />;
+  }
 
   return <NewMarketForm marketData={marketData} categories={categories} />;
 };

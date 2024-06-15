@@ -1,8 +1,16 @@
+import AccessDenied from "@/components/AccessDenied";
 import PageHeader from "@/components/backoffice/PageHeader";
 
 import TableActions from "@/components/backoffice/TableActions";
+import { authOptions } from "@/lib/authOptions";
+import { getServerSession } from "next-auth";
 
-const Staff = () => {
+const Staff = async () => {
+  const session = await getServerSession(authOptions);
+  const role = session?.user?.role;
+  if (role != "ADMIN") {
+    return <AccessDenied />;
+  }
   return (
     <div>
       {/* HEADER */}

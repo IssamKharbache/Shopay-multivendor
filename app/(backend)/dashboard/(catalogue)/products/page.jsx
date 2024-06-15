@@ -5,6 +5,7 @@ import { columns } from "./columns";
 import DataTable from "@/components/dataDableComponents/data-table";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
+import AccessDenied from "@/components/AccessDenied";
 
 const Products = async () => {
   const session = await getServerSession(authOptions);
@@ -20,6 +21,10 @@ const Products = async () => {
   const farmerProduct = productsData.filter(
     (product) => product.userId === sessionId
   );
+
+  if (role === "USER") {
+    return <AccessDenied />;
+  }
   return (
     <div>
       {/* HEADER */}

@@ -1,6 +1,9 @@
+import AccessDenied from "@/components/AccessDenied";
 import NewBlogForm from "@/components/backoffice/formComponents/NewBlogForm";
 import FormHeader from "@/components/backoffice/inputformComponents/FormHeader";
+import { authOptions } from "@/lib/authOptions";
 import { getData } from "@/lib/getData";
+import { getServerSession } from "next-auth";
 import React from "react";
 
 const UpdateBlog = async ({ params: { id } }) => {
@@ -15,6 +18,12 @@ const UpdateBlog = async ({ params: { id } }) => {
       title: category.title,
     };
   });
+  //block access
+  const session = await getServerSession(authOptions);
+  const role = session?.user?.role;
+  if (role != "ADMIN") {
+    return <AccessDenied />;
+  }
   return (
     <div>
       <FormHeader headerTitle="Update Blog" />
