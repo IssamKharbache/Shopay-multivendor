@@ -105,7 +105,7 @@ const SideBar = ({ sideBarOpen }) => {
         {
           title: "Seller Support",
           icon: MdOutlineContactSupport,
-          href: "/dashboard/seller-support",
+          href: "/dashboard/sellers-support",
         },
 
         { title: "Wallet", icon: LuBadgeDollarSign, href: "/dashboard/wallet" },
