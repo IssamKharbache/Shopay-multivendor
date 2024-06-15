@@ -31,9 +31,17 @@ const Sales = async () => {
       {/* TABLE */}
       <div className="px-6">
         {role === "ADMIN" ? (
-          <DataTable data={allSales} columns={columns} />
+          <DataTable
+            data={allSales}
+            columns={columns}
+            filterKeys={["productTitle"]}
+          />
         ) : (
-          <DataTable data={farmerSales} columns={columns} />
+          <DataTable
+            data={farmerSales}
+            columns={columns}
+            filterKeys={["productTitle"]}
+          />
         )}
       </div>
     </div>

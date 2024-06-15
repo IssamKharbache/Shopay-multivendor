@@ -24,7 +24,7 @@ const Blogs = async () => {
       />
       {/* TABLE */}
       <div className="px-6">
-        <DataTable data={blogs} columns={columns} />
+        <DataTable data={blogs} columns={columns} filterKeys={["title"]} />
       </div>
     </div>
   );
