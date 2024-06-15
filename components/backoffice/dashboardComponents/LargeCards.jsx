@@ -31,10 +31,13 @@ const LargeCards = ({ sales }) => {
       const saleDate = new Date(sale.createdAt);
       return saleDate >= thisMonthStart <= today;
     })
-    .reduce((acc, sale) => acc + sale.total, 0);
+    .reduce((acc, sale) => acc + sale.total, 0)
+    .toFixed(2);
 
   //total sales
-  const totalSales = sales.reduce((acc, item) => acc + item.total, 0);
+  const totalSales = sales
+    .reduce((acc, item) => acc + item.total, 0)
+    .toFixed(2);
 
   const ordersStats = [
     {
