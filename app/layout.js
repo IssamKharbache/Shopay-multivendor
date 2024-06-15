@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.className} `}>
         <Providers>
-          <NextTopLoader />
+          <NextTopLoader height={7} />
           {children}
         </Providers>
       </body>

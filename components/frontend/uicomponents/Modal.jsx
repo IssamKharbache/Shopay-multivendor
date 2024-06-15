@@ -26,7 +26,7 @@ export default function HelpModal() {
         <Modal.Header>You need help ? </Modal.Header>
         <Modal.Body>
           {/* BODY HERE */}
-          <div className="grid grid-cols-2 gap-12 font-semibold">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 font-semibold">
             {/* LINKS AND ICONS */}
             <Link
               href="#"
@@ -36,7 +36,7 @@ export default function HelpModal() {
                 <TfiHeadphoneAlt />
               </div>
 
-              <span>Call Us +212 625 7765 78</span>
+              <span className="text-lg ">Call Us +212 625 7765 78</span>
             </Link>
             <Link
               href="#"
@@ -46,7 +46,7 @@ export default function HelpModal() {
                 <BiSolidTruck />
               </div>
 
-              <span>Track Your Orders</span>
+              <span className="text-lg ">Track Your Orders</span>
             </Link>
             <Link
               href="#"
@@ -56,7 +56,7 @@ export default function HelpModal() {
                 <FaDollarSign />
               </div>
 
-              <span>Returns & Refunds</span>
+              <span className="text-lg ">Returns & Refunds</span>
             </Link>
             <Link
               href="#"
@@ -66,7 +66,7 @@ export default function HelpModal() {
                 <HiMiniChatBubbleOvalLeftEllipsis />
               </div>
 
-              <span>Contact Us</span>
+              <span className="text-lg ">Contact Us</span>
             </Link>
           </div>
         </Modal.Body>

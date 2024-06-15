@@ -24,7 +24,7 @@ import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { useState } from "react";
 
-export default function DataTable({ columns, data, filterKeys = ["title"] }) {
+export default function DataTable({ columns, data, filterKeys }) {
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState({});
   const [columnFilters, setColumnFilters] = useState([]);

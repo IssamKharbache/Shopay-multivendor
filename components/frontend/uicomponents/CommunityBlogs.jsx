@@ -22,13 +22,21 @@ const CommunityBlogs = async ({ blogs, isAllBlogs, title }) => {
             {isAllBlogs ? (
               ""
             ) : (
-              <Link
-                className="flex items-center gap-4 bg-slate-300 hover:bg-slate-400 dark:bg-slate-800 dark:hover:bg-slate-900 duration-200 py-3 px-4  text-center rounded-full font-semibold  "
-                href="/blogs"
-              >
-                See All Blogs
-                <FiExternalLink />
-              </Link>
+              <div className="">
+                <Link
+                  className="hidden items-center gap-4 bg-slate-300 hover:bg-slate-400 dark:bg-slate-800 dark:hover:bg-slate-900 duration-200 py-3 px-4  text-center rounded-full font-semibold md:flex  "
+                  href="/blogs"
+                >
+                  See All Blogs
+                  <FiExternalLink />
+                </Link>
+                <Link
+                  className="bg-slate-300 flex md:hidden items-center justify-center p-2 gap-2 hover:bg-slate-400 dark:bg-slate-800 dark:hover:bg-slate-900 duration-200 rounded-full w-10 h-10"
+                  href="/blogs"
+                >
+                  <FiExternalLink />
+                </Link>
+              </div>
             )}
           </div>
         </div>
