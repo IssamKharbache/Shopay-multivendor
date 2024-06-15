@@ -8,7 +8,9 @@ import { PiCoinsLight } from "react-icons/pi";
 const OverviewCards = ({ sales, products }) => {
   const productsCount = products.length.toString().padStart(2, "0");
   const salesCount = sales.length.toString().padStart(2, "0");
-  const totalSalesAmout = sales.reduce((acc, item) => acc + item.total, 0);
+  const totalSalesAmout = sales
+    .reduce((acc, item) => acc + item.total, 0)
+    .toFixed(2);
   const analytics = [
     {
       title: "Total Products",

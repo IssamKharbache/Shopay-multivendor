@@ -19,7 +19,7 @@ const Sales = async () => {
   const allSales = await getData("sales");
   const farmerSales = allSales.filter((sale) => sale.vendorId === sessionId);
 
-  if (role != "ADMIN") {
+  if (role === "USER") {
     return <AccessDenied />;
   }
 
