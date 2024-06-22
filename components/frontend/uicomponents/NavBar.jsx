@@ -73,7 +73,7 @@ const NavBar = () => {
         </div>
         <div
           className={`${
-            isOpen ? "ml-0" : "-ml-[600px]"
+            isOpen ? "ml-0" : "-ml-[1000px]"
           } flex  md:hidden absolute top-20 left-0 items-center justify-center  bg-slate-400 dark:bg-slate-700 w-screen h-screen z-10 duration-700`}
         >
           <div className="flex flex-col gap-8 items-center">
