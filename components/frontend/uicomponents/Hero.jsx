@@ -18,7 +18,7 @@ const Hero = async () => {
       {/* FIRST */}
       <CategoriesSideBar />
       {/* CAROUSEL */}
-      <div className="rounded-md col-span-full lg:col-span-9 xl:col-span-7">
+      <div className="rounded-md col-span-full px-5 lg:col-span-9 xl:col-span-7">
         <HeroCarousel banners={banners} />
       </div>
       {/* THIRD MENU */}
