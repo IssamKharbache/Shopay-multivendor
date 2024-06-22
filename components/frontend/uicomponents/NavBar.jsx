@@ -15,10 +15,15 @@ import { useSession } from "next-auth/react";
 import UserAvatar from "@/components/backoffice/UserAvatar";
 import { CiMenuFries } from "react-icons/ci";
 import { GrClose } from "react-icons/gr";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    isOpen
+      ? (document.body.style.overflow = "hidden")
+      : (document.body.style.overflow = "auto");
+  }, [isOpen]);
   const { data: session, status } = useSession();
   if (status === "loading") {
     return <p></p>;
