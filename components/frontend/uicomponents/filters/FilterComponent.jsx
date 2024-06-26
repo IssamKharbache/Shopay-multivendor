@@ -16,10 +16,10 @@ const FilterComponent = ({ category, products }) => {
         {/*  */}
         <Sorting isSearch={category?.isSearch} title={title} slug={slug} />
         <div className="grid grid-cols-12 py-8 gap-8">
-          <div className="col-span-3">
+          <div className="col-span-full lg:col-span-3">
             <Filters slug={slug} isSearch={category?.isSearch} />
           </div>
-          <div className="col-span-9">
+          <div className="col-span-full lg:col-span-9">
             <FilteredProducts
               isSearch={category?.isSearch}
               productCount={productCount}

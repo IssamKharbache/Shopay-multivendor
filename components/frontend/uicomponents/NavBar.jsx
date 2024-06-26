@@ -40,7 +40,6 @@ const NavBar = () => {
         </div>
         {/* desktop navbar */}
         <div className="hidden md:flex items-center gap-6">
-          <CartCount />
           <HelpModal />
           <ThemeToogle />
           {status === "unauthenticated" ? (
@@ -55,6 +54,7 @@ const NavBar = () => {
             <UserAvatar user={session?.user} />
           )}
         </div>
+        <CartCount />
         {/* mobile nav */}
 
         <div className="flex md:hidden items-center gap-6">
@@ -76,7 +76,10 @@ const NavBar = () => {
             isOpen ? "ml-0" : "-ml-[1000px]"
           } flex  md:hidden absolute top-20 left-0 items-center justify-center  bg-slate-400 dark:bg-slate-700 w-screen h-screen z-10 duration-700`}
         >
-          <div className="flex flex-col gap-8 items-center">
+          <div
+            onClick={() => setIsOpen(false)}
+            className="flex flex-col gap-8 items-center"
+          >
             {status === "unauthenticated" ? (
               <Link
                 href="/login"
@@ -88,10 +91,9 @@ const NavBar = () => {
             ) : (
               <UserAvatar user={session?.user} />
             )}
-            <CartCount />
+
             <HelpModal />
             <Link
-              onClick={() => setIsOpen(false)}
               href="/register"
               className="flex items-center space-x-1 font-semibold text-lg  text-blue-600 hover:text-blue-900 dark:text-gray-200 dark:hover:text-gray-400  duration-200"
             >

@@ -19,7 +19,7 @@ const HeroCarousel = ({ banners }) => {
       wrapAround
       autoplayInterval={2000}
       defaultControlsConfig={config}
-      className="rounded-md overflow-hidden shadow-xl"
+      className="rounded-md overflow-hidden shadow-xl max-w-[1400px] mx-auto"
     >
       {banners.map((banner, index) => {
         return (

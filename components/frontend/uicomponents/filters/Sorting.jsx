@@ -36,13 +36,13 @@ const Sorting = ({ title, slug, isSearch }) => {
   ];
 
   return (
-    <div className="flex text-2xl items-center justify-between">
+    <div className="flex flex-col lg:flex-row gap-4 text-2xl items-center justify-between">
       <h2>
         <span className={`font-medium text-3xl ${!isSearch && " uppercase"}`}>
           {isSearch ? `Search Result - ${title}` : title}
         </span>
       </h2>
-      <div className="flex gap-2 text-sm items-center">
+      <div className="flex flex-col lg:flex-row gap-2 text-sm items-center">
         <p className="font-semibold">Sort by : </p>
         <div className="flex ">
           {sortingLinks.map((link, i) => {
