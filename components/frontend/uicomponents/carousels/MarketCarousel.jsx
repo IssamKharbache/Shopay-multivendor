@@ -54,7 +54,7 @@ const MarketCarousel = ({ markets }) => {
               alt={market.name}
             />
             <h2 className="text-gray-900 dark:text-slate-100 p-2 text-center font-semibold rounded-b-md">
-              {market.name}
+              {market.title}
             </h2>
           </Link>
         );

@@ -11,6 +11,7 @@ export default function MultipleImageInput({
   className = "sm:col-span-2 font-poppins",
   endpoint = "",
   getValue,
+  required,
 }) {
   let isUploading = false;
 

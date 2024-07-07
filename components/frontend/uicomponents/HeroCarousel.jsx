@@ -19,16 +19,16 @@ const HeroCarousel = ({ banners }) => {
       wrapAround
       autoplayInterval={2000}
       defaultControlsConfig={config}
-      className="rounded-md overflow-hidden shadow-xl max-w-[1400px] mx-auto"
+      className="rounded-md overflow-hidden shadow-xl  mx-auto"
     >
       {banners.map((banner, index) => {
         return (
           <Link key={index} href={banner.link}>
             <Image
               src={banner.imageUrl}
-              width={712}
-              height={384}
-              className="w-full"
+              width={1500}
+              height={1500}
+              className="w-full object-contain"
               alt={banner.title}
             />
           </Link>

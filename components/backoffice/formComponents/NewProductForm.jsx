@@ -225,6 +225,7 @@ const NewProductForm = ({ categories, sellers, updateData = {} }) => {
           imageUrls={productImages}
           setImageUrls={setProductImages}
           getValue={getValue}
+          required={true}
         />
         {/* TAGS */}
         <ArrayItemsInput setItems={setTags} items={tags} itemTitle="Tag" />

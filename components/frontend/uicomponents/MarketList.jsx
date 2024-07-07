@@ -9,7 +9,7 @@ const MarketList = async () => {
   return (
     <div className="rounded-lg px-4 xl:px-0">
       <h2 className="text-2xl text-gray-900 dark:text-gray-200 text-center p-4  font-semibold bg-slate-300 dark:bg-slate-800 rounded-t-lg">
-        Shop My Market
+        Brands
         <p className="text-sm font-medium pt-2 flex items-center justify-center gap-2">
           Swipe for more
           <FaArrowRight />

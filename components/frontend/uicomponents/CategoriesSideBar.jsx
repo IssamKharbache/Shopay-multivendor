@@ -9,30 +9,34 @@ const CategoriesSideBar = async () => {
     (category) => category?.products?.length > 0
   );
   return (
-    <div className="sm:col-span-3  bg-gray-200 border border-gray-200 rounded-lg shadow-xl  dark:bg-gray-800 dark:border-gray-700  overflow-hidden hidden xl:block max-h-[370px]">
-      <h2 className="bg-slate-300 text-gray-900 px-2 py-4  dark:bg-slate-700 dark:text-gray-200 font-semibold text-center  border-b-[7px] border-blue-300 dark:border-blue-800">
-        Shop By Categories
-      </h2>
-      <div className="px-4 py-5 h-[330px] overflow-y-auto ">
-        {categories?.length > 0 &&
-          categories?.map((category, i) => {
-            return (
+    <div className="bg-slate-200 dark:bg-slate-800 rounded-lg ">
+      <h1 className="text-center text-4xl font-semibold mb-2 mt-8">
+        Our categories
+      </h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 mx-auto xl:grid-cols-6 p-12 gap-6 ">
+        {categories.map((category, idx) => {
+          return (
+            <div
+              key={idx}
+              className=" border-b border-b-gray-300 dark:border-gray-500 p-4"
+            >
               <Link
-                key={i}
-                href={`/category/${category.slug}`}
-                className="flex hover:bg-gray-300 items-center gap-6 dark:hover:bg-gray-700 p-4 rounded-lg duration-200 transition-all"
+                className="hover:scale-110 duration-300 flex flex-col items-center gap-6"
+                href={`category/${category.slug}`}
               >
                 <Image
                   src={category.imageUrl}
+                  width={750}
+                  height={750}
                   alt={category.title}
-                  height={150}
-                  width={150}
-                  className="w-10 h-10 rounded-full object-cover  "
+                  className="w-36 h-36 object-cover rounded-md "
                 />
-                <span className="text-lg font-semibold">{category.title}</span>
+
+                <h1 className="text-md font-bold">{category.title}</h1>
               </Link>
-            );
-          })}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
