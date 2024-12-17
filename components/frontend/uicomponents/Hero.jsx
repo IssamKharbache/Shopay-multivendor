@@ -15,10 +15,6 @@ const Hero = async () => {
   const banners = await getData("banners");
   return (
     <div className="flex flex-col  gap-8 py-6 mb-6 md:px-4 xl:px-0">
-      {/* CAROUSEL */}
-      <div className="rounded-md  w-full  mx-auto">
-        <HeroCarousel banners={banners} />
-      </div>
       {/* FIRST */}
       <CategoriesSideBar />
     </div>
