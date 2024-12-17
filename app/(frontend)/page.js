@@ -8,6 +8,7 @@ import { getData } from "@/lib/getData";
 export default async function Home() {
   const blogs = await getData("blogs");
   const categoriesData = await getData("categories");
+
   const categories = categoriesData.filter((category) => {
     return category.products.length > 3;
   });
@@ -15,7 +16,7 @@ export default async function Home() {
   return (
     <div className="min-h-screen ">
       {/* header */}
-      {/* <Hero /> */}
+      <Hero />
       {/* markets component */}
       <MarketList />
       {/* categories  */}
