@@ -15,7 +15,7 @@ export default async function Home() {
   return (
     <div className="min-h-screen ">
       {/* header */}
-      <Hero />
+      {/* <Hero /> */}
       {/* markets component */}
       <MarketList />
       {/* categories  */}
