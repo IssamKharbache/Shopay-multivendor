@@ -121,7 +121,7 @@ const PriceFilter = ({ slug, isSearch }) => {
                   (range.min && range.min == min) ||
                   (range.max && range.max == max) ||
                   (range.min &&
-                    range.mix &&
+                    range.min &&
                     range.min == min &&
                     range.max == max)
                     ? "border-blue-500 text-blue-500 flex items-center   justify-between border  dark:text-gray-300  rounded-md px-4 py-2"
@@ -135,7 +135,7 @@ const PriceFilter = ({ slug, isSearch }) => {
                     (range.min && range.min == min) ||
                     (range.max && range.max == max) ||
                     (range.min &&
-                      range.mix &&
+                      range.min &&
                       range.min == min &&
                       range.max == max)
                       ? "text-blue-500"
